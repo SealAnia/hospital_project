@@ -17,7 +17,7 @@
 	</div>
 	<div>
 		<c:forEach items = "${medicines}" var = "medicine">
-			<c:out value = "${medicine.getMedicineId()}"/>
+			<c:out value = "${medicine.getId()}"/>
 			<c:out value = "${medicine.getName()}"/>
 			<c:out value = "${medicine.getNumberPerDay()}"/>
 		</c:forEach>

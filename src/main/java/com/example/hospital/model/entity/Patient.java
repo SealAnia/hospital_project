@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,14 +34,17 @@ public class Patient {
 	private Date release;
 	@Column
 	private String comments;
-	@Column
-	private Integer departmentid;
+	//@Column
+	//private Integer departmentid;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "departmentid")
+	private Department dept;
 	
-	public Integer getId() {
+	public Integer getPatientId() {
 		return patientid;
 	}
 
-	public void setId(Integer patientid) {
+	public void setPatientId(Integer patientid) {
 		this.patientid = patientid;
 	}
 
@@ -92,12 +96,12 @@ public class Patient {
 		this.comments = comments;
 	}
 
-	public Integer getDepartmentId() {
-		return departmentid;
+	public Department getDepartment() {
+		return dept;
 	}
 
-	public void setDepartmentId(Integer departmentid) {
-		this.departmentid = departmentid;
+	public void setDepartment(Department dept) {
+		this.dept = dept;
 	}
-	
+
 }

@@ -26,12 +26,10 @@ public class Department {
 	private Integer id;
 	@Column
 	private String name;
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "ID")
-	//private List<User> users;
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "patientid")
-	//private List<Patient> patients;
+	@OneToMany(mappedBy = "dept")
+	private List<User> users;
+	@OneToMany(mappedBy = "dept")
+	private List<Patient> patients;
 
 	public Integer getId() {
 		return id;

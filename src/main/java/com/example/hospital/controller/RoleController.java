@@ -24,7 +24,7 @@ public class RoleController {
 	public String getAllRoles(Model model) {
 		var roles = roleService.getAll();
 		model.addAttribute("roles", roles);
-		return "role";
+		return "worker_views/roles";
 	}
 
 }

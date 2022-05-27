@@ -9,19 +9,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>DOCTORS AND NURSES</title>
+<title>OPERATIONS</title>
 </head>
 <body>
 	<div>
-		<h4>HOSPITAL STUFF</h4>
+		<h4>OPERATIONS LIST</h4>
 	</div>
 	<div>
-		<c:forEach items = "${workers}" var = "worker">
-			<c:out value = "${worker.getUserId()}"/>
-			<c:out value = "${worker.getName()}"/>
-			<c:out value = "${worker.getSurname()}"/>
-			<c:out value = "${worker.getDepartmentId()}"/>
-			<c:out value = "${worker.getRoleId()}"/>
+		<c:forEach items = "${operations}" var = "operation">
+			<c:out value = "${operation.getId()}"/>
+			<c:out value = "${operation.getDate()}"/>
+			<c:out value = "${operation.getComments()}"/>
 		</c:forEach>
 	</div>
 </body>
