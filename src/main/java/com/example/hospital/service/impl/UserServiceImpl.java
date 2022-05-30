@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getById(Integer id) {
-		return userRepository.findById(id).orElse(new User());
+		return userRepository.getById(id);
 	}
 
 	@Override
@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(User user) {
 		userRepository.delete(user);
+	}
+
+	@Override
+	public List<User> search(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

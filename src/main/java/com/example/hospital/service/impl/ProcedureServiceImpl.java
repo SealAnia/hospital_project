@@ -22,7 +22,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 
 	@Override
 	public Procedure getById(Integer id) {
-		return procedureRepository.findById(id).orElse(new Procedure());
+		return procedureRepository.getById(id);
 	}
 
 	@Override
@@ -38,6 +38,12 @@ public class ProcedureServiceImpl implements ProcedureService {
 	@Override
 	public void delete(Procedure procedure) {
 		procedureRepository.delete(procedure);
+	}
+
+	@Override
+	public List<Procedure> search(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

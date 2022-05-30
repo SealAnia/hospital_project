@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role getById(Integer id) {
-		return roleRepository.findById(id).orElse(new Role());
+		return roleRepository.getById(id);
 	}
 
 	@Override
@@ -38,6 +38,12 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public void delete(Role role) {
 		roleRepository.delete(role);
+	}
+
+	@Override
+	public List<Role> search(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

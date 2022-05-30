@@ -10,6 +10,7 @@ public interface DefaultService<T> {
 	void createOrUpdate(T entity);
 	void delete(Integer id);
 	void delete(T entity);
+	List<T> search(String keyword);
 	//T edit(T entity);
 
 }

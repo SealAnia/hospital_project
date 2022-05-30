@@ -27,7 +27,7 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Patient getById(Integer id) {
-		return patientRepository.findById(id).orElse(new Patient());
+		return patientRepository.getById(id);
 	}
 
 	@Override
@@ -43,6 +43,12 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public void delete(Patient patient) {
 		patientRepository.delete(patient);
+	}
+
+	@Override
+	public List<Patient> search(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	//public List<Patient> getByDeptId(Integer departmentid) {

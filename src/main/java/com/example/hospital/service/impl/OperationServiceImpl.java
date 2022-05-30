@@ -22,7 +22,7 @@ public class OperationServiceImpl implements OperationService {
 
 	@Override
 	public Operation getById(Integer id) {
-		return operationRepository.findById(id).orElse(new Operation());
+		return operationRepository.getById(id);
 	}
 
 	@Override
@@ -38,6 +38,12 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public void delete(Operation operation) {
 		operationRepository.delete(operation);
+	}
+
+	@Override
+	public List<Operation> search(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -17,16 +17,28 @@
 		<h4>PATIETNS</h4>
 	</div>
 	<div>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Surname</th>
+				<th>Diagnosis</th>
+				<th>Admission</th>
+				<th>Release</th>
+				<th>Comments</th>
+			</tr>
 		<c:forEach items = "${patients}" var = "patient">
-			<c:out value = "${patient.getPatientId()}"/>
-			<c:out value = "${patient.getName()}"/>
-			<c:out value = "${patient.getSurname()}"/>
-			<c:out value = "${patient.getName()}"/>
-			<c:out value = "${patient.getDiagnosis()}"/>
-			<c:out value = "${patient.getAdmission()}"/>
-			<c:out value = "${patient.getRelease()}"/>
-			<c:out value = "${patient.getComments()}"/>
+			<tr>
+				<td><c:out value = "${patient.getPatientId()}"/></td>
+				<td><c:out value = "${patient.getName()}"/></td>
+				<td><c:out value = "${patient.getSurname()}"/></td>
+				<td><c:out value = "${patient.getDiagnosis()}"/></td>
+				<td><c:out value = "${patient.getAdmission()}"/></td>
+				<td><c:out value = "${patient.getRelease()}"/></td>
+				<td><c:out value = "${patient.getComments()}"/></td>
+			</tr>
 		</c:forEach>
+		</table>
 	</div>
 </body>
 </body>

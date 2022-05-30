@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.hospital.service.RoleService;
 
-import lombok.RequiredArgsConstructor;
-
 @Controller
-@RequiredArgsConstructor
 public class RoleController {
 	
 	private final RoleService roleService;

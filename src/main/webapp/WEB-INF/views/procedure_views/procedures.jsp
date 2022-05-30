@@ -16,12 +16,22 @@
 		<h4>ALL PROCEDURES</h4>
 	</div>
 	<div>
-		<c:forEach items = "${procedures}" var = "procedure">
-			<c:out value = "${procedure.getProcedureId()}"/>
-			<c:out value = "${procedure.getName()}"/>
-			<c:out value = "${procedure.getDetails()}"/>
-			<c:out value = "${procedure.getDate()}"/>
-		</c:forEach>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Instruction</th>
+				<th>Date</th>
+			</tr>
+			<c:forEach items = "${procedures}" var = "procedure">
+			<tr>
+				<td><c:out value = "${procedure.getProcedureId()}"/></td>
+				<td><c:out value = "${procedure.getName()}"/></td>
+				<td><c:out value = "${procedure.getDetails()}"/></td>
+				<td><c:out value = "${procedure.getDate()}"/></td>
+			</tr>
+			</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

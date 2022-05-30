@@ -36,7 +36,7 @@ public class User {
 	private Department dept;
 	//@Column
 	//private Integer roleid;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "roleid")
 	private Role role;
 	

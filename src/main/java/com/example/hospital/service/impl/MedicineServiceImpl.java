@@ -3,6 +3,8 @@ package com.example.hospital.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.model.entity.Medicine;
@@ -22,7 +24,7 @@ public class MedicineServiceImpl implements MedicineService {
 
 	@Override
 	public Medicine getById(Integer id) {
-		return medicineRepository.findById(id).orElse(new Medicine());
+		return medicineRepository.getById(id);
 	}
 
 	@Override
@@ -38,6 +40,26 @@ public class MedicineServiceImpl implements MedicineService {
 	@Override
 	public void delete(Medicine medicine) {
 		medicineRepository.delete(medicine);
+	}
+
+	@Override
+	public List<Medicine> search(String keyword) {
+		return medicineRepository.search(keyword);
+	}
+
+	@Override
+	public List<Medicine> getMedicineByName(String name) {
+		return medicineRepository.getMedicineByName(name);
+	}
+
+	@Override
+	public Iterable<Medicine> sortMedicinesByNameAsc() {
+		return medicineRepository.findAll(Sort.by(Direction.ASC, "name"));
+	}
+
+	@Override
+	public Iterable<Medicine> sortMedicinesByNameDesc() {
+		return medicineRepository.findAll(Sort.by(Direction.DESC, "name"));
 	}
 
 }

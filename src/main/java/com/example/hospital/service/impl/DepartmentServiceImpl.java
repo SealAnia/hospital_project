@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public Department getById(Integer id) {
-		return departmentRepository.findById(id).orElse(new Department());
+		return departmentRepository.getById(id);
 	}
 
 	@Override
@@ -46,6 +46,21 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> getDepartmentByName(String name) {
 		return departmentRepository.getDepartmentByName(name);
+	}
+
+	@Override
+	public Iterable<Department> sortDepartmentsByNameDesc() {
+		return departmentRepository.findAll(Sort.by(Direction.DESC, "name"));
+	}
+	
+	@Override
+	public Iterable<Department> sortDepartmentsByNameAsc() {
+		return departmentRepository.findAll(Sort.by(Direction.ASC, "name"));
+	}
+
+	@Override
+	public List<Department> search(String keyword) {
+		return departmentRepository.search(keyword);
 	}
 	
 }

@@ -16,11 +16,20 @@
 		<h4>HOSPITAL STUFF</h4>
 	</div>
 	<div>
-		<c:forEach items = "${workers}" var = "worker">
-			<c:out value = "${worker.getUserId()}"/>
-			<c:out value = "${worker.getName()}"/>
-			<c:out value = "${worker.getSurname()}"/>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Surname</th>
+			</tr>
+			<c:forEach items = "${workers}" var = "worker">
+			<tr>
+				<td><c:out value = "${worker.getUserId()}"/></td>
+				<td><c:out value = "${worker.getName()}"/></td>
+				<td><c:out value = "${worker.getSurname()}"/></td>
+			</tr>
 		</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

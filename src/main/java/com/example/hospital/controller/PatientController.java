@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.service.PatientService;
 
-import lombok.RequiredArgsConstructor;
-
 @Controller
-@RequiredArgsConstructor
 public class PatientController {
 	
 	private final PatientService patientService;

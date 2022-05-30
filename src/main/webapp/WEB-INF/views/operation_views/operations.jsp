@@ -10,17 +10,29 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>OPERATIONS</title>
+
+<link href="<c:url value="/resources/css/MainStyle.css" />" rel="stylesheet">
+
 </head>
 <body>
 	<div>
 		<h4>OPERATIONS LIST</h4>
 	</div>
 	<div>
-		<c:forEach items = "${operations}" var = "operation">
-			<c:out value = "${operation.getId()}"/>
-			<c:out value = "${operation.getDate()}"/>
-			<c:out value = "${operation.getComments()}"/>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Date</th>
+				<th>Comments</th>
+			</tr>
+			<c:forEach items = "${operations}" var = "operation">
+			<tr>
+				<td><c:out value = "${operation.getId()}"/></td>
+				<td><c:out value = "${operation.getDate()}"/></td>
+				<td><c:out value = "${operation.getComments()}"/></td>
+			</tr>
 		</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

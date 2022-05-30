@@ -10,13 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:url value="/departments" var="dept"/>
-
-	<spring_form:form action="${dept}" method="post" modelAttribute="department">
-    <spring_form:label path="name">NAME:</spring_form:label>
-    <spring_form:input type="text" path="name"/><br>
-    <input type="submit" value="Submit">
-	</spring_form:form>
 
 </body>
 </html>

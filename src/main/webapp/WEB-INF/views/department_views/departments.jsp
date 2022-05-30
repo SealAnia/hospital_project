@@ -22,13 +22,21 @@
 	td {
 		border: 1px solid grey;
 	}
+	button.sorting {
+	border: 3px solid transparent; 
+	border-top: 8px solid Navy;
+	}
 </style>
 <body>
 	<div>
 		<h4>HOSPITAL DEPARTMENTS</h4>
 	</div>
 	<div>
-		
+		<form action = "/departments/searchresults" method = "get">
+			<p><input type="text" name = "keyword" placeholder = "Input name">
+			<input type="submit" value="SEARCH">
+			</p>
+		</form>
 		<table>
 			<tr>
 				<th>ID</th>
@@ -41,12 +49,10 @@
     				${department.id}</a>
 				</td>
 				<td>
-				<!-- <a href="<c:url value="/department?id=${department.getId()}"/>"></a> -->
 					${department.name}
-				
 				</td>
 				<td>
-					<a href="<c:url value="/showeditform/${department.getId()}"/>">
+					<a href="<c:url value="/showeditdepartment/${department.getId()}"/>">
     				edit</a>
 				</td>
 				<td>
@@ -56,10 +62,23 @@
 			</tr>
 			</c:forEach>
 		</table>
-		
 	</div>
 	
+	<div>
+		<form action = "/departments/sortedbyname/asc">
+			<button>SORT BY NAME ASCENDING</button>
+		</form>
+		<form action = "/departments/sortedbyname/desc">
+			<button>SORT BY NAME DESCENDING</button>
+		</form>
+		<form action = "/departments">
+			<button>REVERT</button>
+		</form>
+	</div>
 	<a href="<c:url value="/showdepartmentform"/>"> Add new Department</a>
+	<p>
+		<a href="<c:url value="/main"/>"> Back to Main Menu</a>
+	</p>
 	
 </body>
 </html>

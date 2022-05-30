@@ -10,17 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.service.DepartmentService;
-import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor
 public class DepartmentController {
 	
 	private final DepartmentService departmentService;
@@ -55,6 +52,21 @@ public class DepartmentController {
 		return "department_views/departments";
 	}
 	
+	//SORT
+	@GetMapping("/departments/sortedbyname/asc")
+	public String sortDepartmentsByNameAsc(Model model) {
+		var departments = departmentService.sortDepartmentsByNameAsc();
+		model.addAttribute("departments", departments);
+		return "department_views/departments";
+	}
+	
+	@GetMapping("/departments/sortedbyname/desc")
+	public String sortDepartmentsByNameDesc(Model model) {
+		var departments = departmentService.sortDepartmentsByNameDesc();
+		model.addAttribute("departments", departments);
+		return "department_views/departments";
+	}
+	
 	//@GetMapping("/department")
 	//public String getDepartmentInfo(@RequestParam(value = "id") Integer deptId, Model model) {
 		//var department = departmentService.getById(deptId);
@@ -81,24 +93,11 @@ public class DepartmentController {
 	}
 
 	//UPDATE
-	@GetMapping(value="/showeditform/{id}")
+	@RequestMapping(value="/showeditdepartment/{id}")
 	public String showEditDepartment(@PathVariable("id") Integer id, Model model) {
 		var department = departmentService.getById(id);
-		model.addAttribute("department", new DepartmentDto());
+		model.addAttribute("department", department);
 	    return "department_views/edit_department";
-	}
-	
-	@PostMapping(value = "/departments/{id}")
-	public String editDept
-	(@PathVariable("id") Integer id, @RequestBody Department newDepartment,
-			DepartmentDto departmentDto, Model model) {
-		var department = departmentService.getById(id);
-		department.setId(departmentDto.getId());
-		department.setName(departmentDto.getName());
-		departmentService.createOrUpdate(department);
-		var departments = departmentService.getAll();
-		model.addAttribute("departments", departments);
-		return "department_views/departments";
 	}
 	
 	//DELETE
@@ -107,6 +106,14 @@ public class DepartmentController {
 		 var department = departmentService.getById(id);
 		 departmentService.delete(department.getId());
 		 return "department_views/delete_department";
+	}
+	
+	//SEARCH
+	@RequestMapping(value = "/departments/searchresults")
+	public String searchDepartmentByName(@RequestParam String keyword, Model model) {
+		List<Department> results = departmentService.search(keyword);
+		model.addAttribute("results", results);
+		return "department_views/searchresults";
 	}
 	
 }
