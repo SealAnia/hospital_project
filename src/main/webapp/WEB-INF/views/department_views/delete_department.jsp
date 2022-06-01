@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>DELETE DEPARTMENT</title>
 
 <script src="<c:url value="/resources/js/ok_alert.js" var = "OKAlert" />"></script>
 

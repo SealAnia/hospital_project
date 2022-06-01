@@ -105,7 +105,7 @@ public class MedicineController {
 	
 	//SEARCH
 	@RequestMapping(value = "/medicines/searchresults")
-	public String searchDepartmentByName(@RequestParam String keyword, Model model) {
+	public String searchMedicineInfo(@RequestParam String keyword, Model model) {
 		List<Medicine> results = medicineService.search(keyword);
 		model.addAttribute("results", results);
 		return "medicine_views/searchresults";

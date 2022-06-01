@@ -51,6 +51,13 @@ public class DepartmentController {
 		model.addAttribute("departments", departments);
 		return "department_views/departments";
 	}
+
+	@GetMapping("/department")
+	public String getDepartmentInfo(@RequestParam(value = "id") Integer id, Model model) {
+		var department = departmentService.getById(id);
+		model.addAttribute("department", department);
+		return "department_views/department_details";
+	}
 	
 	//SORT
 	@GetMapping("/departments/sortedbyname/asc")
@@ -66,13 +73,6 @@ public class DepartmentController {
 		model.addAttribute("departments", departments);
 		return "department_views/departments";
 	}
-	
-	//@GetMapping("/department")
-	//public String getDepartmentInfo(@RequestParam(value = "id") Integer deptId, Model model) {
-		//var department = departmentService.getById(deptId);
-		//model.addAttribute("department", department);
-		//return "department_views/department_details";
-	//}
 	
 	//CREATE
 	@GetMapping(value="/showdepartmentform")
@@ -110,7 +110,7 @@ public class DepartmentController {
 	
 	//SEARCH
 	@RequestMapping(value = "/departments/searchresults")
-	public String searchDepartmentByName(@RequestParam String keyword, Model model) {
+	public String searchDepartmentInfo(@RequestParam String keyword, Model model) {
 		List<Department> results = departmentService.search(keyword);
 		model.addAttribute("results", results);
 		return "department_views/searchresults";

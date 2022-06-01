@@ -7,16 +7,19 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>UPDATE DEPARTMENT INFO</title>
+<title>UPDATE OPERATION INFO</title>
 </head>
 <body>
-	<c:url value="/departments" var="department"/>
 
-	<form action="${department}" method="POST">
+	<c:url value="/operations" var="operation"/>
+
+	<form action="${operation}" method="POST">
 		<label for="id">ID</label>
     	<input type="number" name="id" id="id">
-    	<label for="name">Name</label>
-    	<input type="text" name="name" id="name">
+    	<label for="name">Date</label>
+    	<input type="date" name="name" id="date">
+    	<label for="name">Comments</label>
+    	<input type="text" name="name" id="comments">
     	<input type="submit" value="Edit">
 	</form>
 

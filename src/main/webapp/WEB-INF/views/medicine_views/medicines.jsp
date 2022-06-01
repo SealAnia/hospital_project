@@ -15,13 +15,15 @@
 type="text/css"/>
 
 </head>
+
+<body>
 <body>
 	<div>
 		<h4>MEDICINES LIST</h4>
 	</div>
 	<div>
 		<form action = "/medicines/searchresults" method = "get">
-			<p><input type="text" name = "keyword" placeholder = "Input name">
+			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
 			</p>
 		</form>

@@ -11,29 +11,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>DEPARTMENTS</title>
+
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 </head>
-<style>
-	table {
-		border: 1px solid grey;
-	}
-	th {
-		border: 1px solid grey;
-	}
-	td {
-		border: 1px solid grey;
-	}
-	button.sorting {
-	border: 3px solid transparent; 
-	border-top: 8px solid Navy;
-	}
-</style>
+
 <body>
 	<div>
 		<h4>HOSPITAL DEPARTMENTS</h4>
 	</div>
 	<div>
 		<form action = "/departments/searchresults" method = "get">
-			<p><input type="text" name = "keyword" placeholder = "Input name">
+			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
 			</p>
 		</form>
@@ -50,6 +40,10 @@
 				</td>
 				<td>
 					${department.name}
+				</td>
+				<td>
+					<a href="<c:url value="/department?id=${department.getId()}"/>"> 
+    				view details</a>
 				</td>
 				<td>
 					<a href="<c:url value="/showeditdepartment/${department.getId()}"/>">

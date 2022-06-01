@@ -9,43 +9,43 @@
 <meta charset="ISO-8859-1">
 <title>SEARCH RESULTS</title>
 
-
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
-
 </head>
-
 <body>
+
 	<div>
 		<table>
 			<tr>
 				<th>ID</th>
-				<th>Medicine</th>
-				<th>Frequency</th>
+				<th>Date</th>
+				<th>Comments</th>
 			</tr>
-			<c:forEach items = "${results}" var = "medicine">
+			<c:forEach items = "${results}" var = "operation">
 			<tr>
 				<td>
-					<a href="<c:url value="/medicines/${medicine.getId()}"/>">
-					${medicine.id}</a>
+    				<a href="<c:url value="/operations/${operation.getId()}"/>">
+    				${operation.id}</a>
 				</td>
 				<td>
-					${medicine.name}
+					${operation.date}
 				</td>
 				<td>
-					${medicine.numberPerDay}
+					${operation.comments}
 				</td>
 				<td>
-					<a href="<c:url value="/showeditmedicine/${medicine.getId()}"/>">
+					<a href="<c:url value="/showeditform/${operation.getId()}"/>">
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deletemedicine/${medicine.getId()}"/>"> 
+					<a href="<c:url value="/deleteoperationt/${operation.getId()}"/>"> 
     				delete</a>
+				</td>
 			</tr>
-		</c:forEach>
+			</c:forEach>
 		</table>
 	</div>
+
 </body>
 </html>

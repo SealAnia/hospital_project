@@ -1,0 +1,13 @@
+table {
+		border: 1px solid grey;
+}
+	th {
+		border: 1px solid grey;
+}
+	td {
+		border: 1px solid grey;
+}
+	button.sorting {
+	border: 3px solid transparent; 
+	border-top: 8px solid Navy;
+}

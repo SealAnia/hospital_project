@@ -7,9 +7,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>DELETE MEDICINE INFO</title>
 </head>
 <body>
+
+	<c:url value="/deletemedicine/${medicine.getId()}" var="medicine"/>
+	
+	Medicine info is deleted
+	<a href="<c:url value="/medicines"/>"> OK </a>
 
 </body>
 </html>

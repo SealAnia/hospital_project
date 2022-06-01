@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>ADD NEW DEPARTMENT</title>
 </head>
 <body>
 	<c:url value="/departments" var="dept"/>

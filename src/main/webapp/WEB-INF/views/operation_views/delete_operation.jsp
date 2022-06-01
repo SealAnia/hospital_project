@@ -7,18 +7,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>UPDATE DEPARTMENT INFO</title>
+<title>DELETE OPERATION INFO</title>
 </head>
 <body>
-	<c:url value="/departments" var="department"/>
 
-	<form action="${department}" method="POST">
-		<label for="id">ID</label>
-    	<input type="number" name="id" id="id">
-    	<label for="name">Name</label>
-    	<input type="text" name="name" id="name">
-    	<input type="submit" value="Edit">
-	</form>
+	<c:url value="/deleteoperation/${operation.getId()}" var="operation"/>
+	
+	All information about the operation will Be deleted
+	<a href="<c:url value="/operations"/>"> OK </a>
 
 </body>
 </html>
