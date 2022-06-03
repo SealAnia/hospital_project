@@ -26,15 +26,10 @@ public class ProcedureServiceImpl implements ProcedureService {
 	}
 
 	@Override
-	public void createOrUpdate(Procedure procedure) {
-		procedureRepository.saveAndFlush(procedure);
+	public Procedure createOrUpdate(Procedure procedure) {
+		return procedureRepository.saveAndFlush(procedure);
 	}
-
-	@Override
-	public void delete(Integer id) {
-		procedureRepository.deleteById(id);
-	}
-
+	
 	@Override
 	public void delete(Procedure procedure) {
 		procedureRepository.delete(procedure);

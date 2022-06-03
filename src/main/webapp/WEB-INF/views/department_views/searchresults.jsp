@@ -15,7 +15,6 @@ type="text/css"/>
 </head>
 
 <body>
-
 	<div>
 		<table>
 			<tr>
@@ -44,6 +43,6 @@ type="text/css"/>
 			</c:forEach>
 		</table>
 	</div>
-
+	<a href = "/departments">BACK</a>
 </body>
 </html>

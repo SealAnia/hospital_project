@@ -46,13 +46,13 @@ public class OperationController {
 		return "operation_views/operations";
 	}
 	
-	//@GetMapping("/operations/bydate/{date}")
-	//public String departmentByName(@PathVariable Date date, Model model) {
-		//List<Operation> operations = new ArrayList<>();
-		//operations = operationService.getOperationByDate(date);
-		//model.addAttribute("operations", operations);
-		//return "operation_views/operations";
-	//}
+	@GetMapping("/operations/bydate/{date}")
+	public String departmentByName(@PathVariable Date date, Model model) {
+		List<Operation> operations = new ArrayList<>();
+		operations = operationService.getOperationByDate(date);
+		model.addAttribute("operations", operations);
+		return "operation_views/operations";
+	}
 	
 	@GetMapping("/operation")
 	public String getOperationInfo(@RequestParam(value = "id") Integer id, Model model) {
@@ -60,17 +60,25 @@ public class OperationController {
 		model.addAttribute("operation", operation);
 		return "operation_views/operation_details";
 	}
+
+	@GetMapping("/operations/sortedbydatediaposon")
+	public String getOperationsByDateDiaposon
+	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
+		List<Operation> operations = operationService.getByDateBetween(dateFirst, dateSecond);
+		model.addAttribute("operations", operations);
+		return "operation_views/operations";
+	}
 	
 	//SORT
 	@GetMapping("/operations/sortedbydate/asc")
-	public String sortOperationssByDateAsc(Model model) {
+	public String sortOperationsByDateAsc(Model model) {
 		var operations = operationService.sortOperationsByDateAsc();
 		model.addAttribute("operations", operations);
 		return "operation_views/operations";
 	}
 	
 	@GetMapping("/operations/sortedbydate/desc")
-	public String sortOperationssByDateDesc(Model model) {
+	public String sortOperationsByDateDesc(Model model) {
 		var operations = operationService.sortOperationsByDateDesc();
 		model.addAttribute("operations", operations);
 		return "operation_views/operations";
@@ -107,7 +115,7 @@ public class OperationController {
 	@RequestMapping(value = "/deleteoperation/{id}", method = RequestMethod.GET)
 	public String deleteOperation(@PathVariable("id") Integer id) {
 		var operation = operationService.getById(id);
-		operationService.delete(operation.getId());
+		operationService.delete(operation);
 		return "operation_views/delete_operation";
 	}
 	

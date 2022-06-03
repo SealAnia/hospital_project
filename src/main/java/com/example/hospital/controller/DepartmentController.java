@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,11 +102,23 @@ public class DepartmentController {
 	    return "department_views/edit_department";
 	}
 	
+	@PutMapping(value="/departments/{id}")
+	public String editDepartment
+	(@PathVariable("id") Integer id, @RequestBody Department newDepartment, Model model) {
+		var department = departmentService.getById(id);
+		department.setId(newDepartment.getId());
+		department.setName(newDepartment.getName());
+		newDepartment = departmentService.createOrUpdate(department);
+		var departments = departmentService.getAll();
+		model.addAttribute("departments", departments);
+		return "department_views/departments";
+	}
+	
 	//DELETE
 	@RequestMapping(value = "/deletedepartment/{id}", method = RequestMethod.GET)
 	public String deleteDept(@PathVariable("id") Integer id) {
 		 var department = departmentService.getById(id);
-		 departmentService.delete(department.getId());
+		 departmentService.delete(department);
 		 return "department_views/delete_department";
 	}
 	

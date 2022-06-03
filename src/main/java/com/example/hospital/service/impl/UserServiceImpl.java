@@ -21,20 +21,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getById(Integer id) {
-		return userRepository.getById(id);
+	public User getById(Integer userid) {
+		return userRepository.getById(userid);
 	}
 
 	@Override
-	public void createOrUpdate(User user) {
-		userRepository.saveAndFlush(user);
+	public User createOrUpdate(User user) {
+		return userRepository.saveAndFlush(user);
 	}
-
-	@Override
-	public void delete(Integer id) {
-		userRepository.deleteById(id);
-	}
-
+	
 	@Override
 	public void delete(User user) {
 		userRepository.delete(user);

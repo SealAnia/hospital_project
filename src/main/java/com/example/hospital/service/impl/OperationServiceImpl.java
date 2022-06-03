@@ -29,15 +29,10 @@ public class OperationServiceImpl implements OperationService {
 	}
 
 	@Override
-	public void createOrUpdate(Operation operation) {
-		operationRepository.saveAndFlush(operation);
+	public Operation createOrUpdate(Operation operation) {
+		return operationRepository.saveAndFlush(operation);
 	}
-
-	@Override
-	public void delete(Integer id) {
-		operationRepository.deleteById(id);
-	}
-
+	
 	@Override
 	public void delete(Operation operation) {
 		operationRepository.delete(operation);
@@ -61,6 +56,11 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public Iterable<Operation> sortOperationsByDateDesc() {
 		return operationRepository.findAll(Sort.by(Direction.DESC, "date"));
+	}
+
+	@Override
+	public List<Operation> getByDateBetween(Date dateFirst, Date dateSecond) {
+		return operationRepository.getByDateBetween(dateFirst, dateSecond);
 	}
 
 }

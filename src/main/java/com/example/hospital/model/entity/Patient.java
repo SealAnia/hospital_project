@@ -1,6 +1,7 @@
 package com.example.hospital.model.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,11 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "patient")
 public class Patient {
@@ -39,6 +38,12 @@ public class Patient {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "departmentid")
 	private Department dept;
+	@OneToMany(mappedBy = "patient")
+	private List<Medicine> medicines;
+	@OneToMany(mappedBy = "patient")
+	private List<Procedure> procedures;
+	@OneToMany(mappedBy = "patient")
+	private List<Operation> operations;
 	
 	public Integer getPatientId() {
 		return patientid;
@@ -102,6 +107,30 @@ public class Patient {
 
 	public void setDepartment(Department dept) {
 		this.dept = dept;
+	}
+
+	public List<Medicine> getMedicines() {
+		return medicines;
+	}
+
+	public void setMedicines(List<Medicine> medicines) {
+		this.medicines = medicines;
+	}
+
+	public List<Procedure> getProcedures() {
+		return procedures;
+	}
+
+	public void setProcedures(List<Procedure> procedures) {
+		this.procedures = procedures;
+	}
+
+	public List<Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
 	}
 
 }

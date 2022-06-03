@@ -28,15 +28,10 @@ public class MedicineServiceImpl implements MedicineService {
 	}
 
 	@Override
-	public void createOrUpdate(Medicine medicine) {
-		medicineRepository.saveAndFlush(medicine);
+	public Medicine createOrUpdate(Medicine medicine) {
+		return medicineRepository.saveAndFlush(medicine);
 	}
-
-	@Override
-	public void delete(Integer id) {
-		medicineRepository.deleteById(id);
-	}
-
+	
 	@Override
 	public void delete(Medicine medicine) {
 		medicineRepository.delete(medicine);

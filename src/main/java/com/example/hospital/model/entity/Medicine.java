@@ -1,15 +1,15 @@
 package com.example.hospital.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "medicine")
 public class Medicine {
@@ -21,6 +21,12 @@ public class Medicine {
 	private String name;
 	@Column(name = "numberperday")
 	private Double numberPerDay;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "patientid")
+	private Patient patient;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "userid")
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -44,6 +50,22 @@ public class Medicine {
 
 	public void setNumberPerDay(Double numberPerDay) {
 		this.numberPerDay = numberPerDay;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

@@ -11,7 +11,6 @@
 </head>
 <body>
 	<c:url value="/departments" var="department"/>
-
 	<form action="${department}" method="POST">
 		<label for="id">ID</label>
     	<input type="number" name="id" id="id">

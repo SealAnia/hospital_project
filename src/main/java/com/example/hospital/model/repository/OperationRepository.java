@@ -17,5 +17,8 @@ public interface OperationRepository extends JpaRepository<Operation, Integer> {
 			+ "OR o.date LIKE '%' || :keyword || '%'"
 			+ "OR o.comments LIKE '%' || :keyword || '%'")
 	List<Operation> search(String keyword);
+	@Query(value = 
+			"SELECT o FROM Operation o WHERE o.date BETWEEN '%' || :dateFirst || '%' AND '%' || :dateSecond || '%'")
+	List<Operation> getByDateBetween(Date dateFirst, Date dateSecond);
 
 }

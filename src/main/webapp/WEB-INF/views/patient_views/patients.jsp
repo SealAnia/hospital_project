@@ -10,6 +10,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>PATIENTS</title>
+
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 </head>
 <body>
 	<body>
@@ -17,6 +21,11 @@
 		<h4>PATIETNS</h4>
 	</div>
 	<div>
+		<form action = "/patients/searchresults" method = "get">
+			<p><input type="text" name = "keyword" placeholder = "Search on page">
+			<input type="submit" value="SEARCH">
+			</p>
+		</form>
 		<table>
 			<tr>
 				<th>ID</th>
@@ -25,21 +34,97 @@
 				<th>Diagnosis</th>
 				<th>Admission</th>
 				<th>Release</th>
+				<th>Dept</th>
 				<th>Comments</th>
 			</tr>
-		<c:forEach items = "${patients}" var = "patient">
+			<c:forEach items = "${patients}" var = "patient">
 			<tr>
-				<td><c:out value = "${patient.getPatientId()}"/></td>
-				<td><c:out value = "${patient.getName()}"/></td>
-				<td><c:out value = "${patient.getSurname()}"/></td>
-				<td><c:out value = "${patient.getDiagnosis()}"/></td>
-				<td><c:out value = "${patient.getAdmission()}"/></td>
-				<td><c:out value = "${patient.getRelease()}"/></td>
-				<td><c:out value = "${patient.getComments()}"/></td>
+				<td>
+					<a href="<c:url value="/patients/${patient.getPatientId()}"/>">
+					${patient.getPatientId()}</a>
+				</td>
+				<td>
+					${patient.name}
+				</td>
+				<td>
+					${patient.surname}
+				</td>
+				<td>
+					${patient.diagnosis}
+				</td>
+				<td>
+					${patient.admission}
+				</td>
+				<td>
+					${patient.release}
+				</td>
+				<td>
+					${patient.getDepartment().getId()}
+				</td>
+				<td>
+					${patient.comments}
+				</td>
+				<td>
+					<a href="<c:url value="/patient?id=${patient.getPatientId()}"/>"> 
+    				view details</a>
+				</td>
+				<td>
+					<a href="<c:url value="/showeditpatient/${patient.getPatientId()}"/>">
+    				edit</a>
+				</td>
+				<td>
+					<a href="<c:url value="/deletepatientinfo/${patient.getPatientId()}"/>"> 
+    				delete</a>
+				</td>
 			</tr>
-		</c:forEach>
+			</c:forEach>
 		</table>
 	</div>
+	
+	<div>
+		<form action = "/patients/sortedbysurname/asc">
+			<button>SORT BY SURNAME ASCENDING</button>
+		</form>
+		<form action = "/patients/sortedbysurname/desc">
+			<button>SORT BY SURNAME DESCENDING</button>
+		</form>
+		
+		<form action = "/patients/sortedbyname/asc">
+			<button>SORT BY NAME ASCENDING</button>
+		</form>
+		<form action = "/patients/sortedbyname/desc">
+			<button>SORT BY NAME DESCENDING</button>
+		</form>
+		
+		<form action = "/patients/sortedbydiagnosis/asc">
+			<button>SORT BY DIAGNOSIS ASCENDING</button>
+		</form>
+		<form action = "/patients/sortedbydiagnosis/desc">
+			<button>SORT BY DIAGNOSIS DESCENDING</button>
+		</form>
+		
+		<form action = "/patients/sortedbyadmission/asc">
+			<button>SORT BY ADMISSION ASCENDING</button>
+		</form>
+		<form action = "/patients/sortedbyadmission/desc">
+			<button>SORT BY ADMISSION DESCENDING</button>
+		</form>
+		
+		<form action = "/patients/sortedbyrelease/asc">
+			<button>SORT BY RELEASE ASCENDING</button>
+		</form>
+		<form action = "/patients/sortedbyrelease/desc">
+			<button>SORT BY RELEASE DESCENDING</button>
+		</form>
+		
+		<form action = "/patients">
+			<button>REVERT</button>
+		</form>
+	</div>
+	<a href="<c:url value="/showpatientform"/>"> Add new Patient</a>
+	<p>
+		<a href="<c:url value="/main"/>"> Back to Main Menu</a>
+	</p>
 </body>
 </body>
 </html>

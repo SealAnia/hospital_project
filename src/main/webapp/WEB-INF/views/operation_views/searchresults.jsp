@@ -46,6 +46,6 @@ type="text/css"/>
 			</c:forEach>
 		</table>
 	</div>
-
+	<a href = "/operations">BACK</a>
 </body>
 </html>

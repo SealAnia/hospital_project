@@ -1,8 +1,6 @@
 package com.example.hospital.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -29,15 +27,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public void createOrUpdate(Department department) {
-		departmentRepository.saveAndFlush(department);
+	public Department createOrUpdate(Department department) {
+		return departmentRepository.saveAndFlush(department);
 	}
-
-	@Override
-	public void delete(Integer id) {
-		departmentRepository.deleteById(id);
-	}
-
+	
 	@Override
 	public void delete(Department department) {
 		departmentRepository.delete(department);

@@ -99,7 +99,7 @@ public class MedicineController {
 	@RequestMapping(value = "/deletemedicine/{id}", method = RequestMethod.GET)
 	public String deleteMedicine(@PathVariable("id") Integer id) {
 		var medicine = medicineService.getById(id);
-		medicineService.delete(medicine.getId());
+		medicineService.delete(medicine);
 		return "medicine_views/delete_medicine";
 	}
 	

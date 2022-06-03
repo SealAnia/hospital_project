@@ -26,13 +26,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public void createOrUpdate(Role role) {
-		roleRepository.saveAndFlush(role);
-	}
-
-	@Override
-	public void delete(Integer id) {
-		roleRepository.deleteById(id);
+	public Role createOrUpdate(Role role) {
+		return roleRepository.saveAndFlush(role);
 	}
 
 	@Override

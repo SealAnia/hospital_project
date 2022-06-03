@@ -9,7 +9,6 @@
 <meta charset="ISO-8859-1">
 <title>SEARCH RESULTS</title>
 
-
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
@@ -47,5 +46,6 @@ type="text/css"/>
 		</c:forEach>
 		</table>
 	</div>
+	<a href = "/medicines">BACK</a>
 </body>
 </html>

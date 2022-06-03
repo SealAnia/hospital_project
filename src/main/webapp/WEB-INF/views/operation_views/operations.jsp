@@ -19,6 +19,11 @@
 		<h4>OPERATIONS LIST</h4>
 	</div>
 	<div>
+		<form action = "/operations/sortedbydatediaposon" method = "get">
+			<input type="date" name = "dateFirst">
+			<input type="date" name = "dateSecond">
+			<input type="submit" value = "FIND OPERATIONS IN DATE DIAPOSON">
+		</form>
 		<form action = "/operations/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
