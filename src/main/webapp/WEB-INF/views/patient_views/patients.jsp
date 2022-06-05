@@ -82,38 +82,38 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<form action = "/patients/sortedbysurname/asc">
+		<form action = "/patients/sortedby/surname/asc">
 			<button>SORT BY SURNAME ASCENDING</button>
 		</form>
-		<form action = "/patients/sortedbysurname/desc">
+		<form action = "/patients/sortedby/surname/desc">
 			<button>SORT BY SURNAME DESCENDING</button>
 		</form>
 		
-		<form action = "/patients/sortedbyname/asc">
+		<form action = "/patients/sortedby/name/asc">
 			<button>SORT BY NAME ASCENDING</button>
 		</form>
-		<form action = "/patients/sortedbyname/desc">
+		<form action = "/patients/sortedby/name/desc">
 			<button>SORT BY NAME DESCENDING</button>
 		</form>
 		
-		<form action = "/patients/sortedbydiagnosis/asc">
+		<form action = "/patients/sortedby/diagnosis/asc">
 			<button>SORT BY DIAGNOSIS ASCENDING</button>
 		</form>
-		<form action = "/patients/sortedbydiagnosis/desc">
+		<form action = "/patients/sortedby/diagnosis/desc">
 			<button>SORT BY DIAGNOSIS DESCENDING</button>
 		</form>
 		
-		<form action = "/patients/sortedbyadmission/asc">
+		<form action = "/patients/sortedby/admission/asc">
 			<button>SORT BY ADMISSION ASCENDING</button>
 		</form>
-		<form action = "/patients/sortedbyadmission/desc">
+		<form action = "/patients/sortedby/admission/desc">
 			<button>SORT BY ADMISSION DESCENDING</button>
 		</form>
 		
-		<form action = "/patients/sortedbyrelease/asc">
+		<form action = "/patients/sortedby/release/asc">
 			<button>SORT BY RELEASE ASCENDING</button>
 		</form>
-		<form action = "/patients/sortedbyrelease/desc">
+		<form action = "/patients/sortedby/release/desc">
 			<button>SORT BY RELEASE DESCENDING</button>
 		</form>
 		

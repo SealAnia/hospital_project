@@ -47,7 +47,7 @@ public class OperationController {
 	}
 	
 	@GetMapping("/operations/bydate/{date}")
-	public String departmentByName(@PathVariable Date date, Model model) {
+	public String operationByName(@PathVariable Date date, Model model) {
 		List<Operation> operations = new ArrayList<>();
 		operations = operationService.getOperationByDate(date);
 		model.addAttribute("operations", operations);
@@ -60,7 +60,8 @@ public class OperationController {
 		model.addAttribute("operation", operation);
 		return "operation_views/operation_details";
 	}
-
+	
+	//???
 	@GetMapping("/operations/sortedbydatediaposon")
 	public String getOperationsByDateDiaposon
 	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
@@ -70,14 +71,14 @@ public class OperationController {
 	}
 	
 	//SORT
-	@GetMapping("/operations/sortedbydate/asc")
+	@GetMapping("/operations/sortedby/date/asc")
 	public String sortOperationsByDateAsc(Model model) {
 		var operations = operationService.sortOperationsByDateAsc();
 		model.addAttribute("operations", operations);
 		return "operation_views/operations";
 	}
 	
-	@GetMapping("/operations/sortedbydate/desc")
+	@GetMapping("/operations/sortedby/date/desc")
 	public String sortOperationsByDateDesc(Model model) {
 		var operations = operationService.sortOperationsByDateDesc();
 		model.addAttribute("operations", operations);

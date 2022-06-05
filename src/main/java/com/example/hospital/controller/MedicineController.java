@@ -54,14 +54,14 @@ public class MedicineController {
 	}
 	
 	//SORT
-	@GetMapping("/medicines/sortedbyname/asc")
+	@GetMapping("/medicines/sorted/byname/asc")
 	public String sortMedicinesByNameAsc(Model model) {
 		var medicines = medicineService.sortMedicinesByNameAsc();
 		model.addAttribute("medicines", medicines);
 		return "medicine_views/medicines";
 	}
 	
-	@GetMapping("/medicines/sortedbyname/desc")
+	@GetMapping("/medicines/sorted/byname/desc")
 	public String sortMedicinesByNameDesc(Model model) {
 		var medicines = medicineService.sortMedicinesByNameDesc();
 		model.addAttribute("medicines", medicines);

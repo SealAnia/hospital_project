@@ -62,14 +62,14 @@ public class DepartmentController {
 	}
 	
 	//SORT
-	@GetMapping("/departments/sortedbyname/asc")
+	@GetMapping("/departments/sortedby/name/asc")
 	public String sortDepartmentsByNameAsc(Model model) {
 		var departments = departmentService.sortDepartmentsByNameAsc();
 		model.addAttribute("departments", departments);
 		return "department_views/departments";
 	}
 	
-	@GetMapping("/departments/sortedbyname/desc")
+	@GetMapping("/departments/sortedby/name/desc")
 	public String sortDepartmentsByNameDesc(Model model) {
 		var departments = departmentService.sortDepartmentsByNameDesc();
 		model.addAttribute("departments", departments);
@@ -106,7 +106,7 @@ public class DepartmentController {
 	public String editDepartment
 	(@PathVariable("id") Integer id, @RequestBody Department newDepartment, Model model) {
 		var department = departmentService.getById(id);
-		department.setId(newDepartment.getId());
+		//department.setId(newDepartment.getId());
 		department.setName(newDepartment.getName());
 		newDepartment = departmentService.createOrUpdate(department);
 		var departments = departmentService.getAll();

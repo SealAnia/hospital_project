@@ -37,7 +37,7 @@ public class Patient {
 	//private Integer departmentid;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "departmentid")
-	private Department dept;
+	private Department department;
 	@OneToMany(mappedBy = "patient")
 	private List<Medicine> medicines;
 	@OneToMany(mappedBy = "patient")
@@ -102,11 +102,11 @@ public class Patient {
 	}
 
 	public Department getDepartment() {
-		return dept;
+		return department;
 	}
 
-	public void setDepartment(Department dept) {
-		this.dept = dept;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public List<Medicine> getMedicines() {

@@ -21,7 +21,7 @@ public class Department {
 	private String name;
 	@OneToMany(mappedBy = "dept")
 	private List<User> users;
-	@OneToMany(mappedBy = "dept")
+	@OneToMany(mappedBy = "department")
 	private List<Patient> patients;
 
 	public Integer getId() {

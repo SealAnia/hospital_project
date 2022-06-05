@@ -12,7 +12,8 @@ public class PatientDto {
 	private Date admission;
 	private String comments;
 	private Department department;
-	//private Integer departmentid;
+	
+	private Integer departmentid;
 	
 	public String getName() {
 		return name;
@@ -54,6 +55,13 @@ public class PatientDto {
 	}
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+	
+	public Integer getDepartmentid() {
+		return departmentid;
+	}
+	public void setDepartmentid(Integer departmentid) {
+		this.departmentid = departmentid;
 	}
 	
 }

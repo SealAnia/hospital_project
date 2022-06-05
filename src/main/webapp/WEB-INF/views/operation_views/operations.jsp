@@ -65,10 +65,10 @@
 	</div>
 	
 	<div>
-		<form action = "/operations/sortedbydate/asc">
+		<form action = "/operations/sortedby/date/asc">
 			<button>SORT BY DATE ASCENDING</button>
 		</form>
-		<form action = "/operations/sortedbydate/desc">
+		<form action = "/operations/sortedby/date/desc">
 			<button>SORT BY DATE DESCENDING</button>
 		</form>
 		<form action = "/operations">

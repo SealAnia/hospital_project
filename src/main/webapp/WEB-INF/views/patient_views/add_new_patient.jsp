@@ -14,6 +14,7 @@
 	<c:url value="/patients" var="patient"/>
 	
 	<spring_form:form action="${patient}" method="post" modelAttribute="patient">
+	
 	<spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="text" path="name"/><br>
     
@@ -26,8 +27,13 @@
     <spring_form:label path="admission">ADMISSION:</spring_form:label>
     <spring_form:input type="date" path="admission"/><br>
     
-    <spring_form:label path="department">DEPARTMENT ID:</spring_form:label>
-    <spring_form:input type="number" path="department"/><br>
+    <!-- 
+    <spring_form:label path="departmentid">DEPARTMENT ID:</spring_form:label>
+    <spring_form:input type="number" path="departmentid"/><br>
+     -->
+    
+    <label for = "departmentid">Dept ID</label>
+    <input type = "number" id = "departmentid" name = "departmentid"/>
     
     <spring_form:label path="comments">COMMENTS:</spring_form:label>
     <spring_form:input type="text" path="comments"/><br>

@@ -58,10 +58,10 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<form action = "/departments/sortedbyname/asc">
+		<form action = "/departments/sortedby/name/asc">
 			<button>SORT BY NAME ASCENDING</button>
 		</form>
-		<form action = "/departments/sortedbyname/desc">
+		<form action = "/departments/sortedby/name/desc">
 			<button>SORT BY NAME DESCENDING</button>
 		</form>
 		<form action = "/departments">

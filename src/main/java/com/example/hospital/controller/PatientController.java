@@ -101,70 +101,70 @@ public class PatientController {
 	}
 	
 	//SORT
-	@GetMapping(value = "/patients/sortedbysurname/asc")
+	@GetMapping(value = "/patients/sortedby/surname/asc")
 	public String sortPatientsBySurnameAsc(Model model) {
 		var patients = patientService.sortPatientsBySurnameAsc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbysurname/desc")
+	@GetMapping(value = "/patients/sortedby/surname/desc")
 	public String sortPatientsBySurnameDesc(Model model) {
 		var patients = patientService.sortPatientsBySurnameDesc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbyname/asc")
+	@GetMapping(value = "/patients/sortedby/name/asc")
 	public String sortPatientsByNameAsc(Model model) {
 		var patients = patientService.sortPatientsByNameAsc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbyname/desc")
+	@GetMapping(value = "/patients/sortedby/name/desc")
 	public String sortPatientsByNameDesc(Model model) {
 		var patients = patientService.sortPatientsByNameDesc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbydiagnosis/asc")
+	@GetMapping(value = "/patients/sortedby/diagnosis/asc")
 	public String sortPatientsByDiagnosisAsc(Model model) {
 		var patients = patientService.sortPatientsByDiagnosisAsc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbydiagnosis/desc")
+	@GetMapping(value = "/patients/sortedby/diagnosis/desc")
 	public String sortPatientsByDiagnosisDesc(Model model) {
 		var patients = patientService.sortPatientsByDiagnosisDesc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbyadmission/asc")
+	@GetMapping(value = "/patients/sortedby/admission/asc")
 	public String sortPatientsByAdmissionAsc(Model model) {
 		var patients = patientService.sortPatientsByAdmissionAsc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbyadmission/desc")
+	@GetMapping(value = "/patients/sortedby/admission/desc")
 	public String sortPatientsByAdmissionDesc(Model model) {
 		var patients = patientService.sortPatientsByAdmissionDesc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 	
-	@GetMapping(value = "/patients/sortedbyrelease/asc")
+	@GetMapping(value = "/patients/sortedby/release/asc")
 	public String sortPatientsByReleaseAsc(Model model) {
 		var patients = patientService.sortPatientsByReleaseAsc();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
 
-	@GetMapping(value = "/patients/sortedbyrelease/desc")
+	@GetMapping(value = "/patients/sortedby/release/desc")
 	public String sortPatientsByReleaseDesc(Model model) {
 		var patients = patientService.sortPatientsByReleaseDesc();
 		model.addAttribute("patients", patients);
@@ -173,14 +173,15 @@ public class PatientController {
 	
 	//CREATE
 	@GetMapping(value="/showpatientform")
-	public String showCreateDepartment(Model model) {
+	public String showCreatePatient(Model model) {
 		model.addAttribute("patient", new PatientDto());
 		return "patient_views/add_new_patient";	
 	}
 	
 	@PostMapping(value="/patients")
 	public String addPatient
-	(@ModelAttribute("patient") PatientDto patientDto, 
+	(@RequestParam(value = "departmentid") Integer departmentid,
+			@ModelAttribute("patient") PatientDto patientDto, 
 			@ModelAttribute("department") DepartmentDto departmentDto, Model model) {
 		var patient = new Patient();
 		patient.setName(patientDto.getName());
@@ -189,11 +190,11 @@ public class PatientController {
 		patient.setAdmission(patientDto.getAdmission());
 		
 		var department = new Department();
-		department = departmentService.getById(department.getId());
+		department = departmentService.getById(departmentid);
 		
 		patient.setDepartment(department);
 		
-		patient.setComments(patientDto.getComments());
+		patient.setComments(patient.getComments());
 		patientService.createOrUpdate(patient);
 		var patients = patientService.getAll();
 		model.addAttribute("patients", patients);
