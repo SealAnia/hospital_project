@@ -24,7 +24,8 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 			+ "OR p.diagnosis LIKE '%' || :keyword || '%'"
 			+ "OR p.admission LIKE '%' || :keyword || '%'"
 			+ "OR p.release LIKE '%' || :keyword || '%'"
-			+ "OR p.comments LIKE '%' || :keyword || '%'")
+			+ "OR p.comments LIKE '%' || :keyword || '%'"
+			+ "OR p.department.name LIKE '%' || :keyword || '%'")
 	List<Patient> search(@Param("keyword") String keyword);
 
 }

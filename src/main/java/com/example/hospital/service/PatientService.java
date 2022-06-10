@@ -23,5 +23,7 @@ public interface PatientService extends DefaultService<Patient> {
 	Iterable<Patient> sortPatientsByAdmissionDesc();
 	Iterable<Patient> sortPatientsByReleaseAsc();
 	Iterable<Patient> sortPatientsByReleaseDesc();
+	Iterable<Patient> sortPatientsByDepartmentAsc();
+	Iterable<Patient> sortPatientsByDepartmentDesc();
 	
 }

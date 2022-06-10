@@ -8,11 +8,16 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>UPDATE DEPARTMENT INFO</title>
+
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 </head>
 <body>
+
 	<c:url value="/departments" var="department"/>
 	<form action="${department}" method="POST">
-		
+	
 		<!-- 
 		<label for="id">ID</label>
     	<input type="number" name="id" id="id">

@@ -11,13 +11,15 @@
 <meta charset="ISO-8859-1">
 <title>OPERATIONS</title>
 
-<link href="<c:url value="/resources/css/MainStyle.css" />" rel="stylesheet">
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
 
 </head>
 <body>
 	<div>
 		<h4>OPERATIONS LIST</h4>
 	</div>
+	
 	<div>
 		<form action = "/operations/sortedbydatediaposon" method = "get">
 			<input type="date" name = "dateFirst">
@@ -75,9 +77,15 @@
 			<button>REVERT</button>
 		</form>
 	</div>
-	<a href="<c:url value="/showoperationform"/>"> Add new Operation</a>
-	<p>
-		<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-	</p>
+	
+	<div>
+		<p>
+			<a href="<c:url value="/showoperationform"/>"> Add new Operation</a>
+		</p>
+		<p>
+			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
+		</p>
+	</div>
+	
 </body>
 </html>

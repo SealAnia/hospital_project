@@ -2,19 +2,20 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List" %>
-<%@ page import="com.example.hospital.controller.DepartmentController" %>
-<%@ page import="com.example.hospital.model.entity.Department" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>DEPARTMENT DETAILS</title>
+
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 </head>
 <body>
 <h3>${department.name}</h3>
 
-	View Patients
+	Patients
 	
 	<table>
 			<tr>
@@ -26,7 +27,7 @@
 				<th>Release</th>
 				<th>Comments</th>
 			</tr>
-		<c:forEach items = "${patients}" var = "patient">
+		<c:forEach items = "${department.getPatients()}" var = "patient">
 			<tr>
 				<td><c:out value = "${patient.getPatientId()}"/></td>
 				<td><c:out value = "${patient.getName()}"/></td>
@@ -37,11 +38,26 @@
 				<td><c:out value = "${patient.getComments()}"/></td>
 			</tr>
 		</c:forEach>
-		</table>
+	</table>
+	
+	Workers
+	
+	<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Surname</th>
+				<th>Role</th>
+			</tr>
+		<c:forEach items = "${department.getUsers()}" var = "user">
+			<tr>
+				<td><c:out value = "${user.getUserId()}"/></td>
+				<td><c:out value = "${user.getName()}"/></td>
+				<td><c:out value = "${user.getSurname()}"/></td>
+				<td><c:out value = "${user.getRole().getName()}"/></td>
+			</tr>
+		</c:forEach>
+	</table>
 
-<c:forEach items = "${patients}" var = "patient">
-	<c:out value = "${patient.getName()}"/>
-	<c:out value = "${patient.getSurname()}"/>
-</c:forEach>
 </body>
 </html>

@@ -2,9 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List" %>
-<%@ page import="com.example.hospital.controller.DepartmentController" %>
-<%@ page import="com.example.hospital.model.entity.Department" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +18,7 @@ type="text/css"/>
 	<div>
 		<h4>MEDICINES LIST</h4>
 	</div>
+	
 	<div>
 		<form action = "/medicines/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
@@ -68,9 +66,15 @@ type="text/css"/>
 			<button>REVERT</button>
 		</form>
 	</div>
-	<a href="<c:url value="/showmedicineform"/>"> Add new Medicine</a>
-	<p>
-		<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-	</p>
+	
+	<div>
+		<p>
+			<a href="<c:url value="/showmedicineform"/>"> Add new Medicine</a>
+		</p>
+		<p>
+			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
+		</p>
+	</div>
+	
 </body>
 </html>

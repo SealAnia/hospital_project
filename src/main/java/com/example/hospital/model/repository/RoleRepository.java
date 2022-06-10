@@ -7,5 +7,5 @@ import com.example.hospital.model.entity.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-
+	
 }

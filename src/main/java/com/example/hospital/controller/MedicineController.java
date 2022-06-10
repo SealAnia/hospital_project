@@ -87,6 +87,7 @@ public class MedicineController {
 		return "medicine_views/medicines";
 	}
 	
+	//???
 	//UPDATE
 	@RequestMapping(value="/showeditmedicine/{id}")
 	public String showEditMedicine(@PathVariable("id") Integer id, Model model) {

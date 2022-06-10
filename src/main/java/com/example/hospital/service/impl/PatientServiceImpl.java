@@ -117,9 +117,15 @@ public class PatientServiceImpl implements PatientService {
 	public Iterable<Patient> sortPatientsByReleaseDesc() {
 		return patientRepository.findAll(Sort.by(Direction.DESC, "release"));
 	}
+
+	@Override
+	public Iterable<Patient> sortPatientsByDepartmentAsc() {
+		return patientRepository.findAll(Sort.by(Direction.ASC, "department.name"));
+	}
 	
-	//public List<Patient> getByDeptId(Integer departmentid) {
-		//return patientRepository.findBy(null, null)
-	//}
+	@Override
+	public Iterable<Patient> sortPatientsByDepartmentDesc() {
+		return patientRepository.findAll(Sort.by(Direction.DESC, "department.name"));
+	}
 	
 }

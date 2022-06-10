@@ -9,6 +9,9 @@
 <meta charset="ISO-8859-1">
 <title>DELETE DEPARTMENT</title>
 
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 <script src="<c:url value="/resources/js/ok_alert.js" var = "OKAlert" />"></script>
 
 </head>

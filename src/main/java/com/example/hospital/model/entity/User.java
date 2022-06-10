@@ -45,34 +45,38 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Operation> operations;
 	
-	//public User(Integer userid, String name, String surname, String login, 
-			//String password, Department dept, Role role, 
-			//List<Medicine> medicines, List<Procedure> procedures, List<Operation> operations) {
-		//this.userid = userid;
-		//this.name = name;
-		//this.surname = surname;
-		//this.login = login;
-		//this.password = password;
-		//this.dept = dept;
-		//this.role = role;
-		//this.medicines = medicines;
-		//this.procedures = procedures;
-		//this.operations = operations;
-	//}
+	public User() {
+		
+	}
 	
-	//public User(Integer userid, String name, String surname, String login, 
-			//String password, Department dept, Role role, 
-			//List<Medicine> medicines, List<Procedure> procedures) {
-		//this.userid = userid;
-		//this.name = name;
-		//this.surname = surname;
-		//this.login = login;
-		//this.password = password;
-		//this.dept = dept;
-		//this.role = role;
-		//this.medicines = medicines;
-		//this.procedures = procedures;
-	//}
+	public User(Integer userid, String name, String surname, String login, 
+			String password, Department dept, Role role, 
+			List<Medicine> medicines, List<Procedure> procedures, List<Operation> operations) {
+		this.userid = userid;
+		this.name = name;
+		this.surname = surname;
+		this.login = login;
+		this.password = password;
+		this.dept = dept;
+		this.role = role;
+		this.medicines = medicines;
+		this.procedures = procedures;
+		this.operations = operations;
+	}
+	
+	public User(Integer userid, String name, String surname, String login, 
+			String password, Department dept, Role role, 
+			List<Medicine> medicines, List<Procedure> procedures) {
+		this.userid = userid;
+		this.name = name;
+		this.surname = surname;
+		this.login = login;
+		this.password = password;
+		this.dept = dept;
+		this.role = role;
+		this.medicines = medicines;
+		this.procedures = procedures;
+	}
 	
 	public Integer getUserId() {
 		return userid;

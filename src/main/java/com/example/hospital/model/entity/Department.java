@@ -40,20 +40,20 @@ public class Department {
 		this.name = name;
 	}
 
-	//public List<User> getUsers() {
-		//return users;
-	//}
+	public List<User> getUsers() {
+		return users;
+	}
 
-	//public void setUsers(List<User> users) {
-		//this.users = users;
-	//}
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
-	//public List<Patient> getPatients() {
-		//return patients;
-	//}
+	public List<Patient> getPatients() {
+		return patients;
+	}
 
-	//public void setPatients(List<Patient> patients) {
-		//this.patients = patients;
-	//}
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
 	
 }

@@ -19,7 +19,7 @@ public class Role {
 	private Integer roleid;
 	@Column
 	private String name;
-	@OneToMany(mappedBy = "name")
+	@OneToMany(mappedBy = "role")
 	private List <User> users;
 
 	public Integer getRoleId() {

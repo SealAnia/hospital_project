@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>UPDATE MEDICINE INFO</title>
+<title>PROCEDURE DETAILS</title>
 
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>

@@ -6,13 +6,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>UPDATE MEDICINE INFO</title>
+<title>DELETE WORKER INFO</title>
 
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
 </head>
 <body>
+
+	<c:url value="/deleteworkerinfo/${worker.getUserId()}" var="worker"/>
+	
+	<script src="${OKAlert}"></script>
+	
+	Worker info is deleted
+	<a href="<c:url value="/workers"/>"> OK </a>
 
 </body>
 </html>

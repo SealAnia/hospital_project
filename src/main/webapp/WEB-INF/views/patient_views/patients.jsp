@@ -2,9 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.List" %>
-<%@ page import="com.example.hospital.controller.DepartmentController" %>
-<%@ page import="com.example.hospital.model.entity.Department" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +17,7 @@ type="text/css"/>
 	<div>
 		<h4>PATIETNS</h4>
 	</div>
+	
 	<div>
 		<form action = "/patients/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
@@ -34,7 +32,7 @@ type="text/css"/>
 				<th>Diagnosis</th>
 				<th>Admission</th>
 				<th>Release</th>
-				<th>Dept</th>
+				<th>Department</th>
 				<th>Comments</th>
 			</tr>
 			<c:forEach items = "${patients}" var = "patient">
@@ -59,14 +57,14 @@ type="text/css"/>
 					${patient.release}
 				</td>
 				<td>
-					${patient.getDepartment().getId()}
+					${patient.getDepartment().getName()}
 				</td>
 				<td>
 					${patient.comments}
 				</td>
 				<td>
 					<a href="<c:url value="/patient?id=${patient.getPatientId()}"/>"> 
-    				view details</a>
+    				medical card</a>
 				</td>
 				<td>
 					<a href="<c:url value="/showeditpatient/${patient.getPatientId()}"/>">
@@ -117,14 +115,27 @@ type="text/css"/>
 			<button>SORT BY RELEASE DESCENDING</button>
 		</form>
 		
+		<form action = "/patients/sortedby/department/asc">
+			<button>SORT BY DEPARTMENT ASCENDING</button>
+		</form>
+		<form action = "/patients/sortedby/department/desc">
+			<button>SORT BY DEPARTMENT DESCENDING</button>
+		</form>
+		
 		<form action = "/patients">
 			<button>REVERT</button>
 		</form>
 	</div>
-	<a href="<c:url value="/showpatientform"/>"> Add new Patient</a>
-	<p>
-		<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-	</p>
+	
+	<div>
+		<p>
+			<a href="<c:url value="/showpatientform"/>"> Add new Patient</a>
+		</p>
+		<p>
+			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
+		</p>
+	</div>
+	
 </body>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>NEW PATIENT</title>
+<title>NEW WORKER</title>
 
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
@@ -15,9 +15,9 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/patients" var="patient"/>
+	<c:url value="/workers" var="worker"/>
 	
-	<spring_form:form action="${patient}" method="post" modelAttribute="patient">
+	<spring_form:form action="${worker}" method="post" modelAttribute="worker">
 	
 	<spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="text" path="name"/><br>
@@ -25,22 +25,22 @@ type="text/css"/>
     <spring_form:label path="surname">SURNAME:</spring_form:label>
     <spring_form:input type="text" path="surname"/><br>
     
-    <spring_form:label path="diagnosis">DIAGNOSIS:</spring_form:label>
-    <spring_form:input type="text" path="diagnosis"/><br>
+    <spring_form:label path="login">LOGIN:</spring_form:label>
+    <spring_form:input type="text" path="login"/><br>
     
-    <spring_form:label path="admission">ADMISSION:</spring_form:label>
-    <spring_form:input type="date" path="admission"/><br>
+    <spring_form:label path="password">PASSWORD:</spring_form:label>
+    <spring_form:input type="text" path="password"/><br>
     
     <!-- 
     <spring_form:label path="departmentid">DEPARTMENT ID:</spring_form:label>
     <spring_form:input type="number" path="departmentid"/><br>
      -->
     
+    <label for = "roleid">ROLE</label>
+    <input type = "number" id = "roleid" name = "roleid"/>
+    
     <label for = "departmentid">DEPT ID</label>
     <input type = "number" id = "departmentid" name = "departmentid"/>
-    
-    <spring_form:label path="comments">COMMENTS:</spring_form:label>
-    <spring_form:input type="text" path="comments"/><br>
     
     <input type="submit" value="Submit">
 	</spring_form:form>

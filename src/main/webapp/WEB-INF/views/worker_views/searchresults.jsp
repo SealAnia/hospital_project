@@ -19,55 +19,44 @@ type="text/css"/>
 				<th>ID</th>
 				<th>Name</th>
 				<th>Surname</th>
-				<th>Diagnosis</th>
-				<th>Admission</th>
-				<th>Release</th>
+				<th>Role</th>
 				<th>Department</th>
-				<th>Comments</th>
 			</tr>
-			<c:forEach items = "${results}" var = "patient">
+			<c:forEach items = "${results}" var = "worker">
 			<tr>
 				<td>
-					<a href="<c:url value="/patients/${patient.getPatientId()}"/>">
-					${patient.getPatientId()}</a>
+				<a href="<c:url value="/workers/${worker.getUserId()}"/>">
+					${worker.getUserId()}</a>
 				</td>
 				<td>
-					${patient.name}
+					${worker.getName()}
 				</td>
 				<td>
-					${patient.surname}
+					${worker.getSurname()}
 				</td>
 				<td>
-					${patient.diagnosis}
+					${worker.getRole().getName()}
 				</td>
 				<td>
-					${patient.admission}
+					${worker.getDept().getName()}
 				</td>
 				<td>
-					${patient.release}
-				</td>
-				<td>
-					${patient.getDepartment().getName()}
-				</td>
-				<td>
-					${patient.comments}
-				</td>
-				<td>
-					<a href="<c:url value="/patient?id=${patient.getPatientId()}"/>"> 
+					<a href="<c:url value="/department?id=${department.getId()}"/>"> 
     				view details</a>
 				</td>
 				<td>
-					<a href="<c:url value="/showeditpatient/${patient.getPatientId()}"/>">
+					<a href="<c:url value="/showeditdepartment/${department.getId()}"/>">
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deletepatientinfo/${patient.getPatientId()}"/>"> 
+					<a href="<c:url value="/deletedepartment/${department.getId()}"/>"> 
     				delete</a>
 				</td>
 			</tr>
-			</c:forEach>
+		</c:forEach>
 		</table>
 	</div>
-	<a href = "/patients">BACK</a>
+	<a href = "/workers">BACK</a>
+
 </body>
 </html>

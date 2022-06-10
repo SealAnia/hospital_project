@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>ADD NEW MEDICINE</title>
+<title>ADD NEW PROCEDURE</title>
 
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
@@ -15,13 +15,15 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/medicines" var="medicine"/>
+	<c:url value="/procedures" var="procedure"/>
 	
-	<spring_form:form action="${medicine}" method="post" modelAttribute="medicine">
+	<spring_form:form action="${procedure}" method="post" modelAttribute="procedure">
     <spring_form:label path="name">NAME:</spring_form:label>
-    <spring_form:input type="text" path="name"/><br>
-    <spring_form:label path="numberPerDay">FREQUENCY:</spring_form:label>
-    <spring_form:input type="number" step = "0.1" min = "0" path="numberPerDay"/><br>
+    <spring_form:input type="name" path="name"/><br>
+    <spring_form:label path="date">DATE:</spring_form:label>
+    <spring_form:input type="date" path="date"/><br>
+    <spring_form:label path="details">COMMENTS:</spring_form:label>
+    <spring_form:input type="text" path="details"/><br>
     <input type="submit" value="Submit">
 	</spring_form:form>
 

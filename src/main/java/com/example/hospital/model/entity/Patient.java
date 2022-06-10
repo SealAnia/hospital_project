@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,7 +31,7 @@ public class Patient {
 	private String diagnosis;
 	@Column
 	private Date admission;
-	@Column
+	@Column(name = "releasedate")
 	private Date release;
 	@Column
 	private String comments;
@@ -38,8 +40,17 @@ public class Patient {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "departmentid")
 	private Department department;
-	@OneToMany(mappedBy = "patient")
+	
+	//@OneToMany(mappedBy = "patient")
+	//private List<Medicine> medicines;
+	
+	@ManyToMany
+	@JoinTable(
+			  name = "patient_medicine", 
+			  joinColumns = @JoinColumn(name = "patientid"), 
+			  inverseJoinColumns = @JoinColumn(name = "medicineid"))
 	private List<Medicine> medicines;
+	
 	@OneToMany(mappedBy = "patient")
 	private List<Procedure> procedures;
 	@OneToMany(mappedBy = "patient")

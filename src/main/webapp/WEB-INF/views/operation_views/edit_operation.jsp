@@ -8,6 +8,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>UPDATE OPERATION INFO</title>
+
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 </head>
 <body>
 
