@@ -68,12 +68,12 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<p>
-			<a href="<c:url value="/showmedicineform"/>"> Add new Medicine</a>
-		</p>
-		<p>
-			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-		</p>
+		<form action = "/showmedicineform">
+			<button>Add new Medicine</button>
+		</form>
+		<form action = "/main">
+			<button>Back to Main Menu</button>
+		</form>
 	</div>
 	
 </body>

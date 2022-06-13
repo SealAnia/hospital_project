@@ -35,6 +35,8 @@ type="text/css"/>
 			<tr>
 				<th>ID</th>
 				<th>Date</th>
+				<th>Patient</th>
+				<th>Conducted by</th>
 				<th>Comments</th>
 			</tr>
 			<c:forEach items = "${operations}" var = "operation">
@@ -45,6 +47,12 @@ type="text/css"/>
 				</td>
 				<td>
 					${operation.getDate()}
+				</td>
+				<td>
+					${operation.getPatient().getName()} ${operation.getPatient().getSurname()}
+				</td>
+				<td>
+					${operation.getUser().getName()} ${operation.getUser().getSurname()}
 				</td>
 				<td>
 					${operation.getComments()}
@@ -79,12 +87,12 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<p>
-			<a href="<c:url value="/showoperationform"/>"> Add new Operation</a>
-		</p>
-		<p>
-			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-		</p>
+		<form action = "/showoperationform">
+			<button>Add new Operation</button>
+		</form>
+		<form action = "/main">
+			<button>Back to Main Menu</button>
+		</form>
 	</div>
 	
 </body>

@@ -18,7 +18,6 @@ import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.dto.RoleDto;
 import com.example.hospital.dto.UserDto;
 import com.example.hospital.model.entity.Department;
-import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Role;
 import com.example.hospital.model.entity.User;
 import com.example.hospital.service.DepartmentService;
@@ -78,6 +77,10 @@ public class UserController {
 	@GetMapping(value="/showworkerform")
 	public String showCreateWorker(Model model) {
 		model.addAttribute("worker", new UserDto());
+		var roles = roleService.getAll();
+		model.addAttribute("roles", roles);
+		var departments = departmentService.getAll();
+		model.addAttribute("departments", departments);
 		return "worker_views/add_new_worker";	
 	}
 	
@@ -109,6 +112,7 @@ public class UserController {
 		return "worker_views/workers";
 	}
 	
+	//???
 	//UPDATE
 	
 	//DELETE

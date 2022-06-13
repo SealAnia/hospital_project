@@ -20,8 +20,13 @@ type="text/css"/>
 	<spring_form:form action="${operation}" method="post" modelAttribute="operation">
     <spring_form:label path="date">DATE:</spring_form:label>
     <spring_form:input type="date" path="date"/><br>
+    
+    <label for = "patientid">PATIENT</label>
+    <input type = "number" id = "patientid" name = "patientid"/>
+    
     <spring_form:label path="comments">COMMENTS:</spring_form:label>
     <spring_form:input type="text" path="comments"/><br>
+    
     <input type="submit" value="Submit">
 	</spring_form:form>
 

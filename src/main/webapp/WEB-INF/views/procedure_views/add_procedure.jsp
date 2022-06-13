@@ -20,10 +20,16 @@ type="text/css"/>
 	<spring_form:form action="${procedure}" method="post" modelAttribute="procedure">
     <spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="name" path="name"/><br>
+    
     <spring_form:label path="date">DATE:</spring_form:label>
     <spring_form:input type="date" path="date"/><br>
+    
+    <label for = "patientid">PATIENT</label>
+    <input type = "number" id = "patientid" name = "patientid"/>
+    
     <spring_form:label path="details">COMMENTS:</spring_form:label>
     <spring_form:input type="text" path="details"/><br>
+    
     <input type="submit" value="Submit">
 	</spring_form:form>
 

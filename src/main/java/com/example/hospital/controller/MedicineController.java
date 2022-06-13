@@ -77,10 +77,12 @@ public class MedicineController {
 	
 	@PostMapping(value="/medicines")
 	public String addMedicine
-	(@ModelAttribute("medicine") MedicineDto medicineDto, Model model) {
+	(@ModelAttribute("medicine") MedicineDto medicineDto, 
+			Model model) {
 		var medicine = new Medicine();
 		medicine.setName(medicineDto.getName());
 		medicine.setNumberPerDay(medicineDto.getNumberPerDay());
+		
 		medicineService.createOrUpdate(medicine);
 		var medicines = medicineService.getAll();
 		model.addAttribute("medicines", medicines);
@@ -111,5 +113,5 @@ public class MedicineController {
 		model.addAttribute("results", results);
 		return "medicine_views/searchresults";
 	}
-
+	
 }

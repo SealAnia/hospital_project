@@ -1,5 +1,6 @@
 table {
 	border: 1px solid grey;
+	width: 50%;
 }
 th {
 	border: 1px solid grey;
@@ -7,13 +8,19 @@ th {
 }
 td {
 	border: 1px solid grey;
+	padding: 11px;
 }
-	button.sorting {
-	border: 3px solid transparent; 
-	border-top: 8px solid Navy;
-	}
 body {
 	background-color: LightYellow;
 	opacity: 0.8;
 	font: 15px Arial, sans-serif;
+}
+button {
+	background-color: #12A0ED;
+  	border: 3px solid #0B0974;
+  	color: white;
+  	padding:2px 16px;
+  	text-align: center;
+  	font-size: 14px;
+  	margin: 5px 5px;
 }

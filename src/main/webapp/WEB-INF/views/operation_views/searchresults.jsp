@@ -20,32 +20,48 @@ type="text/css"/>
 			<tr>
 				<th>ID</th>
 				<th>Date</th>
+				<th>Patient</th>
+				<th>Conducted by</th>
 				<th>Comments</th>
 			</tr>
 			<c:forEach items = "${results}" var = "operation">
 			<tr>
 				<td>
-    				<a href="<c:url value="/operations/${operation.getId()}"/>">
-    				${operation.id}</a>
+					<a href="<c:url value="/operations/${operation.getId()}"/>">
+					${operation.getId()}</a>
 				</td>
 				<td>
-					${operation.date}
+					${operation.getDate()}
 				</td>
 				<td>
-					${operation.comments}
+					${operation.getPatient().getName()} ${operation.getPatient().getSurname()}
 				</td>
 				<td>
-					<a href="<c:url value="/showeditform/${operation.getId()}"/>">
+					${operation.getUser().getName()} ${operation.getUser().getSurname()}
+				</td>
+				<td>
+					${operation.getComments()}
+				</td>
+				<td>
+					<a href="<c:url value="/operation?id=${operation.getId()}"/>"> 
+    				view details</a>
+				</td>
+				<td>
+					<a href="<c:url value="/showeditoperation/${operation.getId()}"/>">
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deleteoperationt/${operation.getId()}"/>"> 
+					<a href="<c:url value="/deleteoperation/${operation.getId()}"/>"> 
     				delete</a>
 				</td>
 			</tr>
-			</c:forEach>
+		</c:forEach>
 		</table>
 	</div>
-	<a href = "/operations">BACK</a>
+	<div>
+		<form action = "/operations">
+			<button>BACK</button>
+		</form>
+	</div>
 </body>
 </html>

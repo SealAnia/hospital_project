@@ -45,6 +45,10 @@ type="text/css"/>
 		</c:forEach>
 		</table>
 	</div>
-	<a href = "/medicines">BACK</a>
+	<div>
+		<form action = "/medicines">
+			<button>BACK</button>
+		</form>
+	</div>
 </body>
 </html>

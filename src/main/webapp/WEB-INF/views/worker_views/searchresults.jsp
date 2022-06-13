@@ -56,7 +56,11 @@ type="text/css"/>
 		</c:forEach>
 		</table>
 	</div>
-	<a href = "/workers">BACK</a>
-
+	
+	<div>
+		<form action = "/workers">
+			<button>BACK</button>
+		</form>
+	</div>
 </body>
 </html>

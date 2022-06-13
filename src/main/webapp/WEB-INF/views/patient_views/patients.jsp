@@ -24,6 +24,12 @@ type="text/css"/>
 			<input type="submit" value="SEARCH">
 			</p>
 		</form>
+		<form action = "/patients/bynamesurname" method = "get">
+			<p><input type="text" name = "name" placeholder = "name">
+			<input type="text" name = "surname" placeholder = "surname">
+			<input type="submit" value="SEARCH">
+			</p>
+		</form>
 		<table>
 			<tr>
 				<th>ID</th>
@@ -128,12 +134,12 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<p>
-			<a href="<c:url value="/showpatientform"/>"> Add new Patient</a>
-		</p>
-		<p>
-			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-		</p>
+		<form action = "/showpatientform">
+			<button>Add new Patient</button>
+		</form>
+		<form action = "/main">
+			<button>Back to Main Menu</button>
+		</form>
 	</div>
 	
 </body>

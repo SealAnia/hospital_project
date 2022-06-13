@@ -59,7 +59,7 @@ type="text/css"/>
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deletedepartment/${department.getId()}"/>"> 
+					<a href="<c:url value="/deleteworkerinfo/${worker.getUserId()}"/>"> 
     				delete</a>
 				</td>
 			</tr>
@@ -68,15 +68,15 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<p>
-			<a href="<c:url value="/roles"/>">Find Workers by Role</a><br>
-		</p>
-		<p>
-			<a href="<c:url value="/showworkerform"/>"> Add new Worker</a><br>
-		</p>
-		<p>
-			<a href="<c:url value="/main"/>">Back to Main Menu</a>
-		</p>
+		<form action = "/roles">
+			<button>Find Workers by Role</button>
+		</form>
+		<form action = "/showworkerform">
+			<button>Add New Worker</button>
+		</form>
+		<form action = "/main">
+			<button>Back to Main Menu</button>
+		</form>
 	</div>
 </body>
 </html>

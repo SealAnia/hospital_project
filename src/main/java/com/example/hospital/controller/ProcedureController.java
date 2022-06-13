@@ -15,18 +15,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.hospital.dto.PatientDto;
 import com.example.hospital.dto.ProcedureDto;
+import com.example.hospital.model.entity.Operation;
+import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Procedure;
+import com.example.hospital.service.PatientService;
 import com.example.hospital.service.ProcedureService;
 
 @Controller
 public class ProcedureController {
 	
 	private final ProcedureService procedureService;
+	
+	private final PatientService patientService;
 
 	@Autowired
-	public ProcedureController(ProcedureService procedureService) {
+	public ProcedureController(ProcedureService procedureService, 
+			PatientService patientService) {
 		this.procedureService = procedureService;
+		this.patientService = patientService;
 	}
 	
 	//READ
@@ -69,6 +77,14 @@ public class ProcedureController {
 		return "procedure_views/procedure_details";
 	}
 	
+	@GetMapping("/procedures/sortedbydatediaposon")
+	public String getProceduresByDateDiaposon
+	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
+		List<Procedure> procedures = procedureService.getByDateBetween(dateFirst, dateSecond);
+		model.addAttribute("procedures", procedures);
+		return "procedure_views/procedures";
+	}
+	
 	//SORT
 	@GetMapping("/procedures/sortedby/name/asc")
 	public String sortProceduresByNameAsc(Model model) {
@@ -107,17 +123,27 @@ public class ProcedureController {
 	
 	@PostMapping(value="/procedures")
 	public String addProcedure
-	(@ModelAttribute("procedure") ProcedureDto procedureDto, Model model) {
+	(@RequestParam(value = "patientid") Integer patientid,
+			@ModelAttribute("procedure") ProcedureDto procedureDto, 
+			@ModelAttribute("patient") PatientDto patientDto, 
+			Model model) {
 		var procedure = new Procedure();
 		procedure.setName(procedureDto.getName());
 		procedure.setDate(procedureDto.getDate());
 		procedure.setDetails(procedureDto.getDetails());
+		
+		var patient = new Patient();
+		patient = patientService.getById(patientid);
+		procedure.setPatient(patient);
+		
 		procedureService.createOrUpdate(procedure);
+		
 		var procedures = procedureService.getAll();
 		model.addAttribute("procedures", procedures);
 		return "procedure_views/procedures";
 	}
 	
+	//???
 	//UPDATE
 	
 	//DELETE 

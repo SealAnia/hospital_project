@@ -12,6 +12,7 @@ public interface PatientService extends DefaultService<Patient> {
 	List<Patient> getPatientByDiagnosis(String diagnosis);
 	List<Patient> getPatientByAdmission(Date admission);
 	List<Patient> getPatientByRelease(Date release);
+	List<Patient> getByNameAndSurname(String name, String surname);
 	
 	Iterable<Patient> sortPatientsByNameAsc();
 	Iterable<Patient> sortPatientsByNameDesc();

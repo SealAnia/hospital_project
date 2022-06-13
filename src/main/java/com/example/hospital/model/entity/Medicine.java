@@ -29,7 +29,7 @@ public class Medicine {
 	//@JoinColumn(name = "patientid")
 	//private Patient patient;
 	
-	@ManyToMany(mappedBy = "medicines")
+	@ManyToMany(mappedBy = "medicines", cascade = CascadeType.ALL)
 	private List<Patient> patients;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -75,7 +75,7 @@ public class Medicine {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
 	public List<Patient> getPatients() {
 		return patients;
 	}

@@ -1,8 +1,12 @@
 package com.example.hospital.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.example.hospital.model.entity.Department;
+import com.example.hospital.model.entity.Medicine;
+import com.example.hospital.model.entity.Patient;
 
 public class PatientDto {
 	
@@ -10,10 +14,15 @@ public class PatientDto {
 	private String surname;
 	private String diagnosis;
 	private Date admission;
+	private Date release;
 	private String comments;
-	private Department department;
 	
+	private Department department;
 	private Integer departmentid;
+	
+	private List<Medicine> medicines;
+	
+	private List<MedicineDto> medicineDtos;
 	
 	public String getName() {
 		return name;
@@ -43,6 +52,13 @@ public class PatientDto {
 		this.admission = admission;
 	}
 	
+	public Date getRelease() {
+		return release;
+	}
+	public void setRelease(Date release) {
+		this.release = release;
+	}
+	
 	public String getComments() {
 		return comments;
 	}
@@ -64,4 +80,43 @@ public class PatientDto {
 		this.departmentid = departmentid;
 	}
 	
+	public List<Medicine> getMedicines() {
+		return medicines;
+	}
+	public void setMedicines(List<Medicine> medicines) {
+		this.medicines = medicines;
+	}
+	
+	public List<MedicineDto> getMedicineDtos() {
+		return medicineDtos;
+	}
+	public void setMedicineDtos(List<MedicineDto> medicineDtos) {
+		this.medicineDtos = medicineDtos;
+	}
+	
+	public List<PatientDto> getPatientDto(List<Patient> patients){
+        List<PatientDto> patientDtos = new ArrayList<>();
+
+        for (Patient patient : patients){
+            medicineDtos = new ArrayList<>();
+
+            PatientDto patientDto = new PatientDto();
+            patientDto.setName(patient.getSurname());
+            patientDto.setSurname(patient.getSurname());
+            patientDto.setDiagnosis(patient.getDiagnosis());
+            patientDto.setAdmission(patient.getAdmission());
+            patientDto.setRelease(patient.getRelease());
+            patientDto.setDepartment(patient.getDepartment());
+            for (Medicine medicine : patient.getMedicines()){
+                MedicineDto medicineDto = new MedicineDto();
+                medicineDto.setName(medicine.getName());
+                medicineDto.setNumberPerDay(medicine.getNumberPerDay());
+                medicines.add(medicine);
+                medicineDtos.add(medicineDto);
+            }
+            patientDto.setMedicineDtos(medicineDtos);
+            patientDtos.add(patientDto);
+        }
+        return patientDtos;
+    }
 }

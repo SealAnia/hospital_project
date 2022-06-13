@@ -18,6 +18,8 @@ type="text/css"/>
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
+				<th>Patient</th>
+				<th>Who did</th>
 				<th>Instruction</th>
 				<th>Date</th>
 			</tr>
@@ -29,6 +31,12 @@ type="text/css"/>
 				</td>
 				<td>
 					${procedure.getName()}
+				</td>
+				<td>
+					${procedure.getPatient().getName()} ${procedure.getPatient().getSurname()}
+				</td>
+				<td>
+					${procedure.getUser().getName()} ${procedure.getUser().getSurname()}
 				</td>
 				<td>
 					${procedure.getDetails()}
@@ -52,7 +60,11 @@ type="text/css"/>
 			</c:forEach>
 		</table>
 	</div>
-	<a href = "/procedures">BACK</a>
-
+	
+	<div>
+		<form action = "/procedures">
+			<button>BACK</button>
+		</form>
+	</div>
 </body>
 </html>

@@ -18,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.DepartmentDto;
+import com.example.hospital.dto.MedicineDto;
 import com.example.hospital.dto.PatientDto;
 import com.example.hospital.model.entity.Department;
+import com.example.hospital.model.entity.Medicine;
+import com.example.hospital.model.entity.Operation;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.service.DepartmentService;
+import com.example.hospital.service.MedicineService;
 import com.example.hospital.service.PatientService;
 
 @Controller
@@ -31,12 +35,17 @@ public class PatientController {
 	
 	private final DepartmentService departmentService;
 	
+	private final MedicineService medicineService;
+	
 	@Autowired
 	public PatientController(PatientService patientService, 
-			DepartmentService departmentService) {
+			DepartmentService departmentService, 
+			MedicineService medicineService) {
 		this.patientService = patientService;
 		
 		this.departmentService = departmentService;
+		
+		this.medicineService = medicineService;
 	}
 	
 	//READ
@@ -101,6 +110,14 @@ public class PatientController {
 		var patient = patientService.getById(patientid);
 		model.addAttribute("patient", patient);
 		return "patient_views/patient_info";
+	}
+	
+	@GetMapping("/patients/bynamesurname")
+	public String getPatientsByNameAndSurname
+	(@RequestParam String name, @RequestParam String surname, Model model) {
+		List<Patient> patients = patientService.getByNameAndSurname(name, surname);
+		model.addAttribute("patients", patients);
+		return "patient_views/patients";
 	}
 	
 	//SORT
@@ -192,6 +209,8 @@ public class PatientController {
 	@GetMapping(value="/showpatientform")
 	public String showCreatePatient(Model model) {
 		model.addAttribute("patient", new PatientDto());
+		var departments = departmentService.getAll();
+		model.addAttribute("departments", departments);
 		return "patient_views/add_new_patient";	
 	}
 	
@@ -208,12 +227,34 @@ public class PatientController {
 		var department = new Department();
 		department = departmentService.getById(departmentid);
 		patient.setDepartment(department);
-		patient.setComments(patient.getComments());
+		patient.setComments(patientDto.getComments());
 		patientService.createOrUpdate(patient);
 		var patients = patientService.getAll();
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
+	
+	//???
+	//@GetMapping(value = "/prescribemedicine")
+	//public String showPrescriprionForm(Model model) {
+		//model.addAttribute("prescription", new PatientMedicine());
+		//return "patient_views/prescription";
+	//}
+	
+	//@PostMapping(value = "/patients")
+	//public String prescribeMedicine(@RequestParam(
+			//value = "patientid") Integer patientid,
+			//@RequestParam(value = "medicineid") Integer medicineid) {
+		
+		//var patientMedicine = new PatientMedicine();
+		//var patient = patientService.getById(patientid);
+		//var medicine = medicineService.getById(medicineid);
+		
+		//patientMedicine.setMedicine(medicine);
+		//patientMedicine.setPatient(patient);
+		
+		//return "patient_views/patients";
+	//}
 	
 	//???
 	//UPDATE
@@ -240,7 +281,6 @@ public class PatientController {
 		patient.setRelease(newPatient.getRelease());
 		
 		department = departmentService.getById(departmentid);
-		
 		patient.setDepartment(newPatient.getDepartment());
 		
 		newPatient = patientService.createOrUpdate(patient);
@@ -249,7 +289,6 @@ public class PatientController {
 		return "patient_views/edit_patient";
 	}
 	
-	//???
 	//DELETE
 	@RequestMapping(value = "/deletepatientinfo/{patientid}", method = RequestMethod.GET)
 	public String deletePatient(@PathVariable("patientid") Integer patientid) {

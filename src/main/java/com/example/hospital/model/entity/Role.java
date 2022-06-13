@@ -2,6 +2,7 @@ package com.example.hospital.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,8 @@ public class Role {
 	private Integer roleid;
 	@Column
 	private String name;
-	@OneToMany(mappedBy = "role")
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, 
+			orphanRemoval = true)
 	private List <User> users;
 
 	public Integer getRoleId() {

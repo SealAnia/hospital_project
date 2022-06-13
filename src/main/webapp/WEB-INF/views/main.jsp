@@ -22,5 +22,14 @@ type="text/css"/>
 			<p><a href = "/roles"> Hospital Stuff </a></p>
 			<p><a href = "/patients"> Patients </a></p>
 		</div>
+		
+		<div>
+			<form action = "/showoperationform">
+				<button>Register new Operation</button>
+			</form>
+			<form action = "/showprocedureform">
+				<button>Register new Procedure</button>
+			</form>
+		</div>
 </body>
 </html>

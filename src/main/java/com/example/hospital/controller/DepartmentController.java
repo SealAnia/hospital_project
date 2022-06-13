@@ -103,12 +103,10 @@ public class DepartmentController {
 	    return "department_views/edit_department";
 	}
 	
-	//???
 	@PutMapping(value="/departments/{id}")
 	public String editDepartment
 	(@PathVariable("id") Integer id, @RequestBody Department newDepartment, Model model) {
 		var department = departmentService.getById(id);
-		//department.setId(newDepartment.getId());
 		department.setName(newDepartment.getName());
 		newDepartment = departmentService.createOrUpdate(department);
 		var departments = departmentService.getAll();

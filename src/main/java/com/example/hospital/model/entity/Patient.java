@@ -35,16 +35,10 @@ public class Patient {
 	private Date release;
 	@Column
 	private String comments;
-	//@Column
-	//private Integer departmentid;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "departmentid")
 	private Department department;
-	
-	//@OneToMany(mappedBy = "patient")
-	//private List<Medicine> medicines;
-	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			  name = "patient_medicine", 
 			  joinColumns = @JoinColumn(name = "patientid"), 
@@ -143,5 +137,5 @@ public class Patient {
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
 	}
-
+	
 }

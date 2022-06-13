@@ -68,16 +68,13 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<p>
-			<a href ="<c:url value="/showdepartmentform"/>"> Add new Department</a>
-		</p>
-		<p>
-			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-		</p>
+		<form action = "/showdepartmentform">
+			<button>Add new Department</button>
+		</form>
+		<form action = "/main">
+			<button>Back to Main Menu</button>
+		</form>
 	</div>
 	
-	<form action = "/showdepartmentform">
-		<button>Add new Department</button>
-	</form>
 </body>
 </html>

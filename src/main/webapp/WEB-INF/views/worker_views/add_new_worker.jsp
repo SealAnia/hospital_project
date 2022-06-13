@@ -31,19 +31,24 @@ type="text/css"/>
     <spring_form:label path="password">PASSWORD:</spring_form:label>
     <spring_form:input type="text" path="password"/><br>
     
-    <!-- 
-    <spring_form:label path="departmentid">DEPARTMENT ID:</spring_form:label>
-    <spring_form:input type="number" path="departmentid"/><br>
-     -->
-    
     <label for = "roleid">ROLE</label>
-    <input type = "number" id = "roleid" name = "roleid"/>
+    <datalist id = "rolelist">
+    	<c:forEach items = "${roles}" var = "role">
+    		<option value = "${role.getRoleId()}"> - ${role.getName()}
+    	</c:forEach>
+    </datalist>
+    <input type="number" name="roleid" id = "roleid" list="rolelist">
     
-    <label for = "departmentid">DEPT ID</label>
-    <input type = "number" id = "departmentid" name = "departmentid"/>
+    <label for = "departmentid">DEPARTMENT</label>
+    <datalist id = "deptlist">
+    	<c:forEach items = "${departments}" var = "dept">
+    		<option value = "${dept.getId()}"> - ${dept.getName()}
+    	</c:forEach>
+    </datalist>
+    <input type = "number" id = "departmentid" name = "departmentid" list = "deptlist">
     
     <input type="submit" value="Submit">
 	</spring_form:form>
-
+	
 </body>
 </html>

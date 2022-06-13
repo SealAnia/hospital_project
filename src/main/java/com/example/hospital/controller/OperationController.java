@@ -16,17 +16,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.OperationDto;
+import com.example.hospital.dto.PatientDto;
 import com.example.hospital.model.entity.Operation;
+import com.example.hospital.model.entity.Patient;
 import com.example.hospital.service.OperationService;
+import com.example.hospital.service.PatientService;
 
 @Controller
 public class OperationController {
 	
 	private final OperationService operationService;
 	
+	private final PatientService patientService;
+	
 	@Autowired
-	public OperationController(OperationService operationService) {
+	public OperationController(OperationService operationService, 
+			PatientService patientService) {
 		this.operationService = operationService;
+		this.patientService = patientService;
 	}
 	
 	//READ
@@ -61,7 +68,6 @@ public class OperationController {
 		return "operation_views/operation_details";
 	}
 	
-	//???
 	@GetMapping("/operations/sortedbydatediaposon")
 	public String getOperationsByDateDiaposon
 	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
@@ -94,10 +100,16 @@ public class OperationController {
 	
 	@PostMapping(value="/operations")
 	public String addOperation
-	(@ModelAttribute("operation") OperationDto operationDto, Model model) {
+	(@RequestParam(value = "patientid") Integer patientid,
+			@ModelAttribute("operation") OperationDto operationDto, 
+			@ModelAttribute("patient") PatientDto patientDto, 
+			Model model) {
 		var operation = new Operation();
 		operation.setDate(operationDto.getDate());
 		operation.setComments(operationDto.getComments());
+		var patient = new Patient();
+		patient = patientService.getById(patientid);
+		operation.setPatient(patient);
 		operationService.createOrUpdate(operation);
 		var operations = operationService.getAll();
 		model.addAttribute("operations", operations);

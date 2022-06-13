@@ -73,4 +73,9 @@ public class ProcedureServiceImpl implements ProcedureService {
 		return procedureRepository.findAll(Sort.by(Direction.DESC, "date"));
 	}
 
+	@Override
+	public List<Procedure> getByDateBetween(Date dateFirst, Date dateSecond) {
+		return procedureRepository.getByDateBetween(dateFirst, dateSecond);
+	}
+
 }

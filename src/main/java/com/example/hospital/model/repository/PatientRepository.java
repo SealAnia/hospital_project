@@ -27,5 +27,10 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 			+ "OR p.comments LIKE '%' || :keyword || '%'"
 			+ "OR p.department.name LIKE '%' || :keyword || '%'")
 	List<Patient> search(@Param("keyword") String keyword);
+	
+	@Query(value = "SELECT p FROM Patient p WHERE p.name LIKE '%' || :name || '%' "
+			+ "AND p.surname LIKE '%' || :surname || '%' ORDER BY p.department.name")
+	List<Patient> getByNameAndSurname(@Param("name") String name, 
+			@Param("surname") String surname);
 
 }

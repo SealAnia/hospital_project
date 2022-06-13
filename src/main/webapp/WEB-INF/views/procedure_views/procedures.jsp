@@ -19,6 +19,11 @@ type="text/css"/>
 	</div>
 	
 	<div>
+		<form action = "/procedures/sortedbydatediaposon" method = "get">
+			<input type="date" name = "dateFirst">
+			<input type="date" name = "dateSecond">
+			<input type="submit" value = "FIND PROCEDURES IN DATE DIAPOSON">
+		</form>
 		<form action = "/procedures/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
@@ -28,6 +33,8 @@ type="text/css"/>
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
+				<th>Patient</th>
+				<th>Who did</th>
 				<th>Instruction</th>
 				<th>Date</th>
 			</tr>
@@ -39,6 +46,12 @@ type="text/css"/>
 				</td>
 				<td>
 					${procedure.getName()}
+				</td>
+				<td>
+					${procedure.getPatient().getName()} ${procedure.getPatient().getSurname()}
+				</td>
+				<td>
+					${procedure.getUser().getName()} ${procedure.getUser().getSurname()}
 				</td>
 				<td>
 					${procedure.getDetails()}
@@ -82,17 +95,12 @@ type="text/css"/>
 	</div>
 	
 	<div>
-		<p>
-			<a href="<c:url value="/showprocedureform"/>"> Add new Procedure</a>
-		</p>
-		<p>
-			<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-		</p>
+		<form action = "/showprocedureform">
+			<button>Add new Procedure</button>
+		</form>
+		<form action = "/main">
+			<button>Back to Main Menu</button>
+		</form>
 	</div>
-	
-	<a href="<c:url value="/showprocedureform"/>"> Add new Procedure</a>
-	<p>
-		<a href="<c:url value="/main"/>"> Back to Main Menu</a>
-	</p>
 </body>
 </html>

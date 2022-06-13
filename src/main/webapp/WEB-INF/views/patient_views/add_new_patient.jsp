@@ -32,12 +32,17 @@ type="text/css"/>
     <spring_form:input type="date" path="admission"/><br>
     
     <!-- 
-    <spring_form:label path="departmentid">DEPARTMENT ID:</spring_form:label>
-    <spring_form:input type="number" path="departmentid"/><br>
+    <label for = "medicineid">MEDICINE ID</label>
+    <input type = "number" id = "medicineid" name = "medicineid"/>
      -->
     
-    <label for = "departmentid">DEPT ID</label>
-    <input type = "number" id = "departmentid" name = "departmentid"/>
+    <label for = "departmentid">DEPARTMENT</label>
+    <datalist id = "departmentlist">
+    	<c:forEach items = "${departments}" var = "department">
+    		<option value = "${department.getId()}"> - ${department.getName()}
+    	</c:forEach>
+    </datalist>
+    <input type = "number" id = "departmentid" name = "departmentid" list = "departmentlist">
     
     <spring_form:label path="comments">COMMENTS:</spring_form:label>
     <spring_form:input type="text" path="comments"/><br>

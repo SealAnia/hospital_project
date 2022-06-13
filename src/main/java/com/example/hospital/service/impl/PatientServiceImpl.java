@@ -127,5 +127,10 @@ public class PatientServiceImpl implements PatientService {
 	public Iterable<Patient> sortPatientsByDepartmentDesc() {
 		return patientRepository.findAll(Sort.by(Direction.DESC, "department.name"));
 	}
+
+	@Override
+	public List<Patient> getByNameAndSurname(String name, String surname) {
+		return patientRepository.getByNameAndSurname(name, surname);
+	}
 	
 }

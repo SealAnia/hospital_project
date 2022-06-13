@@ -2,7 +2,6 @@ package com.example.hospital.model.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,13 +27,9 @@ public class User {
 	private String login;
 	@Column
 	private String password;
-	//@Column
-	//private Integer deptid;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = ("deptid"))
 	private Department dept;
-	//@Column
-	//private Integer roleid;
 	@ManyToOne
 	@JoinColumn(name = "roleid")
 	private Role role;
