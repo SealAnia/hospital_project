@@ -27,7 +27,7 @@ public class PatientServiceImpl implements PatientService {
 	public Patient getById(Integer id) {
 		return patientRepository.getById(id);
 	}
-
+	
 	@Override
 	public Patient createOrUpdate(Patient patient) {
 		return patientRepository.saveAndFlush(patient);
@@ -132,5 +132,5 @@ public class PatientServiceImpl implements PatientService {
 	public List<Patient> getByNameAndSurname(String name, String surname) {
 		return patientRepository.getByNameAndSurname(name, surname);
 	}
-	
+
 }

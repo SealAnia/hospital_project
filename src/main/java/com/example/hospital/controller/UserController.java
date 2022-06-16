@@ -45,7 +45,7 @@ public class UserController {
 	public String getAllUsers(Model model) {
 		var workers = userService.getAll();
 		model.addAttribute("users", workers);
-		return "worker_views/workers";
+		return "worker/workers";
 	}
 	
 	@GetMapping(value = "/workers/{userid}")
@@ -54,7 +54,7 @@ public class UserController {
 		User user = userService.getById(userid);
 		users.add(user);
 		model.addAttribute("users", users);
-		return "worker_views/workers";
+		return "worker/workers";
 	}
 	
 	@GetMapping(value = "/workers/byname/{name}")
@@ -62,7 +62,7 @@ public class UserController {
 		List<User> workers = new ArrayList<>();
 		workers = userService.getUserByName(name);
 		model.addAttribute("users", workers);
-		return "worker_views/workers";
+		return "worker/workers";
 	}
 	
 	@GetMapping(value = "/workers/bysurname/{surname}")
@@ -70,7 +70,7 @@ public class UserController {
 		List<User> workers = new ArrayList<>();
 		workers = userService.getUserBySurname(surname);
 		model.addAttribute("users", workers);
-		return "worker_views/workers";
+		return "worker/workers";
 	}
 	
 	//CREATE
@@ -81,7 +81,7 @@ public class UserController {
 		model.addAttribute("roles", roles);
 		var departments = departmentService.getAll();
 		model.addAttribute("departments", departments);
-		return "worker_views/add_new_worker";	
+		return "worker/add_new_worker";	
 	}
 	
 	@PostMapping(value="/workers")
@@ -109,7 +109,7 @@ public class UserController {
 		
 		var workers = userService.getAll();
 		model.addAttribute("users", workers);
-		return "worker_views/workers";
+		return "worker/workers";
 	}
 	
 	//???
@@ -120,7 +120,7 @@ public class UserController {
 	public String deleteWorkerInfo(@PathVariable("userid") Integer iserid) {
 		var worker = userService.getById(iserid);
 		userService.delete(worker);
-		return "worker_views/delete_worker";
+		return "worker/delete_worker";
 	}
 	
 	//SEARCH
@@ -128,7 +128,7 @@ public class UserController {
 	public String searchWorkerInfo(@RequestParam String keyword, Model model) {
 		List<User> results = userService.search(keyword);
 		model.addAttribute("results", results);
-		return "worker_views/searchresults";
+		return "worker/searchresults";
 	}
 	
 }

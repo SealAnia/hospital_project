@@ -34,7 +34,7 @@ public class DepartmentController {
 	public String getAllDepartments(Model model) {
 		var departments = departmentService.getAll();
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 	
 	@GetMapping("/departments/{id}")
@@ -43,7 +43,7 @@ public class DepartmentController {
 		Department department = departmentService.getById(id);
 		departments.add(department);
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 	
 	@GetMapping("/departments/byname/{name}")
@@ -51,14 +51,14 @@ public class DepartmentController {
 		List<Department> departments = new ArrayList<>();
 		departments = departmentService.getDepartmentByName(name);
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 
 	@GetMapping("/department")
 	public String getDepartmentInfo(@RequestParam(value = "id") Integer id, Model model) {
 		var department = departmentService.getById(id);
 		model.addAttribute("department", department);
-		return "department_views/department_details";
+		return "department/department_details";
 	}
 	
 	//SORT
@@ -66,21 +66,21 @@ public class DepartmentController {
 	public String sortDepartmentsByNameAsc(Model model) {
 		var departments = departmentService.sortDepartmentsByNameAsc();
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 	
 	@GetMapping("/departments/sortedby/name/desc")
 	public String sortDepartmentsByNameDesc(Model model) {
 		var departments = departmentService.sortDepartmentsByNameDesc();
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 	
 	//CREATE
 	@GetMapping(value="/showdepartmentform")
 	public String showCreateDepartment(Model model) {
 		model.addAttribute("department", new DepartmentDto());
-	    return "department_views/create_department";
+	    return "department/create_department";
 	}
 	
 	@PostMapping(value="/departments")
@@ -91,27 +91,35 @@ public class DepartmentController {
 		departmentService.createOrUpdate(department);
 		var departments = departmentService.getAll();
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 	
 	//???
 	//UPDATE
+	@GetMapping(value="/showeditdepartment/{id}")
 	@RequestMapping(value="/showeditdepartment/{id}")
-	public String showEditDepartment(@PathVariable("id") Integer id, Model model) {
+	public String showEditDepartment(@PathVariable("id") Integer id, 
+			@ModelAttribute(name = "newDepartment") Department newDepartment,
+			Model model) {
 		var department = departmentService.getById(id);
 		model.addAttribute("department", department);
-	    return "department_views/edit_department";
+	    return "department/edit_department";
 	}
 	
-	@PutMapping(value="/departments/{id}")
+	@PutMapping(value="/departments/")
 	public String editDepartment
-	(@PathVariable("id") Integer id, @RequestBody Department newDepartment, Model model) {
+	(@PathVariable("id") Integer id, @RequestBody Department newDepartment, 
+			//@ModelAttribute(name = "newDepartment") Department newDepartment,
+			Model model) {
 		var department = departmentService.getById(id);
 		department.setName(newDepartment.getName());
 		newDepartment = departmentService.createOrUpdate(department);
 		var departments = departmentService.getAll();
+		
+		//model.addAttribute("newDepartment", newDepartment);
+		
 		model.addAttribute("departments", departments);
-		return "department_views/departments";
+		return "department/departments";
 	}
 	
 	//DELETE
@@ -119,7 +127,7 @@ public class DepartmentController {
 	public String deleteDept(@PathVariable("id") Integer id) {
 		 var department = departmentService.getById(id);
 		 departmentService.delete(department);
-		 return "department_views/delete_department";
+		 return "department/delete_department";
 	}
 	
 	//SEARCH
@@ -127,7 +135,7 @@ public class DepartmentController {
 	public String searchDepartmentInfo(@RequestParam String keyword, Model model) {
 		List<Department> results = departmentService.search(keyword);
 		model.addAttribute("results", results);
-		return "department_views/searchresults";
+		return "department/searchresults";
 	}
 	
 }

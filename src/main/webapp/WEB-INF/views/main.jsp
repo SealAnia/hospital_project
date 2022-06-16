@@ -30,6 +30,9 @@ type="text/css"/>
 			<form action = "/showprocedureform">
 				<button>Register new Procedure</button>
 			</form>
+			<form action = "/showprescriptionform">
+				<button>Prescribe Medicine</button>
+			</form>
 		</div>
 </body>
 </html>

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.PatientDto;
 import com.example.hospital.dto.ProcedureDto;
-import com.example.hospital.model.entity.Operation;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Procedure;
 import com.example.hospital.service.PatientService;
@@ -42,7 +41,7 @@ public class ProcedureController {
 	public String getAllProcedures(Model model) {
 		var procedures = procedureService.getAll();
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping(value = "/procedures/{procedureid}")
@@ -51,7 +50,7 @@ public class ProcedureController {
 		Procedure procedure = procedureService.getById(procedureid);
 		procedures.add(procedure);
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/byname/{name}")
@@ -59,7 +58,7 @@ public class ProcedureController {
 		List<Procedure> procedures = new ArrayList<>();
 		procedures = procedureService.getProcedureByName(name);
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/bydate/{date}")
@@ -67,14 +66,14 @@ public class ProcedureController {
 		List<Procedure> procedures = new ArrayList<>();
 		procedures = procedureService.getProcedureByDate(date);
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedure")
 	public String getProcedureInfo(@RequestParam(value = "procedureid") Integer procedureid, Model model) {
 		var procedure = procedureService.getById(procedureid);
 		model.addAttribute("procedure", procedure);
-		return "procedure_views/procedure_details";
+		return "procedure/procedure_details";
 	}
 	
 	@GetMapping("/procedures/sortedbydatediaposon")
@@ -82,7 +81,7 @@ public class ProcedureController {
 	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
 		List<Procedure> procedures = procedureService.getByDateBetween(dateFirst, dateSecond);
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	//SORT
@@ -90,35 +89,35 @@ public class ProcedureController {
 	public String sortProceduresByNameAsc(Model model) {
 		var procedures = procedureService.sortProcedureByNameAsc();
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/sortedby/name/desc")
 	public String sortProceduresByNameDesc(Model model) {
 		var procedures = procedureService.sortProcedureByNameDesc();
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/sortedby/date/asc")
 	public String sortProceduresByDateAsc(Model model) {
 		var procedures = procedureService.sortProcedureByDateAsc();
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/sortedby/date/desc")
 	public String sortProceduresByDateDesc(Model model) {
 		var procedures = procedureService.sortProcedureByDateDesc();
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	//CREATE 
 	@GetMapping(value="/showprocedureform")
 	public String showCreateProcedure(Model model) {
 		model.addAttribute("procedure", new ProcedureDto());
-		return "procedure_views/add_procedure";
+		return "procedure/add_procedure";
 	}
 	
 	@PostMapping(value="/procedures")
@@ -140,7 +139,7 @@ public class ProcedureController {
 		
 		var procedures = procedureService.getAll();
 		model.addAttribute("procedures", procedures);
-		return "procedure_views/procedures";
+		return "procedure/procedures";
 	}
 	
 	//???
@@ -151,7 +150,7 @@ public class ProcedureController {
 	public String deleteProcedure(@PathVariable("procedureid") Integer procedureid) {
 		var procedure = procedureService.getById(procedureid);
 		procedureService.delete(procedure);
-		return "procedure_views/delete_procedure";
+		return "procedure/delete_procedure";
 	}
 	
 	//SEARCH
@@ -159,7 +158,7 @@ public class ProcedureController {
 	public String searchProcedureInfo(@RequestParam String keyword, Model model) {
 		List<Procedure> results = procedureService.search(keyword);
 		model.addAttribute("results", results);
-		return "procedure_views/searchresults";
+		return "procedure/searchresults";
 	}
 	
 }

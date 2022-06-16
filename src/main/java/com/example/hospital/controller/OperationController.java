@@ -41,7 +41,7 @@ public class OperationController {
 	public String getAllOperations(Model model) {
 		var operations = operationService.getAll();
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	@GetMapping("/operations/{id}")
@@ -50,7 +50,7 @@ public class OperationController {
 		Operation operation = operationService.getById(id);
 		operations.add(operation);
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	@GetMapping("/operations/bydate/{date}")
@@ -58,14 +58,14 @@ public class OperationController {
 		List<Operation> operations = new ArrayList<>();
 		operations = operationService.getOperationByDate(date);
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	@GetMapping("/operation")
 	public String getOperationInfo(@RequestParam(value = "id") Integer id, Model model) {
 		var operation = operationService.getById(id);
 		model.addAttribute("operation", operation);
-		return "operation_views/operation_details";
+		return "operation/operation_details";
 	}
 	
 	@GetMapping("/operations/sortedbydatediaposon")
@@ -73,7 +73,7 @@ public class OperationController {
 	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
 		List<Operation> operations = operationService.getByDateBetween(dateFirst, dateSecond);
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	//SORT
@@ -81,21 +81,21 @@ public class OperationController {
 	public String sortOperationsByDateAsc(Model model) {
 		var operations = operationService.sortOperationsByDateAsc();
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	@GetMapping("/operations/sortedby/date/desc")
 	public String sortOperationsByDateDesc(Model model) {
 		var operations = operationService.sortOperationsByDateDesc();
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	//CREATE
 	@GetMapping(value="/showoperationform")
 	public String showCreateOperation(Model model) {
 		model.addAttribute("operation", new OperationDto());
-		return "operation_views/add_operation";
+		return "operation/add_operation";
 	}
 	
 	@PostMapping(value="/operations")
@@ -113,7 +113,7 @@ public class OperationController {
 		operationService.createOrUpdate(operation);
 		var operations = operationService.getAll();
 		model.addAttribute("operations", operations);
-		return "operation_views/operations";
+		return "operation/operations";
 	}
 	
 	//???
@@ -122,7 +122,7 @@ public class OperationController {
 	public String showEditOperation(@PathVariable("id") Integer id, Model model) {
 		var operation = operationService.getById(id);
 		model.addAttribute("operation", operation);
-		return "operation_views/edit_operation";
+		return "operation/edit_operation";
 	}
 	
 	//DELETE
@@ -130,7 +130,7 @@ public class OperationController {
 	public String deleteOperation(@PathVariable("id") Integer id) {
 		var operation = operationService.getById(id);
 		operationService.delete(operation);
-		return "operation_views/delete_operation";
+		return "operation/delete_operation";
 	}
 	
 	//SEARCH
@@ -138,7 +138,7 @@ public class OperationController {
 	public String searchOperationInfo(@RequestParam String keyword, Model model) {
 		List<Operation> results = operationService.search(keyword);
 		model.addAttribute("results", results);
-		return "operation_views/searchresults";
+		return "operation/searchresults";
 	}
 
 }

@@ -16,5 +16,5 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
 			+ "OR m.name LIKE '%' || :keyword || '%'"
 			+ "OR m.numberPerDay LIKE '%' || :keyword || '%'")
 	List<Medicine> search(String keyword);
-
+	
 }

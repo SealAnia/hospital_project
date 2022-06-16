@@ -14,11 +14,13 @@ type="text/css"/>
 
 </head>
 <body>
-
-	<c:url value="/departments" var="department"/>
 	
-	<spring_form:form action="${department}" method="put" 
-	modelAttribute = "department">
+	<c:url value="/departments/" var="department"/>
+	
+	<spring_form:form action="${department}" method="post" 
+	modelAttribute = "newDepartment">
+	
+	<spring_form:hidden path="id" value = "${newDepartment.getId()}"/>
 	
 	<spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="text" path="name"/><br>

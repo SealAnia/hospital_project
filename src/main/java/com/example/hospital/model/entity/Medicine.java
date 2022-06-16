@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,17 +25,18 @@ public class Medicine {
 	@Column(name = "numberperday")
 	private Double numberPerDay;
 	
-	//@ManyToOne(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "patientid")
-	//private Patient patient;
-	
-	@ManyToMany(mappedBy = "medicines", cascade = CascadeType.ALL)
-	private List<Patient> patients;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "patientid")
+	private Patient patient;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "userid")
 	private User user;
-
+	
+	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, 
+			orphanRemoval = true)
+	private List<Prescription> prescriptions;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -60,13 +61,13 @@ public class Medicine {
 		this.numberPerDay = numberPerDay;
 	}
 
-	//public Patient getPatient() {
-		//return patient;
-	//}
+	public Patient getPatient() {
+		return patient;
+	}
 
-	//public void setPatient(Patient patient) {
-		//this.patient = patient;
-	//}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 
 	public User getUser() {
 		return user;
@@ -76,12 +77,12 @@ public class Medicine {
 		this.user = user;
 	}
 	
-	public List<Patient> getPatients() {
-		return patients;
+	public List<Prescription> getPrescriptions() {
+		return prescriptions;
 	}
 
-	public void setPatients(List<Patient> patients) {
-		this.patients = patients;
+	public void setPrescriptions(List<Prescription> prescriptions) {
+		this.prescriptions = prescriptions;
 	}
 	
 }

@@ -7,12 +7,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-
-${newDepartment.getId()} ${newDepartment.getName()}
-
+<title>ALL PRESCRIPTIONS</title>
 </head>
 <body>
+
+<c:forEach items = "${prescriptions}" var = "prescription">
+	${prescription.getPatient().getName()} - ${prescription.getPatient().getSurname()} - 
+	${prescription.getPatient().getDepartment().getName()} - ${prescription.getMedicine().getName()}<br>
+</c:forEach>
 
 </body>
 </html>

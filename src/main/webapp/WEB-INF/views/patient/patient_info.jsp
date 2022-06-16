@@ -41,9 +41,9 @@ type="text/css"/>
 	
 	Prescribed medicines:
 	<br>
-	<c:forEach items = "${patient.getMedicines()}" var = "medicine">
+	<c:forEach items = "${patient.getPrescriptions()}" var = "prescription">
 		<ul>
-			<li>${medicine.name}</li>
+			<li>${prescription.getMedicine().getName()}</li>
 		</ul>
 	</c:forEach>
 	<br>

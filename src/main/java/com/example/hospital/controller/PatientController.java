@@ -18,14 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.DepartmentDto;
-import com.example.hospital.dto.MedicineDto;
 import com.example.hospital.dto.PatientDto;
 import com.example.hospital.model.entity.Department;
-import com.example.hospital.model.entity.Medicine;
-import com.example.hospital.model.entity.Operation;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.service.DepartmentService;
-import com.example.hospital.service.MedicineService;
 import com.example.hospital.service.PatientService;
 
 @Controller
@@ -35,17 +31,12 @@ public class PatientController {
 	
 	private final DepartmentService departmentService;
 	
-	private final MedicineService medicineService;
 	
 	@Autowired
 	public PatientController(PatientService patientService, 
-			DepartmentService departmentService, 
-			MedicineService medicineService) {
+			DepartmentService departmentService) {
 		this.patientService = patientService;
-		
 		this.departmentService = departmentService;
-		
-		this.medicineService = medicineService;
 	}
 	
 	//READ
@@ -53,7 +44,7 @@ public class PatientController {
 	public String getAllPatients(Model model) {
 		var patients = patientService.getAll();
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/{patientid}")
@@ -62,7 +53,7 @@ public class PatientController {
 		Patient patient = patientService.getById(patientid);
 		patients.add(patient);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/byname/{name}")
@@ -70,7 +61,7 @@ public class PatientController {
 		List<Patient> patients = new ArrayList<>();
 		patients = patientService.getPatientByName(name);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/bysurname/{surname}")
@@ -78,7 +69,7 @@ public class PatientController {
 		List<Patient> patients = new ArrayList<>();
 		patients = patientService.getPatientBySurname(surname);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/bydiagnosis/{diagnosis}")
@@ -86,7 +77,7 @@ public class PatientController {
 		List<Patient> patients = new ArrayList<>();
 		patients = patientService.getPatientByDiagnosis(diagnosis);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/byadmission/{admission}")
@@ -94,7 +85,7 @@ public class PatientController {
 		List<Patient> patients = new ArrayList<>();
 		patients = patientService.getPatientByAdmission(admission);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/byrelease/{release}")
@@ -102,14 +93,14 @@ public class PatientController {
 		List<Patient> patients = new ArrayList<>();
 		patients = patientService.getPatientByRelease(release);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patient")
 		public String getPatientInfo(@RequestParam(value = "id") Integer patientid, Model model) {
 		var patient = patientService.getById(patientid);
 		model.addAttribute("patient", patient);
-		return "patient_views/patient_info";
+		return "patient/patient_info";
 	}
 	
 	@GetMapping("/patients/bynamesurname")
@@ -117,7 +108,7 @@ public class PatientController {
 	(@RequestParam String name, @RequestParam String surname, Model model) {
 		List<Patient> patients = patientService.getByNameAndSurname(name, surname);
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	//SORT
@@ -125,28 +116,28 @@ public class PatientController {
 	public String sortPatientsBySurnameAsc(Model model) {
 		var patients = patientService.sortPatientsBySurnameAsc();
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/surname/desc")
 	public String sortPatientsBySurnameDesc(Model model) {
 		var patients = patientService.sortPatientsBySurnameDesc();
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/name/asc")
 	public String sortPatientsByNameAsc(Model model) {
 		var patients = patientService.sortPatientsByNameAsc();
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/name/desc")
 	public String sortPatientsByNameDesc(Model model) {
 		var patients = patientService.sortPatientsByNameDesc();
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/diagnosis/asc")
@@ -233,28 +224,6 @@ public class PatientController {
 		model.addAttribute("patients", patients);
 		return "patient_views/patients";
 	}
-	
-	//???
-	//@GetMapping(value = "/prescribemedicine")
-	//public String showPrescriprionForm(Model model) {
-		//model.addAttribute("prescription", new PatientMedicine());
-		//return "patient_views/prescription";
-	//}
-	
-	//@PostMapping(value = "/patients")
-	//public String prescribeMedicine(@RequestParam(
-			//value = "patientid") Integer patientid,
-			//@RequestParam(value = "medicineid") Integer medicineid) {
-		
-		//var patientMedicine = new PatientMedicine();
-		//var patient = patientService.getById(patientid);
-		//var medicine = medicineService.getById(medicineid);
-		
-		//patientMedicine.setMedicine(medicine);
-		//patientMedicine.setPatient(patient);
-		
-		//return "patient_views/patients";
-	//}
 	
 	//???
 	//UPDATE

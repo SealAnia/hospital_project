@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,17 +36,14 @@ public class Patient {
 	@ManyToOne
 	@JoinColumn(name = "departmentid")
 	private Department department;
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-			  name = "patient_medicine", 
-			  joinColumns = @JoinColumn(name = "patientid"), 
-			  inverseJoinColumns = @JoinColumn(name = "medicineid"))
-	private List<Medicine> medicines;
 	
 	@OneToMany(mappedBy = "patient")
 	private List<Procedure> procedures;
 	@OneToMany(mappedBy = "patient")
 	private List<Operation> operations;
+	
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Prescription> prescriptions;
 	
 	public Integer getPatientId() {
 		return patientid;
@@ -113,15 +108,7 @@ public class Patient {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-
-	public List<Medicine> getMedicines() {
-		return medicines;
-	}
-
-	public void setMedicines(List<Medicine> medicines) {
-		this.medicines = medicines;
-	}
-
+	
 	public List<Procedure> getProcedures() {
 		return procedures;
 	}
@@ -136,6 +123,14 @@ public class Patient {
 
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
+	}
+
+	public List<Prescription> getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(List<Prescription> prescriptions) {
+		this.prescriptions = prescriptions;
 	}
 	
 }

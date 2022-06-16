@@ -1,12 +1,10 @@
 package com.example.hospital.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.model.entity.Medicine;
-import com.example.hospital.model.entity.Patient;
 
 public class PatientDto {
 	
@@ -94,29 +92,4 @@ public class PatientDto {
 		this.medicineDtos = medicineDtos;
 	}
 	
-	public List<PatientDto> getPatientDto(List<Patient> patients){
-        List<PatientDto> patientDtos = new ArrayList<>();
-
-        for (Patient patient : patients){
-            medicineDtos = new ArrayList<>();
-
-            PatientDto patientDto = new PatientDto();
-            patientDto.setName(patient.getSurname());
-            patientDto.setSurname(patient.getSurname());
-            patientDto.setDiagnosis(patient.getDiagnosis());
-            patientDto.setAdmission(patient.getAdmission());
-            patientDto.setRelease(patient.getRelease());
-            patientDto.setDepartment(patient.getDepartment());
-            for (Medicine medicine : patient.getMedicines()){
-                MedicineDto medicineDto = new MedicineDto();
-                medicineDto.setName(medicine.getName());
-                medicineDto.setNumberPerDay(medicine.getNumberPerDay());
-                medicines.add(medicine);
-                medicineDtos.add(medicineDto);
-            }
-            patientDto.setMedicineDtos(medicineDtos);
-            patientDtos.add(patientDto);
-        }
-        return patientDtos;
-    }
 }
