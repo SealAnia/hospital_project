@@ -4,30 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.MedicineDto;
 import com.example.hospital.model.entity.Medicine;
+import com.example.hospital.model.repository.MedicineRepository;
 import com.example.hospital.service.MedicineService;
 
 @Controller
 public class MedicineController {
 	
 	private final MedicineService medicineService;
+	private final MedicineRepository medicineRepository;
 	
 	@Autowired
-	public MedicineController(MedicineService medicineService) {
+	public MedicineController(MedicineService medicineService, MedicineRepository medicineRepository) {
 		this.medicineService = medicineService;
+		this.medicineRepository = medicineRepository;
 	}
 	
 	//READ
@@ -56,16 +59,16 @@ public class MedicineController {
 	}
 	
 	//SORT
-	@GetMapping("/medicines/sorted/byname/asc")
+	@GetMapping("/medicines/sortedby/name/asc")
 	public String sortMedicinesByNameAsc(Model model) {
-		var medicines = medicineService.sortMedicinesByNameAsc();
+		var medicines = medicineRepository.findAll(Sort.by(Direction.ASC, "name"));
 		model.addAttribute("medicines", medicines);
 		return "medicine/medicines";
 	}
 	
-	@GetMapping("/medicines/sorted/byname/desc")
+	@GetMapping("/medicines/sortedby/name/desc")
 	public String sortMedicinesByNameDesc(Model model) {
-		var medicines = medicineService.sortMedicinesByNameDesc();
+		var medicines = medicineRepository.findAll(Sort.by(Direction.DESC, "name"));
 		model.addAttribute("medicines", medicines);
 		return "medicine/medicines";
 	}
@@ -93,22 +96,34 @@ public class MedicineController {
 	
 	//???
 	//UPDATE
-	@RequestMapping(value="/showeditmedicine/{id}")
-	public String showEditMedicine(@PathVariable("id") Integer id, Model model) {
+	@GetMapping(value="/showeditmedicine/{id}")
+	public String showEditMedicine(@PathVariable("id") Integer id, 
+			@ModelAttribute(name = "newMedicine") Medicine newMedicine,
+			Model model) {
 		var medicine = medicineService.getById(id);
 		model.addAttribute("medicine", medicine);
 		return "medicine/edit_medicine";
 	}
 	
-	@PutMapping(value="/medicines/{id}")
+	@PostMapping(value="/edit_medicine")
 	public String editMedicine
-	(@PathVariable("id") Integer id, @RequestBody Medicine newMedicine, Model model) {
-		var medicine = medicineService.getById(id);
-		//model.addAttribute("department", department);
-		medicine.setName(newMedicine.getName());
-		medicine.setNumberPerDay(newMedicine.getNumberPerDay());
-		newMedicine = medicineService.createOrUpdate(medicine);
-		//model.addAttribute("department", department);
+	(@ModelAttribute("medicine") MedicineDto medicineDto, 
+			Model model) {
+		var medicine = medicineService.getById(medicineDto.getId());
+		
+		if(medicineDto.getName().length() <= 0) {
+			medicine.setName(medicine.getName());
+		} else {
+			medicine.setName(medicineDto.getName());
+		}
+		
+		if(medicineDto.getNumberPerDay() == null) {
+			medicine.setNumberPerDay(medicine.getNumberPerDay());
+		}else {
+			medicine.setNumberPerDay(medicineDto.getNumberPerDay());
+		}
+		
+		medicineService.createOrUpdate(medicine);
 		var medicines = medicineService.getAll();
 		model.addAttribute("medicines", medicines);
 		return "medicine/medicines";

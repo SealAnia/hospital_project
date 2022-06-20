@@ -18,7 +18,7 @@ type="text/css"/>
 		<h4>HOSPITAL DEPARTMENTS</h4>
 	</div>
 	
-	<div>
+	<div class = "left">
 		<form action = "/departments/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
@@ -55,7 +55,7 @@ type="text/css"/>
 		</table>
 	</div>
 	
-	<div>
+	<div class = "right">
 		<form action = "/departments/sortedby/name/asc">
 			<button>SORT BY NAME ASCENDING</button>
 		</form>
@@ -65,9 +65,7 @@ type="text/css"/>
 		<form action = "/departments">
 			<button>REVERT</button>
 		</form>
-	</div>
-	
-	<div>
+		
 		<form action = "/showdepartmentform">
 			<button>Add new Department</button>
 		</form>

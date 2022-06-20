@@ -4,29 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.model.entity.Department;
+import com.example.hospital.model.repository.DepartmentRepository;
 import com.example.hospital.service.DepartmentService;
 
 @Controller
 public class DepartmentController {
 	
 	private final DepartmentService departmentService;
+	private final DepartmentRepository departmentRepository;
 	
 	@Autowired
-	public DepartmentController(DepartmentService departmentService) {
+	public DepartmentController(DepartmentService departmentService, DepartmentRepository departmentRepository) {
 		this.departmentService = departmentService;
+		this.departmentRepository = departmentRepository;
 	}
 	
 	//READ
@@ -64,14 +67,14 @@ public class DepartmentController {
 	//SORT
 	@GetMapping("/departments/sortedby/name/asc")
 	public String sortDepartmentsByNameAsc(Model model) {
-		var departments = departmentService.sortDepartmentsByNameAsc();
+		var departments = departmentRepository.findAll(Sort.by(Direction.ASC, "name"));
 		model.addAttribute("departments", departments);
 		return "department/departments";
 	}
 	
 	@GetMapping("/departments/sortedby/name/desc")
 	public String sortDepartmentsByNameDesc(Model model) {
-		var departments = departmentService.sortDepartmentsByNameDesc();
+		var departments = departmentRepository.findAll(Sort.by(Direction.DESC, "name"));
 		model.addAttribute("departments", departments);
 		return "department/departments";
 	}
@@ -97,7 +100,6 @@ public class DepartmentController {
 	//???
 	//UPDATE
 	@GetMapping(value="/showeditdepartment/{id}")
-	@RequestMapping(value="/showeditdepartment/{id}")
 	public String showEditDepartment(@PathVariable("id") Integer id, 
 			@ModelAttribute(name = "newDepartment") Department newDepartment,
 			Model model) {
@@ -106,18 +108,18 @@ public class DepartmentController {
 	    return "department/edit_department";
 	}
 	
-	@PutMapping(value="/departments/")
-	public String editDepartment
-	(@PathVariable("id") Integer id, @RequestBody Department newDepartment, 
-			//@ModelAttribute(name = "newDepartment") Department newDepartment,
-			Model model) {
-		var department = departmentService.getById(id);
-		department.setName(newDepartment.getName());
-		newDepartment = departmentService.createOrUpdate(department);
+	@PostMapping(value="/edit_department")
+	public String editDepartment(@ModelAttribute("department") DepartmentDto departmentDto, Model model) {
+		var department = departmentService.getById(departmentDto.getId());
+		
+		if(departmentDto.getName().length() <= 0) {
+			department.setName(department.getName());
+		} else {
+			department.setName(departmentDto.getName()); 
+		}
+		
+		departmentService.createOrUpdate(department);
 		var departments = departmentService.getAll();
-		
-		//model.addAttribute("newDepartment", newDepartment);
-		
 		model.addAttribute("departments", departments);
 		return "department/departments";
 	}

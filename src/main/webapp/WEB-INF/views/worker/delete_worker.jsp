@@ -19,7 +19,7 @@ type="text/css"/>
 	<script src="${OKAlert}"></script>
 	
 	Worker info is deleted
-	<a href="<c:url value="/workers"/>"> OK </a>
+	<a href="<c:url value="/workers/page1"/>"> OK </a>
 
 </body>
 </html>

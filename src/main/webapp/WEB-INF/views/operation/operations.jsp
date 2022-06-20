@@ -20,7 +20,7 @@ type="text/css"/>
 		<h4>OPERATIONS LIST</h4>
 	</div>
 	
-	<div>
+	<div class = "left">
 		<form action = "/operations/sortedbydatediaposon" method = "get">
 			<input type="date" name = "dateFirst">
 			<input type="date" name = "dateSecond">
@@ -74,7 +74,7 @@ type="text/css"/>
 		</table>
 	</div>
 	
-	<div>
+	<div class = "right">
 		<form action = "/operations/sortedby/date/asc">
 			<button>SORT BY DATE ASCENDING</button>
 		</form>
@@ -84,9 +84,7 @@ type="text/css"/>
 		<form action = "/operations">
 			<button>REVERT</button>
 		</form>
-	</div>
-	
-	<div>
+		
 		<form action = "/showoperationform">
 			<button>Add new Operation</button>
 		</form>

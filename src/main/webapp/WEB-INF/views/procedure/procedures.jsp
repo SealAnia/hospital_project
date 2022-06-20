@@ -18,7 +18,7 @@ type="text/css"/>
 		<h4>ALL PROCEDURES</h4>
 	</div>
 	
-	<div>
+	<div class = "left">
 		<form action = "/procedures/sortedbydatediaposon" method = "get">
 			<input type="date" name = "dateFirst">
 			<input type="date" name = "dateSecond">
@@ -76,7 +76,7 @@ type="text/css"/>
 		</table>
 	</div>
 	
-	<div>
+	<div class = "right">
 		<form action = "/procedures/sortedby/name/asc">
 			<button>SORT BY NAME ASCENDING</button>
 		</form>
@@ -92,9 +92,7 @@ type="text/css"/>
 		<form action = "/procedures">
 			<button>REVERT</button>
 		</form>	
-	</div>
-	
-	<div>
+		
 		<form action = "/showprocedureform">
 			<button>Add new Procedure</button>
 		</form>

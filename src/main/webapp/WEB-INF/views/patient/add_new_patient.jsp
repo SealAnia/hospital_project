@@ -15,7 +15,7 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/patients" var="patient"/>
+	<c:url value="/patients/page1" var="patient"/>
 	
 	<spring_form:form action="${patient}" method="post" modelAttribute="patient">
 	

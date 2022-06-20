@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>ADD NEW PROCEDURE</title>
+<title>UPDATE PROCEDURE INFO</title>
 
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
@@ -15,9 +15,12 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/procedures" var="procedure"/>
+	<c:url value="/edit_procedure" var="procedure"/>
 	
-	<spring_form:form action="${procedure}" method="post" modelAttribute="procedure">
+	<spring_form:form action="${procedure}" method="post" modelAttribute="newProcedure">
+	
+	<spring_form:hidden path="procedureid" value = "${newProcedure.getProcedureId()}"/>
+	
     <spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="name" path="name"/><br>
     

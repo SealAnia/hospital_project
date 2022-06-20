@@ -18,7 +18,7 @@ type="text/css"/>
 		<h4>HOSPITAL STUFF</h4>
 	</div>
 	
-	<div>
+	<div class = "left">
 		<form action = "/workers/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
@@ -51,7 +51,7 @@ type="text/css"/>
 					${worker.getDept().getName()}
 				</td>
 				<td>
-					<a href="<c:url value="/worker?id=${worker.getUserId()}"/>"> 
+					<a href="<c:url value="/worker?userid=${worker.getUserId()}"/>"> 
     				view details</a>
 				</td>
 				<td>
@@ -65,9 +65,49 @@ type="text/css"/>
 			</tr>
 		</c:forEach>
 		</table>
+		<p>
+			<c:if test="${number > 1}">
+			<a href = "/workers/page${number - 1}"> ${number - 1} </a>
+			</c:if>
+			${number} 
+			<a href = "/workers/page${number + 1}"> ${number + 1} </a>
+		</p>
 	</div>
 	
-	<div>
+	<div class = "right">
+		
+		<form action = "/workers/sortedby/surname/asc">
+			<button>SORT BY SURNAME ASCENDING</button>
+		</form>
+		<form action = "/workers/sortedby/surname/desc">
+			<button>SORT BY SURNAME DESCENDING</button>
+		</form>
+		
+		<form action = "/workers/sortedby/name/asc">
+			<button>SORT BY NAME ASCENDING</button>
+		</form>
+		<form action = "/workers/sortedby/name/desc">
+			<button>SORT BY NAME DESCENDING</button>
+		</form>
+		
+		<form action = "/workers/sortedby/role/asc">
+			<button>SORT BY ROLE ASCENDING</button>
+		</form>
+		<form action = "/workers/sortedby/role/desc">
+			<button>SORT BY ROLE DESCENDING</button>
+		</form>
+		
+		<form action = "/workers/sortedby/department/asc">
+			<button>SORT BY DEPARTMENT ASCENDING</button>
+		</form>
+		<form action = "/workers/sortedby/department/desc">
+			<button>SORT BY DEPARTMENT DESCENDING</button>
+		</form>
+		
+		<form action = "/workers/page1">
+			<button>REVERT</button>
+		</form>
+		
 		<form action = "/roles">
 			<button>Find Workers by Role</button>
 		</form>

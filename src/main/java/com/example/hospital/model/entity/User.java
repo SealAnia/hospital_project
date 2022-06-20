@@ -2,6 +2,7 @@ package com.example.hospital.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,6 +40,9 @@ public class User {
 	private List<Procedure> procedures;
 	@OneToMany(mappedBy = "user")
 	private List<Operation> operations;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MedicalCard> medicalcards;
 	
 	public User() {
 		
@@ -150,6 +154,14 @@ public class User {
 
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
+	}
+
+	public List<MedicalCard> getMedicalcards() {
+		return medicalcards;
+	}
+
+	public void setMedicalcards(List<MedicalCard> medicalcards) {
+		this.medicalcards = medicalcards;
 	}
 
 }

@@ -15,17 +15,28 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/operations" var="operation"/>
-
-	<form action="${operation}" method="POST">
-		<label for="id">ID</label>
-    	<input type="number" name="id" id="id">
-    	<label for="name">Date</label>
-    	<input type="date" name="name" id="date">
-    	<label for="name">Comments</label>
-    	<input type="text" name="name" id="comments">
-    	<input type="submit" value="Edit">
-	</form>
+	<c:url value="/edit_operation" var="operation"/>
+	
+	<spring_form:form action="${operation}" method="post" modelAttribute="newOperation">
+	
+	<spring_form:hidden path="id" value = "${newOperation.getId()}"/>
+	
+    <spring_form:label path="date">DATE:</spring_form:label>
+    <spring_form:input type="date" path="date"/><br>
+    
+    <label for = "patientid">PATIENT</label>
+    <datalist id = "patientlist">
+    	<c:forEach items = "${patients}" var = "patient">
+    		<option value = "${patient.getPatientId()}"> - ${patient.getName()} - ${patient.getName()}
+    	</c:forEach>
+    </datalist>
+    <input type="number" name="patientid" id = "patientid" list="patientlist">
+    
+    <spring_form:label path="comments">COMMENTS:</spring_form:label>
+    <spring_form:input type="text" path="comments"/><br>
+    
+    <input type="submit" value="Submit">
+	</spring_form:form>
 
 </body>
 </html>

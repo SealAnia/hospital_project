@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.model.entity.Patient;
@@ -67,67 +65,7 @@ public class PatientServiceImpl implements PatientService {
 	public List<Patient> getPatientByRelease(Date release) {
 		return patientRepository.getPatientByRelease(release);
 	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByNameAsc() {
-		return patientRepository.findAll(Sort.by(Direction.ASC, "name"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByNameDesc() {
-		return patientRepository.findAll(Sort.by(Direction.DESC, "name"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsBySurnameAsc() {
-		return patientRepository.findAll(Sort.by(Direction.ASC, "surname"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsBySurnameDesc() {
-		return patientRepository.findAll(Sort.by(Direction.DESC, "surname"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByDiagnosisAsc() {
-		return patientRepository.findAll(Sort.by(Direction.ASC, "diagnosis"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByDiagnosisDesc() {
-		return patientRepository.findAll(Sort.by(Direction.DESC, "diagnosis"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByAdmissionAsc() {
-		return patientRepository.findAll(Sort.by(Direction.ASC, "admission"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByAdmissionDesc() {
-		return patientRepository.findAll(Sort.by(Direction.DESC, "admission"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByReleaseAsc() {
-		return patientRepository.findAll(Sort.by(Direction.ASC, "release"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByReleaseDesc() {
-		return patientRepository.findAll(Sort.by(Direction.DESC, "release"));
-	}
-
-	@Override
-	public Iterable<Patient> sortPatientsByDepartmentAsc() {
-		return patientRepository.findAll(Sort.by(Direction.ASC, "department.name"));
-	}
 	
-	@Override
-	public Iterable<Patient> sortPatientsByDepartmentDesc() {
-		return patientRepository.findAll(Sort.by(Direction.DESC, "department.name"));
-	}
-
 	@Override
 	public List<Patient> getByNameAndSurname(String name, String surname) {
 		return patientRepository.getByNameAndSurname(name, surname);

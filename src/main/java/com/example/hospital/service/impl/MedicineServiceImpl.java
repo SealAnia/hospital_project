@@ -3,8 +3,6 @@ package com.example.hospital.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.model.entity.Medicine;
@@ -46,15 +44,5 @@ public class MedicineServiceImpl implements MedicineService {
 	public List<Medicine> getMedicineByName(String name) {
 		return medicineRepository.getMedicineByName(name);
 	}
-
-	@Override
-	public Iterable<Medicine> sortMedicinesByNameAsc() {
-		return medicineRepository.findAll(Sort.by(Direction.ASC, "name"));
-	}
-
-	@Override
-	public Iterable<Medicine> sortMedicinesByNameDesc() {
-		return medicineRepository.findAll(Sort.by(Direction.DESC, "name"));
-	}
-
+	
 }

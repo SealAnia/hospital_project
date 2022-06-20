@@ -11,7 +11,6 @@ public class MedicineDto {
 	private Double numberPerDay;
 	
 	private List<Patient> patients;
-	private List<PatientDto> patientsDtos;
 	
 	private Integer patientid;
 	
@@ -48,12 +47,6 @@ public class MedicineDto {
 	}
 	public void setPatientid(Integer patientid) {
 		this.patientid = patientid;
-	}
-	public List<PatientDto> getPatientsDtos() {
-		return patientsDtos;
-	}
-	public void setPatientsDtos(List<PatientDto> patientsDtos) {
-		this.patientsDtos = patientsDtos;
 	}
 	
 }

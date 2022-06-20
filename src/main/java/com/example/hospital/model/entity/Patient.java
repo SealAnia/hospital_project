@@ -37,13 +37,17 @@ public class Patient {
 	@JoinColumn(name = "departmentid")
 	private Department department;
 	
-	@OneToMany(mappedBy = "patient")
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Procedure> procedures;
-	@OneToMany(mappedBy = "patient")
+	
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Operation> operations;
 	
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Prescription> prescriptions;
+	
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = false)
+	private List<MedicalCard> medicalcards;
 	
 	public Integer getPatientId() {
 		return patientid;
@@ -131,6 +135,14 @@ public class Patient {
 
 	public void setPrescriptions(List<Prescription> prescriptions) {
 		this.prescriptions = prescriptions;
+	}
+
+	public List<MedicalCard> getMedicalcards() {
+		return medicalcards;
+	}
+
+	public void setMedicalcards(List<MedicalCard> medicalcards) {
+		this.medicalcards = medicalcards;
 	}
 	
 }

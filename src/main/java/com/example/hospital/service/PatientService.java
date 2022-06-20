@@ -14,17 +14,4 @@ public interface PatientService extends DefaultService<Patient> {
 	List<Patient> getPatientByRelease(Date release);
 	List<Patient> getByNameAndSurname(String name, String surname);
 	
-	Iterable<Patient> sortPatientsByNameAsc();
-	Iterable<Patient> sortPatientsByNameDesc();
-	Iterable<Patient> sortPatientsBySurnameAsc();
-	Iterable<Patient> sortPatientsBySurnameDesc();
-	Iterable<Patient> sortPatientsByDiagnosisAsc();
-	Iterable<Patient> sortPatientsByDiagnosisDesc();
-	Iterable<Patient> sortPatientsByAdmissionAsc();
-	Iterable<Patient> sortPatientsByAdmissionDesc();
-	Iterable<Patient> sortPatientsByReleaseAsc();
-	Iterable<Patient> sortPatientsByReleaseDesc();
-	Iterable<Patient> sortPatientsByDepartmentAsc();
-	Iterable<Patient> sortPatientsByDepartmentDesc();
-	
 }

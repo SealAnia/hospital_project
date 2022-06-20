@@ -2,8 +2,6 @@ package com.example.hospital.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.model.entity.Department;
@@ -40,17 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<Department> getDepartmentByName(String name) {
 		return departmentRepository.getDepartmentByName(name);
 	}
-
-	@Override
-	public Iterable<Department> sortDepartmentsByNameDesc() {
-		return departmentRepository.findAll(Sort.by(Direction.DESC, "name"));
-	}
 	
-	@Override
-	public Iterable<Department> sortDepartmentsByNameAsc() {
-		return departmentRepository.findAll(Sort.by(Direction.ASC, "name"));
-	}
-
 	@Override
 	public List<Department> search(String keyword) {
 		return departmentRepository.search(keyword);

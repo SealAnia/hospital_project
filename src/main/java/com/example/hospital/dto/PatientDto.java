@@ -5,22 +5,33 @@ import java.util.List;
 
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.model.entity.Medicine;
+import com.example.hospital.model.entity.Operation;
+import com.example.hospital.model.entity.Procedure;
 
 public class PatientDto {
 	
+	private Integer patientId;
 	private String name;
 	private String surname;
 	private String diagnosis;
 	private Date admission;
 	private Date release;
 	private String comments;
-	
+	private Long days;
 	private Department department;
 	private Integer departmentid;
+	private String result;
 	
 	private List<Medicine> medicines;
+	private List<Operation> operations;
+	private List<Procedure> procedures;
 	
-	private List<MedicineDto> medicineDtos;
+	public Integer getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
 	
 	public String getName() {
 		return name;
@@ -85,11 +96,32 @@ public class PatientDto {
 		this.medicines = medicines;
 	}
 	
-	public List<MedicineDto> getMedicineDtos() {
-		return medicineDtos;
+	public List<Operation> getOperations() {
+		return operations;
 	}
-	public void setMedicineDtos(List<MedicineDto> medicineDtos) {
-		this.medicineDtos = medicineDtos;
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
+	}
+	
+	public List<Procedure> getProcedures() {
+		return procedures;
+	}
+	public void setProcedures(List<Procedure> procedures) {
+		this.procedures = procedures;
+	}
+	
+	public Long getDays() {
+		return days;
+	}
+	public void setDays(Long days) {
+		this.days = days;
+	}
+	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 }

@@ -20,7 +20,7 @@ type="text/css"/>
 	<script src="${OKAlert}"></script>
 	
 	Patient is deleted
-	<a href="<c:url value="/patients"/>"> OK </a>
+	<a href="<c:url value="/patients/page1"/>"> OK </a>
 
 </body>
 </html>

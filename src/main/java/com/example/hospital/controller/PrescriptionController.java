@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hospital.dto.MedicineDto;
 import com.example.hospital.dto.PatientDto;
 import com.example.hospital.dto.PrescriptionDto;
+import com.example.hospital.model.entity.MedicalCard;
 import com.example.hospital.model.entity.Medicine;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Prescription;
+import com.example.hospital.service.MedicalCardService;
 import com.example.hospital.service.MedicineService;
 import com.example.hospital.service.PatientService;
 import com.example.hospital.service.PrescriptionService;
@@ -22,16 +24,18 @@ import com.example.hospital.service.PrescriptionService;
 public class PrescriptionController {
 	
 	private final PrescriptionService prescriptionService;
-	
 	private final PatientService patientService;
 	private final MedicineService medicineService;
+	private final MedicalCardService medicalCardService;
 	
 	@Autowired
 	public PrescriptionController(PrescriptionService prescriptionService,
-			PatientService patientService, MedicineService medicineService) {
+			PatientService patientService, MedicineService medicineService, 
+			MedicalCardService medicalCardService) {
 		this.prescriptionService = prescriptionService;
 		this.patientService = patientService;
 		this.medicineService = medicineService;
+		this.medicalCardService = medicalCardService;
 	}
 	
 	@GetMapping("/prescriptions")
@@ -55,9 +59,12 @@ public class PrescriptionController {
 	}
 	
 	@PostMapping(value="/prescriptions")
-	public String addWorker(@RequestParam(value = "patientid") Integer patientid, 
+	public String addPrescription(@RequestParam(value = "patientid") Integer patientid, 
 			@RequestParam(value = "medicineid") Integer medicineid, 
 			@ModelAttribute("prescription") PrescriptionDto prescriptionDto,
+			
+			@ModelAttribute("medicalCard") MedicalCard newMedicalCard,
+			
 			@ModelAttribute("patient") PatientDto patientDto, 
 			@ModelAttribute("medicine") MedicineDto medicineDto,
 			Model model) {
@@ -70,6 +77,11 @@ public class PrescriptionController {
 		var medicine = new Medicine();
 		medicine = medicineService.getById(medicineid);
 		prescription.setMedicine(medicine);
+		
+		var medicalCard = new MedicalCard();
+		medicalCard.setMedicine(medicine);
+		medicalCard.setPatient(patient);
+		medicalCardService.createOrUpdate(medicalCard);
 		
 		prescriptionService.createOrUpdate(prescription);
 		

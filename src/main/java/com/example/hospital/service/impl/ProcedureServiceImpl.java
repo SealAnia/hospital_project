@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.model.entity.Procedure;
@@ -52,27 +50,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 	public List<Procedure> getProcedureByDate(Date date) {
 		return procedureRepository.getProcedureByDate(date);
 	}
-
-	@Override
-	public List<Procedure> sortProcedureByNameAsc() {
-		return procedureRepository.findAll(Sort.by(Direction.ASC, "name"));
-	}
 	
-	@Override
-	public List<Procedure> sortProcedureByNameDesc() {
-		return procedureRepository.findAll(Sort.by(Direction.DESC, "name"));
-	}
-
-	@Override
-	public List<Procedure> sortProcedureByDateAsc() {
-		return procedureRepository.findAll(Sort.by(Direction.ASC, "date"));
-	}
-
-	@Override
-	public List<Procedure> sortProcedureByDateDesc() {
-		return procedureRepository.findAll(Sort.by(Direction.DESC, "date"));
-	}
-
 	@Override
 	public List<Procedure> getByDateBetween(Date dateFirst, Date dateSecond) {
 		return procedureRepository.getByDateBetween(dateFirst, dateSecond);

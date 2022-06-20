@@ -20,7 +20,7 @@ type="text/css"/>
 			<p><a href = "/procedures"> Procedures Info </a></p>
 			<p><a href = "/operations"> Operations Info </a></p>
 			<p><a href = "/roles"> Hospital Stuff </a></p>
-			<p><a href = "/patients"> Patients </a></p>
+			<p><a href = "/patients/page1"> Patients </a></p>
 		</div>
 		
 		<div>

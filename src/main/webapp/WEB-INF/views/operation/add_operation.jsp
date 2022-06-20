@@ -22,7 +22,12 @@ type="text/css"/>
     <spring_form:input type="date" path="date"/><br>
     
     <label for = "patientid">PATIENT</label>
-    <input type = "number" id = "patientid" name = "patientid"/>
+    <datalist id = "patientlist">
+    	<c:forEach items = "${patients}" var = "patient">
+    		<option value = "${patient.getPatientId()}"> - ${patient.getName()} - ${patient.getName()}
+    	</c:forEach>
+    </datalist>
+    <input type="number" name="patientid" id = "patientid" list="patientlist">
     
     <spring_form:label path="comments">COMMENTS:</spring_form:label>
     <spring_form:input type="text" path="comments"/><br>

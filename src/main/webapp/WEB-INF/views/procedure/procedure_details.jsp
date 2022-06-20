@@ -14,5 +14,9 @@ type="text/css"/>
 </head>
 <body>
 
+	${procedure.name} ${procedure.date} ${procedure.getPatient().getName()} 
+	${procedure.getPatient().getSurname()} ${procedure.getPatient().getDepartment().getName()} 
+	${procedure.details}
+
 </body>
 </html>

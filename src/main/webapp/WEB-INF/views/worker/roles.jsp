@@ -28,7 +28,7 @@ type="text/css"/>
 	
 	<div>
 		<p>
-			<a href="<c:url value="workers"/>">All Workers</a><br>
+			<a href="<c:url value="/workers/page1"/>">All Workers</a><br>
 		</p>
 		<p>
 			<a href="<c:url value="/main"/>">Back to Main Menu</a>

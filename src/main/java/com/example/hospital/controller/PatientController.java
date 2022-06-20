@@ -5,14 +5,16 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,29 +23,39 @@ import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.dto.PatientDto;
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.model.entity.Patient;
+import com.example.hospital.model.repository.PatientRepository;
 import com.example.hospital.service.DepartmentService;
 import com.example.hospital.service.PatientService;
+import com.example.hospital.service.TimeService;
 
 @Controller
 public class PatientController {
 	
 	private final PatientService patientService;
-	
 	private final DepartmentService departmentService;
-	
+	private final TimeService timeService;
+	private final PatientRepository patientRepository;
 	
 	@Autowired
 	public PatientController(PatientService patientService, 
-			DepartmentService departmentService) {
+			PatientRepository patientRepository,
+			DepartmentService departmentService, 
+			TimeService timeService) {
 		this.patientService = patientService;
 		this.departmentService = departmentService;
+		this.timeService = timeService;
+		this.patientRepository = patientRepository;
 	}
 	
 	//READ
-	@GetMapping(value = "/patients")
-	public String getAllPatients(Model model) {
-		var patients = patientService.getAll();
-		model.addAttribute("patients", patients);
+	@GetMapping(value = "/patients/page{number}")
+	public String getAllPatients(@PathVariable Integer number, Model model) {
+		//var patients = patientService.getAll();
+		//model.addAttribute("patients", patients);
+		Page<Patient> patients = 
+				patientRepository.findAll(PageRequest.of(number - 1, 5));
+		model.addAttribute("number", number);
+		model.addAttribute("patients", patients.getContent());
 		return "patient/patients";
 	}
 	
@@ -97,9 +109,14 @@ public class PatientController {
 	}
 	
 	@GetMapping(value = "/patient")
-		public String getPatientInfo(@RequestParam(value = "id") Integer patientid, Model model) {
+	public String getPatientInfo(@RequestParam(value = "id") Integer patientid, 
+			@ModelAttribute("patient") PatientDto patientDto,
+			Model model) {
 		var patient = patientService.getById(patientid);
+		patientDto.setDays(timeService.countTime(patientid));
+		//patientDto.setDays(timeService.countTime(patientDto.getPatientId()));
 		model.addAttribute("patient", patient);
+		model.addAttribute("patientDto", patientDto);
 		return "patient/patient_info";
 	}
 	
@@ -114,86 +131,86 @@ public class PatientController {
 	//SORT
 	@GetMapping(value = "/patients/sortedby/surname/asc")
 	public String sortPatientsBySurnameAsc(Model model) {
-		var patients = patientService.sortPatientsBySurnameAsc();
+		var patients = patientRepository.findAll(Sort.by(Direction.ASC, "surname"));
 		model.addAttribute("patients", patients);
 		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/surname/desc")
 	public String sortPatientsBySurnameDesc(Model model) {
-		var patients = patientService.sortPatientsBySurnameDesc();
+		var patients = patientRepository.findAll(Sort.by(Direction.DESC, "surname"));
 		model.addAttribute("patients", patients);
 		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/name/asc")
 	public String sortPatientsByNameAsc(Model model) {
-		var patients = patientService.sortPatientsByNameAsc();
+		var patients = patientRepository.findAll(Sort.by(Direction.ASC, "name"));
 		model.addAttribute("patients", patients);
 		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/name/desc")
 	public String sortPatientsByNameDesc(Model model) {
-		var patients = patientService.sortPatientsByNameDesc();
+		var patients = patientRepository.findAll(Sort.by(Direction.DESC, "name"));
 		model.addAttribute("patients", patients);
 		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/diagnosis/asc")
 	public String sortPatientsByDiagnosisAsc(Model model) {
-		var patients = patientService.sortPatientsByDiagnosisAsc();
+		var patients = patientRepository.findAll(Sort.by(Direction.ASC, "diagnosis"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/diagnosis/desc")
 	public String sortPatientsByDiagnosisDesc(Model model) {
-		var patients = patientService.sortPatientsByDiagnosisDesc();
+		var patients = patientRepository.findAll(Sort.by(Direction.DESC, "diagnosis"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/admission/asc")
 	public String sortPatientsByAdmissionAsc(Model model) {
-		var patients = patientService.sortPatientsByAdmissionAsc();
+		var patients = patientRepository.findAll(Sort.by(Direction.ASC, "admission"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/admission/desc")
 	public String sortPatientsByAdmissionDesc(Model model) {
-		var patients = patientService.sortPatientsByAdmissionDesc();
+		var patients = patientRepository.findAll(Sort.by(Direction.DESC, "admission"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/release/asc")
 	public String sortPatientsByReleaseAsc(Model model) {
-		var patients = patientService.sortPatientsByReleaseAsc();
+		var patients = patientRepository.findAll(Sort.by(Direction.ASC, "release"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 
 	@GetMapping(value = "/patients/sortedby/release/desc")
 	public String sortPatientsByReleaseDesc(Model model) {
-		var patients = patientService.sortPatientsByReleaseDesc();
+		var patients = patientRepository.findAll(Sort.by(Direction.DESC, "release"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/department/asc")
 	public String sortPatientsByDepartmentAsc(Model model) {
-		var patients = patientService.sortPatientsByDepartmentAsc();
+		var patients = patientRepository.findAll(Sort.by(Direction.ASC, "department.name"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	@GetMapping(value = "/patients/sortedby/department/desc")
 	public String sortPatientsByDepartmentDesc(Model model) {
-		var patients = patientService.sortPatientsByDepartmentDesc();
+		var patients = patientRepository.findAll(Sort.by(Direction.DESC, "department.name"));
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	//CREATE
@@ -202,60 +219,79 @@ public class PatientController {
 		model.addAttribute("patient", new PatientDto());
 		var departments = departmentService.getAll();
 		model.addAttribute("departments", departments);
-		return "patient_views/add_new_patient";	
+		return "patient/add_new_patient";	
 	}
 	
-	@PostMapping(value="/patients")
+	@PostMapping(value="/patients/page1")
 	public String addPatient
 	(@RequestParam(value = "departmentid") Integer departmentid,
 			@ModelAttribute("patient") PatientDto patientDto, 
 			@ModelAttribute("department") DepartmentDto departmentDto, Model model) {
-		var patient = new Patient();
-		patient.setName(patientDto.getName());
-		patient.setSurname(patientDto.getSurname());
-		patient.setDiagnosis(patientDto.getDiagnosis());
-		patient.setAdmission(patientDto.getAdmission());
+		var patient = patientService.getById(patientDto.getPatientId());
+		if(patientDto.getName().length() <= 0) {
+			patient.setName(patient.getName());
+		} else patient.setName(patientDto.getName());
+		if(patientDto.getSurname().length() <= 0) {
+			patient.setSurname(patient.getSurname());
+		} else patient.setSurname(patientDto.getSurname());
+		if(patientDto.getDiagnosis().length() <= 0) {
+			patient.setDiagnosis(patient.getDiagnosis());
+		} else patient.setDiagnosis(patientDto.getDiagnosis());
+		if(patientDto.getAdmission() == null) {
+			patient.setAdmission(patient.getAdmission());
+		} else patient.setAdmission(patientDto.getAdmission());
+		if(patientDto.getRelease() == null) {
+			patient.setRelease(patient.getRelease());
+		} else patient.setRelease(patientDto.getRelease());
+		
 		var department = new Department();
 		department = departmentService.getById(departmentid);
 		patient.setDepartment(department);
-		patient.setComments(patientDto.getComments());
+		
+		if(patientDto.getComments().length() <= 0) {
+			patient.setComments(patient.getComments());
+		} else patient.setComments(patientDto.getComments());
+		//patientDto.setResult(patientDto.getResult());
 		patientService.createOrUpdate(patient);
 		var patients = patientService.getAll();
 		model.addAttribute("patients", patients);
-		return "patient_views/patients";
+		return "patient/patients";
 	}
 	
 	//???
 	//UPDATE
 	@RequestMapping(value="/showeditpatient/{patientid}")
-	public String showEditPatient(@PathVariable Integer patientid, Model model) {
+	public String showEditPatient(@PathVariable("patientid") Integer patientid, 
+			@ModelAttribute(name = "newPatient") Patient newPatient, 
+			Model model) {
 		var patient = patientService.getById(patientid);
 		model.addAttribute("patient", patient);
-		return "patient_views/edit_patient";
+		var departments = departmentService.getAll();
+		model.addAttribute("departments", departments);
+		return "patient/edit_patient";
 	}
 	
 	//???
-	@PutMapping(value = "/patients/{patientid}")
+	@PostMapping(value = "/edit_patient")
 	public String editPatient
-	(@PathVariable("patientid") Integer patientid, 
-			@RequestBody Patient newPatient, 
-			@RequestBody Department department,
-			@RequestParam(value = "departmentid") Integer departmentid,
+	(@ModelAttribute("patient") PatientDto patientDto,
+			@ModelAttribute("department") DepartmentDto departmentDto, 
+			@RequestParam(value = "id") Integer id, 
 			Model model) {
-		var patient = patientService.getById(patientid);
-		patient.setName(newPatient.getName());
-		patient.setSurname(newPatient.getSurname());
-		patient.setDiagnosis(newPatient.getDiagnosis());
-		patient.setAdmission(newPatient.getAdmission());
-		patient.setRelease(newPatient.getRelease());
+		var patient = patientService.getById(patientDto.getPatientId());
+		patient.setName(patientDto.getName());
+		patient.setSurname(patientDto.getSurname());
+		patient.setDiagnosis(patientDto.getDiagnosis());
+		patient.setAdmission(patientDto.getAdmission());
+		patient.setRelease(patientDto.getRelease());
+		patient.setComments(patientDto.getComments());
 		
-		department = departmentService.getById(departmentid);
-		patient.setDepartment(newPatient.getDepartment());
-		
-		newPatient = patientService.createOrUpdate(patient);
+		var department = departmentService.getById(id);
+		patient.setDepartment(department);
+		patientService.createOrUpdate(patient);
 		var patients = patientService.getAll();
 		model.addAttribute("patients", patients);
-		return "patient_views/edit_patient";
+		return "patient/patients";
 	}
 	
 	//DELETE
@@ -263,7 +299,7 @@ public class PatientController {
 	public String deletePatient(@PathVariable("patientid") Integer patientid) {
 		var patient = patientService.getById(patientid);
 		patientService.delete(patient);
-		return "patient_views/delete_patient";
+		return "patient/delete_patient";
 	}
 	
 	//SEARCH
@@ -271,7 +307,7 @@ public class PatientController {
 	public String searchPatientInfo(@RequestParam String keyword, Model model) {
 		List<Patient> results = patientService.search(keyword);
 		model.addAttribute("results", results);
-		return "patient_views/searchresults";
+		return "patient/searchresults";
 	}
 
 }

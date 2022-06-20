@@ -18,7 +18,7 @@ type="text/css"/>
 		<h4>PATIETNS</h4>
 	</div>
 	
-	<div>
+	<div class = "left">
 		<form action = "/patients/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
@@ -83,9 +83,16 @@ type="text/css"/>
 			</tr>
 			</c:forEach>
 		</table>
+		<p>
+			<c:if test="${number > 1}">
+			<a href = "/patients/page${number - 1}"> ${number - 1} </a>
+			</c:if>
+			${number} 
+			<a href = "/patients/page${number + 1}"> ${number + 1} </a>
+		</p>
 	</div>
 	
-	<div>
+	<div class = "right">
 		<form action = "/patients/sortedby/surname/asc">
 			<button>SORT BY SURNAME ASCENDING</button>
 		</form>
@@ -128,12 +135,10 @@ type="text/css"/>
 			<button>SORT BY DEPARTMENT DESCENDING</button>
 		</form>
 		
-		<form action = "/patients">
+		<form action = "/patients/page1">
 			<button>REVERT</button>
 		</form>
-	</div>
-	
-	<div>
+		
 		<form action = "/showpatientform">
 			<button>Add new Patient</button>
 		</form>

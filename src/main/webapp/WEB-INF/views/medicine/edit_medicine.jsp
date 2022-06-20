@@ -15,10 +15,12 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/medicines/" var="medicine"/>
+	<c:url value="/edit_medicine" var="medicine"/>
 	
 	<spring_form:form action="${medicine}" method="post" 
-	modelAttribute = "medicine">
+	modelAttribute = "newMedicine">
+	
+	<spring_form:hidden path="id" value = "${newMedicine.getId()}"/>
 	
 	<spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="text" path="name"/><br>

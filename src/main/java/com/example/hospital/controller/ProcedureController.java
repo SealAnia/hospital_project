@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.PatientDto;
 import com.example.hospital.dto.ProcedureDto;
+import com.example.hospital.model.entity.MedicalCard;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Procedure;
+import com.example.hospital.model.repository.ProcedureRepository;
+import com.example.hospital.service.MedicalCardService;
 import com.example.hospital.service.PatientService;
 import com.example.hospital.service.ProcedureService;
 
@@ -26,14 +31,18 @@ import com.example.hospital.service.ProcedureService;
 public class ProcedureController {
 	
 	private final ProcedureService procedureService;
-	
 	private final PatientService patientService;
+	private final ProcedureRepository procedureRepository;
+	private final MedicalCardService medicalCardService;
 
 	@Autowired
 	public ProcedureController(ProcedureService procedureService, 
-			PatientService patientService) {
+			MedicalCardService medicalCardService,
+			PatientService patientService, ProcedureRepository procedureRepository) {
 		this.procedureService = procedureService;
 		this.patientService = patientService;
+		this.procedureRepository = procedureRepository;
+		this.medicalCardService = medicalCardService;
 	}
 	
 	//READ
@@ -87,28 +96,32 @@ public class ProcedureController {
 	//SORT
 	@GetMapping("/procedures/sortedby/name/asc")
 	public String sortProceduresByNameAsc(Model model) {
-		var procedures = procedureService.sortProcedureByNameAsc();
+		//var procedures = procedureService.sortProcedureByNameAsc();
+		var procedures = procedureRepository.findAll(Sort.by(Direction.ASC, "name"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/sortedby/name/desc")
 	public String sortProceduresByNameDesc(Model model) {
-		var procedures = procedureService.sortProcedureByNameDesc();
+		//var procedures = procedureService.sortProcedureByNameDesc();
+		var procedures = procedureRepository.findAll(Sort.by(Direction.DESC, "name"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/sortedby/date/asc")
 	public String sortProceduresByDateAsc(Model model) {
-		var procedures = procedureService.sortProcedureByDateAsc();
+		//var procedures = procedureService.sortProcedureByDateAsc();
+		var procedures = procedureRepository.findAll(Sort.by(Direction.ASC, "date"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/sortedby/date/desc")
 	public String sortProceduresByDateDesc(Model model) {
-		var procedures = procedureService.sortProcedureByDateDesc();
+		//var procedures = procedureService.sortProcedureByDateDesc();
+		var procedures = procedureRepository.findAll(Sort.by(Direction.DESC, "date"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
@@ -117,6 +130,8 @@ public class ProcedureController {
 	@GetMapping(value="/showprocedureform")
 	public String showCreateProcedure(Model model) {
 		model.addAttribute("procedure", new ProcedureDto());
+		var patients = patientService.getAll();
+		model.addAttribute("patients", patients);
 		return "procedure/add_procedure";
 	}
 	
@@ -135,7 +150,13 @@ public class ProcedureController {
 		patient = patientService.getById(patientid);
 		procedure.setPatient(patient);
 		
+		var medicalCard = new MedicalCard();
+		medicalCard.setProcedure(procedure);
+		medicalCard.setPatient(patient);
+		
 		procedureService.createOrUpdate(procedure);
+		
+		medicalCardService.createOrUpdate(medicalCard);
 		
 		var procedures = procedureService.getAll();
 		model.addAttribute("procedures", procedures);
@@ -144,6 +165,39 @@ public class ProcedureController {
 	
 	//???
 	//UPDATE
+	@RequestMapping(value="/showeditprocedure/{procedureid}")
+	public String showEditProcedure(@PathVariable("procedureid") Integer procedureid, 
+			@ModelAttribute(name = "newProcedure") Procedure newProcedure, 
+			Model model) {
+		var procedure = procedureService.getById(procedureid);
+		model.addAttribute("procedure", procedure);
+		var patients = patientService.getAll();
+		model.addAttribute("patients", patients);
+		return "procedure/edit_procedure";
+	}
+	
+	@PostMapping(value = "/edit_procedure") 
+	public String editOperation(@ModelAttribute("procedure") ProcedureDto procedureDto, 
+			@ModelAttribute("patient") PatientDto patientDto, 
+			@RequestParam(value = "patientid") Integer patientid,
+			Model model) {
+		var procedure = procedureService.getById(procedureDto.getProcedureid());
+		if(procedureDto.getName().length() <= 0) {
+			procedure.setName(procedure.getName());
+		} else procedure.setName(procedureDto.getName());
+		if(procedureDto.getDate() == null) {
+			procedure.setDate(procedure.getDate());
+		} else procedure.setDate(procedureDto.getDate());
+		if(procedureDto.getDetails().length() <= 0) {
+			procedure.setDate(procedure.getDate());
+		} else procedure.setDetails(procedureDto.getDetails());
+		var patient = patientService.getById(patientid);
+		procedure.setPatient(patient);
+		procedureService.createOrUpdate(procedure);
+		var procedures = procedureService.getAll();
+		model.addAttribute("procedures", procedures);
+		return "procedure/procedures";
+	}
 	
 	//DELETE 
 	@RequestMapping(value = "/deleteprocedure/{procedureid}", method = RequestMethod.GET)

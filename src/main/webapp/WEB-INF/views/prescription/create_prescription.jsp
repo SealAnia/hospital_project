@@ -8,6 +8,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>PRESCRIBE MEDICINE</title>
+
+<link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
+type="text/css"/>
+
 </head>
 <body>
 

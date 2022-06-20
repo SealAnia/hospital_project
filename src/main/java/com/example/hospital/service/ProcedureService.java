@@ -11,9 +11,4 @@ public interface ProcedureService extends DefaultService<Procedure> {
 	List<Procedure> getProcedureByDate(Date date);
 	List<Procedure> getByDateBetween(Date dateFirst, Date dateSecond);
 	
-	List<Procedure> sortProcedureByNameAsc();
-	List<Procedure> sortProcedureByNameDesc();
-	List<Procedure> sortProcedureByDateAsc();
-	List<Procedure> sortProcedureByDateDesc();
-	
 }

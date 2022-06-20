@@ -14,7 +14,9 @@ type="text/css"/>
 </head>
 <body>
 
-	${operation.date}
+	${operation.date} ${operation.getPatient().getName()} 
+	${operation.getPatient().getSurname()} ${operation.getPatient().getDepartment().getName()} 
+	${operation.comments}
 
 </body>
 </html>

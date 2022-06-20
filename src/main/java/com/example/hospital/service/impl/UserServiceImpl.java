@@ -55,10 +55,5 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUserBySurname(String surname) {
 		return userRepository.getUserBySurname(surname);
 	}
-
-	//@Override
-	//public List<User> getUserByRoleid(Integer roleid) {
-		//return userRepository.getUserByRoleid(roleid);
-	//}
-
+	
 }

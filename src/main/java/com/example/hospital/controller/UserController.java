@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +24,7 @@ import com.example.hospital.dto.UserDto;
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.model.entity.Role;
 import com.example.hospital.model.entity.User;
+import com.example.hospital.model.repository.UserRepository;
 import com.example.hospital.service.DepartmentService;
 import com.example.hospital.service.RoleService;
 import com.example.hospital.service.UserService;
@@ -28,23 +33,26 @@ import com.example.hospital.service.UserService;
 public class UserController {
 	
 	private final UserService userService;
-	
 	private final DepartmentService departmentService;
-	
 	private final RoleService roleService;
+	private final UserRepository userRepository;
 	
 	@Autowired
-	public UserController(UserService userService, DepartmentService departmentService, RoleService roleService) {
+	public UserController(UserService userService, DepartmentService departmentService, 
+			RoleService roleService, UserRepository userRepository) {
 		this.userService = userService;
 		this.departmentService = departmentService;
 		this.roleService = roleService;
+		this.userRepository = userRepository;
 	}
 	
 	//READ
-	@GetMapping(value = "/workers")
-	public String getAllUsers(Model model) {
-		var workers = userService.getAll();
-		model.addAttribute("users", workers);
+	@GetMapping(value = "/workers/page{number}")
+	public String getAllUsers(@PathVariable Integer number, Model model) {
+		//var workers = userService.getAll();
+		//model.addAttribute("users", workers);
+		Page<User> users = userRepository.findAll(PageRequest.of(number - 1, 5));
+		model.addAttribute("users", users.getContent());
 		return "worker/workers";
 	}
 	
@@ -73,6 +81,18 @@ public class UserController {
 		return "worker/workers";
 	}
 	
+	@GetMapping(value = "/worker")
+	public String getPatientInfo(@RequestParam(value = "userid") Integer userid, 
+			//@ModelAttribute("patient") PatientDto patientDto,
+			Model model) {
+		var worker = userService.getById(userid);
+		//patientDto.setDays(timeService.countTime(patientid));
+		//patientDto.setDays(timeService.countTime(patientDto.getPatientId()));
+		model.addAttribute("user", worker);
+		//model.addAttribute("patientDto", patientDto);
+		return "worker/worker_info";
+	}
+	
 	//CREATE
 	@GetMapping(value="/showworkerform")
 	public String showCreateWorker(Model model) {
@@ -84,7 +104,7 @@ public class UserController {
 		return "worker/add_new_worker";	
 	}
 	
-	@PostMapping(value="/workers")
+	@PostMapping(value="/workers/page1")
 	public String addWorker(@RequestParam(value = "departmentid") Integer departmentid, 
 			@RequestParam(value = "roleid") Integer roleid, 
 			@ModelAttribute("worker") UserDto userDto,
@@ -121,6 +141,63 @@ public class UserController {
 		var worker = userService.getById(iserid);
 		userService.delete(worker);
 		return "worker/delete_worker";
+	}
+	
+	//SORT
+	@GetMapping(value = "/workers/sortedby/surname/asc")
+	public String sortUsersBySurnameAsc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.ASC, "surname"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/surname/desc")
+	public String sortUsersBySurnameDesc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.DESC, "surname"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/name/asc")
+	public String sortUsersByNameAsc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.ASC, "name"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/name/desc")
+	public String sortUsersByNameDesc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.DESC, "name"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/role/asc")
+	public String sortUsersByRoleAsc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.ASC, "role.name"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/role/desc")
+	public String sortUsersByRoleDesc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.DESC, "role.name"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/department/asc")
+	public String sortUsersByDepartmentAsc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.ASC, "dept.name"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
+	
+	@GetMapping(value = "/workers/sortedby/department/desc")
+	public String sortUsersByDepartmentDesc(Model model) {
+		var workers = userRepository.findAll(Sort.by(Direction.DESC, "dept.name"));
+		model.addAttribute("users", workers);
+		return "worker/workers";
 	}
 	
 	//SEARCH

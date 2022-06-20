@@ -21,6 +21,9 @@ type="text/css"/>
 	</c:if>
 	<br>
 	
+	Days spent at the hospital: ${patientDto.days}.
+	<br>
+	
 	Operations:
 	<br>
 	<c:forEach items = "${patient.getOperations()}" var = "operation">

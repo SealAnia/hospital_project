@@ -19,7 +19,7 @@ type="text/css"/>
 		<h4>MEDICINES LIST</h4>
 	</div>
 	
-	<div>
+	<div class = "left">
 		<form action = "/medicines/searchresults" method = "get">
 			<p><input type="text" name = "keyword" placeholder = "Search on page">
 			<input type="submit" value="SEARCH">
@@ -55,19 +55,17 @@ type="text/css"/>
 		</table>
 	</div>
 	
-	<div>
-		<form action = "/medicines/sorted/byname/asc">
+	<div class = "right">
+		<form action = "/medicines/sortedby/name/asc">
 			<button>SORT BY NAME ASCENDING</button>
 		</form>
-		<form action = "/medicines/sorted/byname/desc">
+		<form action = "/medicines/sortedby/name/desc">
 			<button>SORT BY NAME DESCENDING</button>
 		</form>
 		<form action = "/medicines">
 			<button>REVERT</button>
 		</form>
-	</div>
-	
-	<div>
+		
 		<form action = "/showmedicineform">
 			<button>Add new Medicine</button>
 		</form>

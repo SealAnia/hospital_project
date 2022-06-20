@@ -37,6 +37,9 @@ public class Medicine {
 			orphanRemoval = true)
 	private List<Prescription> prescriptions;
 	
+	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MedicalCard> medicalcards;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -83,6 +86,14 @@ public class Medicine {
 
 	public void setPrescriptions(List<Prescription> prescriptions) {
 		this.prescriptions = prescriptions;
+	}
+
+	public List<MedicalCard> getMedicalcards() {
+		return medicalcards;
+	}
+
+	public void setMedicalcards(List<MedicalCard> medicalcards) {
+		this.medicalcards = medicalcards;
 	}
 	
 }
