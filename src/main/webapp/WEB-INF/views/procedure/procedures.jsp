@@ -41,8 +41,8 @@ type="text/css"/>
 			<c:forEach items = "${procedures}" var = "procedure">
 			<tr>
 				<td>
-					<a href="<c:url value="/procedures/${procedure.getProcedureId()}"/>">
-					${procedure.getProcedureId()}</a>
+					<a href="<c:url value="/procedures/${procedure.procedureid}"/>">
+					${procedure.procedureid}</a>
 				</td>
 				<td>
 					${procedure.getName()}
@@ -60,15 +60,15 @@ type="text/css"/>
 					${procedure.getDate()}
 				</td>
 				<td>
-					<a href="<c:url value="/procedure?procedureid=${procedure.getProcedureId()}"/>"> 
+					<a href="<c:url value="/procedure?procedureid=${procedure.procedureid}"/>"> 
     				view details</a>
 				</td>
 				<td>
-					<a href="<c:url value="/showeditprocedure/${procedure.getProcedureId()}"/>">
+					<a href="<c:url value="/showeditprocedure/${procedure.procedureid}"/>">
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deleteprocedure/${procedure.getProcedureId()}"/>"> 
+					<a href="<c:url value="/deleteprocedure/${procedure.procedureid}"/>"> 
     				delete</a>
 				</td>
 			</tr>

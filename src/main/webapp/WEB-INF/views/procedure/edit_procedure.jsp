@@ -19,7 +19,10 @@ type="text/css"/>
 	
 	<spring_form:form action="${procedure}" method="post" modelAttribute="newProcedure">
 	
-	<spring_form:hidden path="procedureid" value = "${newProcedure.getProcedureId()}"/>
+	<!-- <spring_form:hidden path="procedureid" value = "${newProcedure.getProcedureid()}"/>
+	 -->
+	
+	<spring_form:hidden path="procedureid" value = "${newProcedure.procedureid}"/>
 	
     <spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="name" path="name"/><br>

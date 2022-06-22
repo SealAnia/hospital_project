@@ -1,5 +1,7 @@
 package com.example.hospital.model.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,9 +15,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +39,16 @@ public class User {
 	private String login;
 	@Column
 	private String password;
+	
+	@Column
+	private boolean accountnotexpired;
+	@Column
+	private boolean accountnotlocked;
+	@Column
+	private boolean credentialsnotexpired;
+	@Column
+	private boolean enabled;
+	
 	@ManyToOne
 	@JoinColumn(name = ("deptid"))
 	private Department dept;
@@ -120,6 +141,7 @@ public class User {
 	public Department getDept() {
 		return dept;
 	}
+	
 	public void setDept(Department dept) {
 		this.dept = dept;
 	}
@@ -163,5 +185,74 @@ public class User {
 	public void setMedicalcards(List<MedicalCard> medicalcards) {
 		this.medicalcards = medicalcards;
 	}
+	
+	public boolean isAccountnotexpired() {
+		return accountnotexpired;
+	}
 
+	public void setAccountnotexpired(boolean accountnotexpired) {
+		this.accountnotexpired = accountnotexpired;
+	}
+
+	public boolean isAccountnotlocked() {
+		return accountnotlocked;
+	}
+
+	public void setAccountnotlocked(boolean accountnotlocked) {
+		this.accountnotlocked = accountnotlocked;
+	}
+
+	public boolean isCredentialsnotexpired() {
+		return credentialsnotexpired;
+	}
+
+	public void setCredentialsnotexpired(boolean credentialsnotexpired) {
+		this.credentialsnotexpired = credentialsnotexpired;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	//UserDetails
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		var authorities = new ArrayList<GrantedAuthority>();
+		List<Role> roles = new ArrayList<Role>();
+		for(Role role: roles) {
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		}
+		return authorities;
+	}
+	
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }

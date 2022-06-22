@@ -20,6 +20,7 @@ public class Procedure {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Column(name = "procedureid")
 	private Integer procedureid;
 	@Column
 	private String name;
@@ -37,11 +38,11 @@ public class Procedure {
 	@OneToMany(mappedBy = "procedure", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalCard> medicalcards;
 	
-	public Integer getProcedureId() {
+	public Integer getProcedureid() {
 		return procedureid;
 	}
 
-	public void setProcedureId(Integer procedureid) {
+	public void setProcedureid(Integer procedureid) {
 		this.procedureid = procedureid;
 	}
 

@@ -14,7 +14,7 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/deleteprocedure/${procedure.getProcedureId()}" var="procedure"/>
+	<c:url value="/deleteprocedure/${procedure.procedureid}" var="procedure"/>
 	
 	All information about the procedure will Be deleted
 	<a href="<c:url value="/procedures"/>"> OK </a>
