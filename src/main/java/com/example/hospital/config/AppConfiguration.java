@@ -11,20 +11,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.example.hospital.service.impl.UserDetailsServiceImpl;
+import com.example.hospital.service.impl.UserServiceImpl;
 
 @Configuration
 public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 	
-	private UserDetailsServiceImpl userDetailsService;
+	private UserServiceImpl userService;
 	
-	public AppConfiguration(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
+	public AppConfiguration(UserServiceImpl userService) {
+        this.userService = userService;
     }
 	
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
+        auth.userDetailsService(userService)
             .passwordEncoder(new BCryptPasswordEncoder());
     }
 	
@@ -36,9 +36,8 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		var authenticationProvider = new DaoAuthenticationProvider();
-		authenticationProvider.setUserDetailsService(userDetailsService);
+		authenticationProvider.setUserDetailsService(userService);
 		return authenticationProvider;
-		
 	}
 	
 	@Override

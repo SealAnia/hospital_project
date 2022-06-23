@@ -3,6 +3,9 @@ package com.example.hospital.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.model.entity.Role;
@@ -11,7 +14,7 @@ import com.example.hospital.model.repository.UserRepository;
 import com.example.hospital.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -54,6 +57,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getUserBySurname(String surname) {
 		return userRepository.getUserBySurname(surname);
+	}
+	
+	//???
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		var user = userRepository.findByUsername(username);
+		if(user == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return user;
 	}
 	
 }
