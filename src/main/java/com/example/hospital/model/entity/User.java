@@ -36,7 +36,7 @@ public class User implements UserDetails {
 	@Column
 	private String surname;
 	@Column
-	private String login;
+	private String username;
 	@Column
 	private String password;
 	
@@ -75,7 +75,7 @@ public class User implements UserDetails {
 		this.userid = userid;
 		this.name = name;
 		this.surname = surname;
-		this.login = login;
+		this.username = login;
 		this.password = password;
 		this.dept = dept;
 		this.role = role;
@@ -90,7 +90,7 @@ public class User implements UserDetails {
 		this.userid = userid;
 		this.name = name;
 		this.surname = surname;
-		this.login = login;
+		this.username = login;
 		this.password = password;
 		this.dept = dept;
 		this.role = role;
@@ -123,11 +123,11 @@ public class User implements UserDetails {
 	}
 	
 	public String getLogin() {
-		return login;
+		return username;
 	}
 	
 	public void setLogin(String login) {
-		this.login = login;
+		this.username = login;
 	}
 	
 	public String getPassword() {

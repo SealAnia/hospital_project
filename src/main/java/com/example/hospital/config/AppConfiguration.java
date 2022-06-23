@@ -48,8 +48,7 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 			.and()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/main")
-			.hasAnyRole("doctor", "nurse");
+			.hasAnyRole("ROLE_doctor", "ROLE_nurse");
 	}
-
 
 }
