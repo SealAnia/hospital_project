@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return userRepository.getUserBySurname(surname);
 	}
 	
-	//???
+	//NEW
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		var user = userRepository.findByUsername(username);

@@ -40,6 +40,7 @@ public class User implements UserDetails {
 	@Column
 	private String password;
 	
+	//NEW
 	@Column
 	private boolean accountnotexpired;
 	@Column
@@ -128,6 +129,15 @@ public class User implements UserDetails {
 	
 	public void setLogin(String login) {
 		this.username = login;
+	}
+	
+	@Override
+	public String getUsername() {
+		return username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public String getPassword() {
@@ -225,34 +235,34 @@ public class User implements UserDetails {
 		return authorities;
 	}
 	
-	@Override
-	public String getUsername() {
+	//@Override
+	//public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		//return null;
+	//}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	
 }

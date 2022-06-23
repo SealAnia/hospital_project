@@ -18,15 +18,16 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 	
 	private UserServiceImpl userService;
 	
+	@Autowired
 	public AppConfiguration(UserServiceImpl userService) {
         this.userService = userService;
     }
 	
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService)
-            .passwordEncoder(new BCryptPasswordEncoder());
-    }
+    //@Autowired
+    //public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        //auth.userDetailsService(userService)
+            //.passwordEncoder(new BCryptPasswordEncoder());
+    //}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -34,9 +35,15 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 	}
 	
 	@Bean
+	  public BCryptPasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	  }
+	
+	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		var authenticationProvider = new DaoAuthenticationProvider();
 		authenticationProvider.setUserDetailsService(userService);
+		authenticationProvider.setPasswordEncoder(passwordEncoder());
 		return authenticationProvider;
 	}
 	
@@ -47,7 +54,9 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 			.and()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/main")
-			.hasAnyRole("ROLE_doctor", "ROLE_nurse");
+			//.authenticated();
+			//.permitAll();
+			.hasAnyRole("doctor", "nurse");
 	}
 
 }
