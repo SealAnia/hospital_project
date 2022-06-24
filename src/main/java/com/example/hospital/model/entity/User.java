@@ -228,10 +228,11 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		var authorities = new ArrayList<GrantedAuthority>();
-		List<Role> roles = new ArrayList<Role>();
-		for(Role role: roles) {
+
+		if (role != null) {
 			authorities.add(new SimpleGrantedAuthority(role.getName()));
 		}
+
 		return authorities;
 	}
 	
