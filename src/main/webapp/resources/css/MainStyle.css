@@ -11,9 +11,11 @@ td {
 	padding: 11px;
 }
 body {
+	font: 16px Arial, sans-serif;
 	background-color: LightYellow;
-	opacity: 0.8;
-	font: 15px Arial, sans-serif;
+	background-image: url("https://cr.grsu.by/images/vospitanie/6286_5.jpg");
+	background-repeat: repeat;
+	opacity: 0.95;
 }
 button {
 	background-color: #12A0ED;
@@ -24,12 +26,27 @@ button {
   	font-size: 14px;
   	margin: 5px 5px;
 }
+button:hover {
+	background-color: black;
+}
+a:link {
+	color: red;
+}
+a:hover {
+	color: white;
+	background-color: navy;
+}
+a.visited {
+	color: orange;
+}
+.edition {
+	position: fixed; top: 40%; left: 40%;
+}
 
 .left {
 	float: left;
 	width: 75%;
 }
-
 .right {
 	float: right;
 	width: 25%;

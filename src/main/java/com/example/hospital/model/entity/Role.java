@@ -29,6 +29,10 @@ public class Role implements GrantedAuthority {
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, 
 			orphanRemoval = true)
 	private List <User> users;
+	
+	public Role() {
+		
+	}
 
 	public Integer getRoleId() {
 		return roleid;
@@ -54,7 +58,6 @@ public class Role implements GrantedAuthority {
 		this.users = users;
 	}
 	
-	//NEW
 	@Override
 	public String getAuthority() {
 		return getName();

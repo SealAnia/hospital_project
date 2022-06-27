@@ -1,6 +1,7 @@
 package com.example.hospital.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,12 @@ import com.example.hospital.model.entity.MedicalCard;
 import com.example.hospital.model.entity.Medicine;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Prescription;
+import com.example.hospital.model.entity.User;
 import com.example.hospital.service.MedicalCardService;
 import com.example.hospital.service.MedicineService;
 import com.example.hospital.service.PatientService;
 import com.example.hospital.service.PrescriptionService;
+import com.example.hospital.service.impl.UserServiceImpl;
 
 @Controller
 public class PrescriptionController {
@@ -27,15 +30,17 @@ public class PrescriptionController {
 	private final PatientService patientService;
 	private final MedicineService medicineService;
 	private final MedicalCardService medicalCardService;
+	private final UserServiceImpl userService;
 	
 	@Autowired
 	public PrescriptionController(PrescriptionService prescriptionService,
 			PatientService patientService, MedicineService medicineService, 
-			MedicalCardService medicalCardService) {
+			MedicalCardService medicalCardService, UserServiceImpl userService) {
 		this.prescriptionService = prescriptionService;
 		this.patientService = patientService;
 		this.medicineService = medicineService;
 		this.medicalCardService = medicalCardService;
+		this.userService = userService;
 	}
 	
 	@GetMapping("/prescriptions")
@@ -54,7 +59,6 @@ public class PrescriptionController {
 		
 		var medicines = medicineService.getAll();
 		model.addAttribute("medicines", medicines);
-		
 	    return "prescription/create_prescription";
 	}
 	
@@ -62,11 +66,10 @@ public class PrescriptionController {
 	public String addPrescription(@RequestParam(value = "patientid") Integer patientid, 
 			@RequestParam(value = "medicineid") Integer medicineid, 
 			@ModelAttribute("prescription") PrescriptionDto prescriptionDto,
-			
 			@ModelAttribute("medicalCard") MedicalCard newMedicalCard,
-			
 			@ModelAttribute("patient") PatientDto patientDto, 
 			@ModelAttribute("medicine") MedicineDto medicineDto,
+			Authentication authentication, String username, 
 			Model model) {
 		var prescription = new Prescription();
 		
@@ -81,6 +84,11 @@ public class PrescriptionController {
 		var medicalCard = new MedicalCard();
 		medicalCard.setMedicine(medicine);
 		medicalCard.setPatient(patient);
+		
+		username = authentication.getName();
+		var worker = userService.loadUserByUsername(username);
+		medicalCard.setUser((User) worker);
+		
 		medicalCardService.createOrUpdate(medicalCard);
 		
 		prescriptionService.createOrUpdate(prescription);

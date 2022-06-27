@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.DepartmentDto;
@@ -49,8 +47,6 @@ public class UserController {
 	//READ
 	@GetMapping(value = "/workers/page{number}")
 	public String getAllUsers(@PathVariable Integer number, Model model) {
-		//var workers = userService.getAll();
-		//model.addAttribute("users", workers);
 		Page<User> users = userRepository.findAll(PageRequest.of(number - 1, 5));
 		model.addAttribute("users", users.getContent());
 		return "worker/workers";
@@ -67,16 +63,14 @@ public class UserController {
 	
 	@GetMapping(value = "/workers/byname/{name}")
 	public String workerByName(@PathVariable String name, Model model) {
-		List<User> workers = new ArrayList<>();
-		workers = userService.getUserByName(name);
+		var workers = userService.getUserByName(name);
 		model.addAttribute("users", workers);
 		return "worker/workers";
 	}
 	
 	@GetMapping(value = "/workers/bysurname/{surname}")
 	public String workerBySurname(@PathVariable String surname, Model model) {
-		List<User> workers = new ArrayList<>();
-		workers = userService.getUserBySurname(surname);
+		var workers = userService.getUserBySurname(surname);
 		model.addAttribute("users", workers);
 		return "worker/workers";
 	}
@@ -86,10 +80,7 @@ public class UserController {
 			//@ModelAttribute("patient") PatientDto patientDto,
 			Model model) {
 		var worker = userService.getById(userid);
-		//patientDto.setDays(timeService.countTime(patientid));
-		//patientDto.setDays(timeService.countTime(patientDto.getPatientId()));
 		model.addAttribute("user", worker);
-		//model.addAttribute("patientDto", patientDto);
 		return "worker/worker_info";
 	}
 	
@@ -132,11 +123,51 @@ public class UserController {
 		return "worker/workers";
 	}
 	
-	//???
 	//UPDATE
+	@GetMapping(value="/showeditworker/{userid}")
+	public String showEditWorker(@PathVariable("userid") Integer userid, 
+			@ModelAttribute(name = "newWorker") User newWorker, Model model) {
+		var worker = userService.getById(userid);
+		model.addAttribute("worker", worker);
+		var workers = userService.getAll();
+		model.addAttribute("workers", workers);
+		return "worker/edit_worker";
+	}
+	
+	@PostMapping(value = "edit_worker")
+	public String editWorker(@ModelAttribute ("worker") UserDto workerDto, 
+			@ModelAttribute("department") DepartmentDto departmentDto, 
+			@RequestParam(value = "departmentid") Integer departmentid, 
+			@ModelAttribute("role") RoleDto roleDto, 
+			@RequestParam(value = "roleid") Integer roleid, Model model) {
+		var worker = userService.getById(workerDto.getUserid());
+		if (workerDto.getName().length() <= 0) {
+			worker.setName(worker.getName());
+		} else worker.setName(workerDto.getName());
+		if(workerDto.getSurname().length() <= 0) {
+			worker.setSurname(worker.getSurname());
+		} else worker.setSurname(workerDto.getSurname());
+		if(workerDto.getLogin().length() <= 0) {
+			worker.setLogin(worker.getLogin());
+		} else worker.setLogin(workerDto.getLogin());
+		if(workerDto.getPassword().length() <= 0) {
+			worker.setPassword(worker.getPassword());
+		} else worker.setPassword(workerDto.getPassword());
+		
+		var department = departmentService.getById(departmentid);
+		worker.setDept(department);
+		
+		var role = roleService.getById(roleid);
+		worker.setRole(role);
+		userService.createOrUpdate(worker);
+		
+		var workers = userService.getAll();
+		model.addAttribute("users", workers);
+		return "worker/workers";
+	}
 	
 	//DELETE
-	@RequestMapping(value = "/deleteworkerinfo/{userid}", method = RequestMethod.GET)
+	@GetMapping(value = "/deleteworkerinfo/{userid}")
 	public String deleteWorkerInfo(@PathVariable("userid") Integer iserid) {
 		var worker = userService.getById(iserid);
 		userService.delete(worker);
@@ -201,9 +232,9 @@ public class UserController {
 	}
 	
 	//SEARCH
-	@RequestMapping(value = "/workers/searchresults")
+	@GetMapping(value = "/workers/searchresults")
 	public String searchWorkerInfo(@RequestParam String keyword, Model model) {
-		List<User> results = userService.search(keyword);
+		var results = userService.search(keyword);
 		model.addAttribute("results", results);
 		return "worker/searchresults";
 	}

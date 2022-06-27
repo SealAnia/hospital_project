@@ -20,9 +20,12 @@ type="text/css"/>
 	<div>
 		<c:forEach items = "${roles}" var = "role">
 			<a href="<c:url value="/role?roleid=${role.getRoleId()}"/>">
+			
+			<c:if test="${role.getRoleId() <= 2}">
 				${role.getRoleId()}</a>
-				${role.getName()}s:<br>
-			<br>
+				${role.getName().substring(5).toLowerCase()}s:<br>
+			</c:if>
+			
 		</c:forEach>
 	</div>
 	

@@ -25,8 +25,8 @@ type="text/css"/>
 			<c:forEach items = "${results}" var = "worker">
 			<tr>
 				<td>
-				<a href="<c:url value="/workers/${worker.getUserId()}"/>">
-					${worker.getUserId()}</a>
+				<a href="<c:url value="/workers/${worker.userid}"/>">
+					${worker.userid}</a>
 				</td>
 				<td>
 					${worker.getName()}

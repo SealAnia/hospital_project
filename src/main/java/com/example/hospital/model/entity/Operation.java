@@ -35,6 +35,10 @@ public class Operation {
 	@OneToMany(mappedBy = "operation", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalCard> medicalcards;
 	
+	public Operation() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}

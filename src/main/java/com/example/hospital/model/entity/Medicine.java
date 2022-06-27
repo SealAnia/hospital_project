@@ -40,6 +40,10 @@ public class Medicine {
 	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalCard> medicalcards;
 	
+	public Medicine() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}

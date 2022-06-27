@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.MedicineDto;
@@ -52,8 +50,7 @@ public class MedicineController {
 	
 	@GetMapping(value = "/medicines/byname/{name}")
 	public String medicineByName(@PathVariable String name, Model model) {
-		List<Medicine> medicines = new ArrayList<>();
-		medicines = medicineService.getMedicineByName(name);
+		var medicines = medicineService.getMedicineByName(name);
 		model.addAttribute("medicines", medicines);
 		return "medicine/medicines";
 	}
@@ -94,7 +91,6 @@ public class MedicineController {
 		return "medicine/medicines";
 	}
 	
-	//???
 	//UPDATE
 	@GetMapping(value="/showeditmedicine/{id}")
 	public String showEditMedicine(@PathVariable("id") Integer id, 
@@ -130,7 +126,7 @@ public class MedicineController {
 	}
 	
 	//DELETE
-	@RequestMapping(value = "/deletemedicine/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/deletemedicine/{id}")
 	public String deleteMedicine(@PathVariable("id") Integer id) {
 		var medicine = medicineService.getById(id);
 		medicineService.delete(medicine);
@@ -138,9 +134,9 @@ public class MedicineController {
 	}
 	
 	//SEARCH
-	@RequestMapping(value = "/medicines/searchresults")
+	@GetMapping(value = "/medicines/searchresults")
 	public String searchMedicineInfo(@RequestParam String keyword, Model model) {
-		List<Medicine> results = medicineService.search(keyword);
+		var results = medicineService.search(keyword);
 		model.addAttribute("results", results);
 		return "medicine/searchresults";
 	}

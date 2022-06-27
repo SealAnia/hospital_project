@@ -26,6 +26,10 @@ public class Department {
 	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL, 
 			orphanRemoval = true)
 	private List<Patient> patients;
+	
+	public Department() {
+		
+	}
 
 	public Integer getId() {
 		return id;

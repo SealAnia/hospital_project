@@ -10,7 +10,7 @@ import com.example.hospital.model.entity.Procedure;
 
 public class PatientDto {
 	
-	private Integer patientId;
+	private Integer patientid;
 	private String name;
 	private String surname;
 	private String diagnosis;
@@ -26,11 +26,11 @@ public class PatientDto {
 	private List<Operation> operations;
 	private List<Procedure> procedures;
 	
-	public Integer getPatientId() {
-		return patientId;
+	public Integer getPatientid() {
+		return patientid;
 	}
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+	public void setPatientid(Integer patientid) {
+		this.patientid = patientid;
 	}
 	
 	public String getName() {

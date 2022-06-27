@@ -14,23 +14,29 @@ type="text/css"/>
 </head>
 <body>
 
-	${user.name} ${user.surname} is a ${user.getRole().getName()} at a ${user.getDept().getName()}<br>
-	MEDICINES: 
+	${user.name} ${user.surname} is a ${user.getRole().getName().substring(5).toLowerCase()} at a ${user.getDept().getName()}<br>
+	PRESCRIBED MEDICINES: 
 	<c:forEach items = "${user.getMedicines()}" var = "medicine">
-		${medicine.getName()} 
-			<c:forEach items = "${medicine.getPatients()}" var = "patient">
-				${patient.getName()} ${patient.getSurname()} ${patient.getDepartment().getName()}
-			</c:forEach>
+		<ul>
+			<li>${medicine.getName()} ${medicine.getPatient().getName()} 
+			${medicine.getPatient().getSurname()} ${medicine.getPatient().getDepartment().getName()}</li>
+		</ul>
 	</c:forEach>
+	<br>
 	PROCEDURES: 
 	<c:forEach items = "${user.getProcedures()}" var = "procedure">
-		${procedure.getName()} ${procedure.getDate()} ${procedure.getPatient().getName()} 
-		${procedure.getPatient().getSurname()} ${procedure.getPatient().getDepartment().getName()} 
+		<ul>
+			<li>${procedure.getName()} ${procedure.getDate()} ${procedure.getPatient().getName()} 
+			${procedure.getPatient().getSurname()} ${procedure.getPatient().getDepartment().getName()}</li>
+		</ul>
 	</c:forEach>
+	<br>
 	OPERATIONS: 
 	<c:forEach items = "${user.getOperations()}" var = "operation">
-		${operation.getDate()} ${operation.getPatient().getName()} 
-		${operation.getPatient().getSurname()} ${operation.getPatient().getDepartment().getName()} 
+		<ul>
+			<li>${operation.getDate()} ${operation.getPatient().getName()} 
+			${operation.getPatient().getSurname()} ${operation.getPatient().getDepartment().getName()}</li>
+		</ul>
 	</c:forEach>
 	
 </body>

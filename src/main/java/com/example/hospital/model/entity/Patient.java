@@ -33,6 +33,8 @@ public class Patient {
 	private Date release;
 	@Column
 	private String comments;
+	@Column
+	private String result;
 	@ManyToOne
 	@JoinColumn(name = "departmentid")
 	private Department department;
@@ -49,11 +51,15 @@ public class Patient {
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<MedicalCard> medicalcards;
 	
-	public Integer getPatientId() {
+	public Patient() {
+		
+	}
+	
+	public Integer getPatientid() {
 		return patientid;
 	}
 
-	public void setPatientId(Integer patientid) {
+	public void setPatientid(Integer patientid) {
 		this.patientid = patientid;
 	}
 
@@ -104,6 +110,14 @@ public class Patient {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	public Department getDepartment() {
 		return department;
@@ -144,5 +158,5 @@ public class Patient {
 	public void setMedicalcards(List<MedicalCard> medicalcards) {
 		this.medicalcards = medicalcards;
 	}
-	
+
 }

@@ -13,7 +13,12 @@ type="text/css"/>
 
 </head>
 <body>
-	<div><h1>WELCOME TO YOUR WEB HOSPITAL HELPER</h1></div>
+	<div><h1>WELCOME ${user.name.toUpperCase()} ${user.surname.toUpperCase()} </h1></div>
+		
+		<div class = "right">
+			<form  action = "/logout"><button>LogOut</button></form>
+		</div>
+		
 		<div>
 			<p><a href = "/departments"> All Departments </a></p>
 			<p><a href = "/medicines"> Medicines Info </a></p>
@@ -34,5 +39,6 @@ type="text/css"/>
 				<button>Prescribe Medicine</button>
 			</form>
 		</div>
+		
 </body>
 </html>

@@ -24,7 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	List<User> getUserByRole(Role role);
 	
-	//NEW
 	User findByUsername(String username);
 
 }

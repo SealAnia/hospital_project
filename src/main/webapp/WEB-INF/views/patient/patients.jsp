@@ -40,12 +40,13 @@ type="text/css"/>
 				<th>Release</th>
 				<th>Department</th>
 				<th>Comments</th>
+				<th>Result</th>
 			</tr>
 			<c:forEach items = "${patients}" var = "patient">
 			<tr>
 				<td>
-					<a href="<c:url value="/patients/${patient.getPatientId()}"/>">
-					${patient.getPatientId()}</a>
+					<a href="<c:url value="/patients/${patient.patientid}"/>">
+					${patient.patientid}</a>
 				</td>
 				<td>
 					${patient.name}
@@ -69,15 +70,18 @@ type="text/css"/>
 					${patient.comments}
 				</td>
 				<td>
-					<a href="<c:url value="/patient?id=${patient.getPatientId()}"/>"> 
+					${patient.result}
+				</td>
+				<td>
+					<a href="<c:url value="/patient?patientid=${patient.patientid}"/>"> 
     				medical card</a>
 				</td>
 				<td>
-					<a href="<c:url value="/showeditpatient/${patient.getPatientId()}"/>">
+					<a href="<c:url value="/showeditpatient/${patient.patientid}"/>">
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deletepatientinfo/${patient.getPatientId()}"/>"> 
+					<a href="<c:url value="/deletepatientinfo/${patient.patientid}"/>"> 
     				delete</a>
 				</td>
 			</tr>

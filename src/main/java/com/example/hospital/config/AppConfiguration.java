@@ -8,9 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.example.hospital.service.impl.UserServiceImpl;
 
 @Configuration
@@ -23,12 +21,6 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
         this.userService = userService;
     }
 	
-    //@Autowired
-    //public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userService)
-            //.passwordEncoder(new BCryptPasswordEncoder());
-    //}
-	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
@@ -37,7 +29,7 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 	@Bean
 	  public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
-	  }
+	}
 	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
@@ -50,13 +42,38 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.httpBasic()
-			.and()
 			.authorizeRequests()
+			
+			.antMatchers(HttpMethod.GET, "/adminpage")
+			.hasRole("ADMIN")
+			
 			.antMatchers(HttpMethod.GET, "/main")
-			//.authenticated();
-			//.permitAll();
-			.hasAnyRole("doctor", "nurse");
+			.hasAnyRole("DOCTOR", "NURSE")
+			
+			.antMatchers("/medicines", "/procedures", "/operations",
+					"/prescriptions", "/patients", "/showpatientform", 
+					"/showoperationform", "showprocedureform", 
+					"/showmedicineform", "/showprescriptionform", 
+					"/showeditmedicine/{id}", "/showeditoperation/{id}", 
+					"/showeditprocedure/{procedureid}", "/showeditpatient/{patientid}",
+					"/deletemedicine/{id}", "/deleteoperation/{id}", 
+					"/deletepatientinfo/{patientid}", "/deleteprocedure/{procedureid}")
+			.hasAnyRole("DOCTOR", "NURSE")
+			
+			.antMatchers("/showoperationform")
+			.hasRole("DOCTOR")
+			
+			.antMatchers("/showdepartmentform", "/showworkerform", 
+					"/showeditworker/{userid}", "/showeditdepartment/{id}", 
+					"/deleteworkerinfo/{userid}", "/deletedepartment/{id}")
+			.hasRole("ADMIN")
+			
+			.and()
+			.formLogin()
+			.and()
+			.logout()
+			.logoutUrl("/logout")
+			.logoutSuccessUrl("/main");
 	}
 
 }

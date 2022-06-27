@@ -36,6 +36,10 @@ public class MedicalCard {
 	@JoinColumn(name = "procedureid")
 	private Procedure procedure;
 	
+	public MedicalCard() {
+		
+	}
+	
 	public Integer getMedicalcardid() {
 		return medicalcardid;
 	}

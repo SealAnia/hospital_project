@@ -15,7 +15,7 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/deletepatientinfo/${patient.getPatientId()}" var="patient"/>
+	<c:url value="/deletepatientinfo/${patient.patientid}" var="patient"/>
 	
 	<script src="${OKAlert}"></script>
 	

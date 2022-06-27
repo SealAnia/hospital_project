@@ -34,9 +34,12 @@ type="text/css"/>
 			</tr>
 			<c:forEach items = "${users}" var = "worker">
 			<tr>
+			
+			<c:if test="${worker.getRole().getRoleId() <= 2}">
+			
 				<td>
-				<a href="<c:url value="/workers/${worker.getUserId()}"/>">
-					${worker.getUserId()}</a>
+				<a href="<c:url value="/workers/${worker.userid}"/>">
+					${worker.userid}</a>
 				</td>
 				<td>
 					${worker.getName()}
@@ -45,23 +48,26 @@ type="text/css"/>
 					${worker.getSurname()}
 				</td>
 				<td>
-					${worker.getRole().getName()}
+					${worker.getRole().getName().substring(5).toLowerCase()}
 				</td>
 				<td>
 					${worker.getDept().getName()}
 				</td>
 				<td>
-					<a href="<c:url value="/worker?userid=${worker.getUserId()}"/>"> 
+					<a href="<c:url value="/worker?userid=${worker.userid}"/>"> 
     				view details</a>
 				</td>
 				<td>
-					<a href="<c:url value="/showeditworker/${worker.getUserId()}"/>">
+					<a href="<c:url value="/showeditworker/${worker.userid}"/>">
     				edit</a>
 				</td>
 				<td>
-					<a href="<c:url value="/deleteworkerinfo/${worker.getUserId()}"/>"> 
+					<a href="<c:url value="/deleteworkerinfo/${worker.userid}"/>"> 
     				delete</a>
 				</td>
+				
+			</c:if>
+			
 			</tr>
 		</c:forEach>
 		</table>

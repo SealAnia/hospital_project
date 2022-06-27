@@ -12,9 +12,13 @@ import com.example.hospital.service.OperationService;
 
 @Service
 public class OperationServiceImpl implements OperationService {
-
-	@Autowired
+	
 	private OperationRepository operationRepository;
+	
+	@Autowired
+	public OperationServiceImpl(OperationRepository operationRepository) {
+		this.operationRepository = operationRepository;
+	}
 
 	@Override
 	public List<Operation> getAll() {

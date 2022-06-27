@@ -16,8 +16,12 @@ import com.example.hospital.service.UserService;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 	
-	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 	
 	@Override
 	public List<User> getAll() {
@@ -59,7 +63,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return userRepository.getUserBySurname(surname);
 	}
 	
-	//NEW
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		var user = userRepository.findByUsername(username);

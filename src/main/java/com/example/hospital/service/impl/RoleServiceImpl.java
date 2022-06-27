@@ -12,8 +12,12 @@ import com.example.hospital.service.RoleService;
 @Service
 public class RoleServiceImpl implements RoleService {
 	
-	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	public RoleServiceImpl(RoleRepository roleRepository) {
+		this.roleRepository = roleRepository;
+	}
 
 	@Override
 	public List<Role> getAll() {
@@ -37,7 +41,6 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public List<Role> search(String keyword) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

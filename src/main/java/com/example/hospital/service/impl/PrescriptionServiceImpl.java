@@ -12,8 +12,12 @@ import com.example.hospital.service.PrescriptionService;
 @Service
 public class PrescriptionServiceImpl implements PrescriptionService {
 	
-	@Autowired
 	private PrescriptionRepository prescriptionRepository;
+	
+	@Autowired
+	public PrescriptionServiceImpl(PrescriptionRepository prescriptionRepository) {
+		this.prescriptionRepository = prescriptionRepository;
+	}
 	
 	@Override
 	public List<Prescription> getAll() {
@@ -22,8 +26,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
 	@Override
 	public Prescription getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return prescriptionRepository.getById(id);
 	}
 
 	@Override
@@ -32,14 +35,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 	}
 
 	@Override
-	public void delete(Prescription entity) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Prescription prescription) {
+		prescriptionRepository.delete(prescription);
 	}
 
 	@Override
 	public List<Prescription> search(String keyword) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

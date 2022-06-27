@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.model.entity.Department;
@@ -51,8 +49,7 @@ public class DepartmentController {
 	
 	@GetMapping("/departments/byname/{name}")
 	public String departmentByName(@PathVariable String name, Model model) {
-		List<Department> departments = new ArrayList<>();
-		departments = departmentService.getDepartmentByName(name);
+		var departments = departmentService.getDepartmentByName(name);
 		model.addAttribute("departments", departments);
 		return "department/departments";
 	}
@@ -97,7 +94,6 @@ public class DepartmentController {
 		return "department/departments";
 	}
 	
-	//???
 	//UPDATE
 	@GetMapping(value="/showeditdepartment/{id}")
 	public String showEditDepartment(@PathVariable("id") Integer id, 
@@ -125,7 +121,7 @@ public class DepartmentController {
 	}
 	
 	//DELETE
-	@RequestMapping(value = "/deletedepartment/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/deletedepartment/{id}")
 	public String deleteDept(@PathVariable("id") Integer id) {
 		 var department = departmentService.getById(id);
 		 departmentService.delete(department);
@@ -133,9 +129,9 @@ public class DepartmentController {
 	}
 	
 	//SEARCH
-	@RequestMapping(value = "/departments/searchresults")
+	@GetMapping(value = "/departments/searchresults")
 	public String searchDepartmentInfo(@RequestParam String keyword, Model model) {
-		List<Department> results = departmentService.search(keyword);
+		var results = departmentService.search(keyword);
 		model.addAttribute("results", results);
 		return "department/searchresults";
 	}

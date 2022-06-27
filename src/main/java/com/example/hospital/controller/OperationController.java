@@ -7,14 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.OperationDto;
@@ -22,10 +21,12 @@ import com.example.hospital.dto.PatientDto;
 import com.example.hospital.model.entity.MedicalCard;
 import com.example.hospital.model.entity.Operation;
 import com.example.hospital.model.entity.Patient;
+import com.example.hospital.model.entity.User;
 import com.example.hospital.model.repository.OperationRepository;
 import com.example.hospital.service.MedicalCardService;
 import com.example.hospital.service.OperationService;
 import com.example.hospital.service.PatientService;
+import com.example.hospital.service.impl.UserServiceImpl;
 
 @Controller
 public class OperationController {
@@ -34,15 +35,18 @@ public class OperationController {
 	private final PatientService patientService;
 	private final OperationRepository operationRepository;
 	private final MedicalCardService medicalCardService;
+	private final UserServiceImpl userService;
 	
 	@Autowired
 	public OperationController(OperationService operationService, 
 			MedicalCardService medicalCardService,
+			UserServiceImpl userService,
 			PatientService patientService, OperationRepository operationRepository) {
 		this.operationService = operationService;
 		this.patientService = patientService;
 		this.operationRepository = operationRepository;
 		this.medicalCardService = medicalCardService;
+		this.userService = userService;
 	}
 	
 	//READ
@@ -64,8 +68,7 @@ public class OperationController {
 	
 	@GetMapping("/operations/bydate/{date}")
 	public String operationByName(@PathVariable Date date, Model model) {
-		List<Operation> operations = new ArrayList<>();
-		operations = operationService.getOperationByDate(date);
+		var operations = operationService.getOperationByDate(date);
 		model.addAttribute("operations", operations);
 		return "operation/operations";
 	}
@@ -80,7 +83,7 @@ public class OperationController {
 	@GetMapping("/operations/sortedbydatediaposon")
 	public String getOperationsByDateDiaposon
 	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
-		List<Operation> operations = operationService.getByDateBetween(dateFirst, dateSecond);
+		var operations = operationService.getByDateBetween(dateFirst, dateSecond);
 		model.addAttribute("operations", operations);
 		return "operation/operations";
 	}
@@ -114,6 +117,7 @@ public class OperationController {
 	(@RequestParam(value = "patientid") Integer patientid,
 			@ModelAttribute("operation") OperationDto operationDto, 
 			@ModelAttribute("patient") PatientDto patientDto, 
+			Authentication authentication, String username, 
 			Model model) {
 		var operation = new Operation();
 		operation.setDate(operationDto.getDate());
@@ -126,6 +130,10 @@ public class OperationController {
 		medicalCard.setPatient(patient);
 		medicalCard.setOperation(operation);
 		
+		username = authentication.getName();
+		var worker = userService.loadUserByUsername(username);
+		operation.setUser((User) worker);
+		
 		operationService.createOrUpdate(operation);
 		
 		medicalCardService.createOrUpdate(medicalCard);
@@ -134,9 +142,8 @@ public class OperationController {
 		return "operation/operations";
 	}
 	
-	//???
 	//UPDATE
-	@RequestMapping(value="/showeditoperation/{id}")
+	@GetMapping(value="/showeditoperation/{id}")
 	public String showEditOperation(@PathVariable("id") Integer id, 
 			@ModelAttribute(name = "newOperation") Operation newOperation,
 			Model model) {
@@ -161,14 +168,6 @@ public class OperationController {
 		} else operation.setComments(operationDto.getComments());
 		
 		var patient = patientService.getById(patientid);
-		
-		//if(patient.equals(null)) {
-			//operation.setPatient(operation.getPatient());
-			
-			//patient = operation.getPatient();
-			//operation.setPatient(patient);
-		//}
-		
 		operation.setPatient(patient);
 		
 		operationService.createOrUpdate(operation);
@@ -178,7 +177,7 @@ public class OperationController {
 	}
 	
 	//DELETE
-	@RequestMapping(value = "/deleteoperation/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/deleteoperation/{id}")
 	public String deleteOperation(@PathVariable("id") Integer id) {
 		var operation = operationService.getById(id);
 		operationService.delete(operation);
@@ -186,9 +185,9 @@ public class OperationController {
 	}
 	
 	//SEARCH
-	@RequestMapping(value = "/operations/searchresults")
+	@GetMapping(value = "/operations/searchresults")
 	public String searchOperationInfo(@RequestParam String keyword, Model model) {
-		List<Operation> results = operationService.search(keyword);
+		var results = operationService.search(keyword);
 		model.addAttribute("results", results);
 		return "operation/searchresults";
 	}

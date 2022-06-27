@@ -12,19 +12,21 @@ import com.example.hospital.service.MedicalCardService;
 @Service
 public class MedicalCardServiceImpl implements MedicalCardService {
 	
-	@Autowired
 	private MedicalCardRepository medicalCardRepository;
+	
+	@Autowired
+	public MedicalCardServiceImpl(MedicalCardRepository medicalCardRepository) {
+		this.medicalCardRepository = medicalCardRepository;
+	}
 
 	@Override
 	public List<MedicalCard> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return medicalCardRepository.findAll();
 	}
 
 	@Override
 	public MedicalCard getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return medicalCardRepository.getById(id);
 	}
 
 	@Override
@@ -33,14 +35,12 @@ public class MedicalCardServiceImpl implements MedicalCardService {
 	}
 
 	@Override
-	public void delete(MedicalCard entity) {
-		// TODO Auto-generated method stub
-		
+	public void delete(MedicalCard medicalCard) {
+		medicalCardRepository.delete(medicalCard);
 	}
 
 	@Override
 	public List<MedicalCard> search(String keyword) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

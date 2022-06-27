@@ -13,8 +13,12 @@ import com.example.hospital.service.ProcedureService;
 @Service
 public class ProcedureServiceImpl implements ProcedureService {
 	
-	@Autowired
 	private ProcedureRepository procedureRepository;
+	
+	@Autowired
+	public ProcedureServiceImpl(ProcedureRepository procedureRepository) {
+		this.procedureRepository = procedureRepository;
+	}
 	
 	@Override
 	public List<Procedure> getAll() {

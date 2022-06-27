@@ -24,10 +24,6 @@ type="text/css"/>
     <spring_form:label path="numberPerDay">FREQUENCY:</spring_form:label>
     <spring_form:input type="number" step = "0.1" min = "0" path="numberPerDay"/><br>
     
-    <!-- 
-    <label for = "patientid">PATIENT</label>
-    <input type = "number" id = "patientid" name = "patientid"/>
-     -->
     <label for = "patientid">PATIENT</label>
     <input type = "number" id = "patientid" name = "patientid"/>
     

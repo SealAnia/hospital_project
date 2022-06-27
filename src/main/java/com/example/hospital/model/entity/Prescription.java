@@ -24,6 +24,10 @@ public class Prescription{
 	@JoinColumn(name = "medicineid")
 	private Medicine medicine;
 	
+	public Prescription() {
+		
+	}
+	
 	public Patient getPatient() {
 		return patient;
 	}

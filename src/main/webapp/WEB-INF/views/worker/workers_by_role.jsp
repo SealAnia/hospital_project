@@ -29,7 +29,7 @@ type="text/css"/>
 			</tr>
 		<c:forEach items = "${role.getUsers()}" var = "worker">
 			<tr>
-				<td><c:out value = "${worker.getUserId()}"/></td>
+				<td><c:out value = "${worker.userid}"/></td>
 				<td><c:out value = "${worker.getName()}"/></td>
 				<td><c:out value = "${worker.getSurname()}"/></td>
 				<td><c:out value = "${worker.getDept().getName()}"/></td>

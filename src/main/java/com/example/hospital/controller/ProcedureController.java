@@ -7,14 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hospital.dto.PatientDto;
@@ -22,10 +21,12 @@ import com.example.hospital.dto.ProcedureDto;
 import com.example.hospital.model.entity.MedicalCard;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.entity.Procedure;
+import com.example.hospital.model.entity.User;
 import com.example.hospital.model.repository.ProcedureRepository;
 import com.example.hospital.service.MedicalCardService;
 import com.example.hospital.service.PatientService;
 import com.example.hospital.service.ProcedureService;
+import com.example.hospital.service.impl.UserServiceImpl;
 
 @Controller
 public class ProcedureController {
@@ -34,15 +35,17 @@ public class ProcedureController {
 	private final PatientService patientService;
 	private final ProcedureRepository procedureRepository;
 	private final MedicalCardService medicalCardService;
+	private final UserServiceImpl userService;
 
 	@Autowired
 	public ProcedureController(ProcedureService procedureService, 
-			MedicalCardService medicalCardService,
+			MedicalCardService medicalCardService, UserServiceImpl userService,
 			PatientService patientService, ProcedureRepository procedureRepository) {
 		this.procedureService = procedureService;
 		this.patientService = patientService;
 		this.procedureRepository = procedureRepository;
 		this.medicalCardService = medicalCardService;
+		this.userService = userService;
 	}
 	
 	//READ
@@ -64,16 +67,14 @@ public class ProcedureController {
 	
 	@GetMapping("/procedures/byname/{name}")
 	public String procedureByName(@PathVariable String name, Model model) {
-		List<Procedure> procedures = new ArrayList<>();
-		procedures = procedureService.getProcedureByName(name);
+		var procedures = procedureService.getProcedureByName(name);
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
 	
 	@GetMapping("/procedures/bydate/{date}")
 	public String procedureByDate(@PathVariable Date date, Model model) {
-		List<Procedure> procedures = new ArrayList<>();
-		procedures = procedureService.getProcedureByDate(date);
+		var procedures = procedureService.getProcedureByDate(date);
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
@@ -88,7 +89,7 @@ public class ProcedureController {
 	@GetMapping("/procedures/sortedbydatediaposon")
 	public String getProceduresByDateDiaposon
 	(@RequestParam Date dateFirst, @RequestParam Date dateSecond, Model model) {
-		List<Procedure> procedures = procedureService.getByDateBetween(dateFirst, dateSecond);
+		var procedures = procedureService.getByDateBetween(dateFirst, dateSecond);
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
 	}
@@ -96,7 +97,6 @@ public class ProcedureController {
 	//SORT
 	@GetMapping("/procedures/sortedby/name/asc")
 	public String sortProceduresByNameAsc(Model model) {
-		//var procedures = procedureService.sortProcedureByNameAsc();
 		var procedures = procedureRepository.findAll(Sort.by(Direction.ASC, "name"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
@@ -104,7 +104,6 @@ public class ProcedureController {
 	
 	@GetMapping("/procedures/sortedby/name/desc")
 	public String sortProceduresByNameDesc(Model model) {
-		//var procedures = procedureService.sortProcedureByNameDesc();
 		var procedures = procedureRepository.findAll(Sort.by(Direction.DESC, "name"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
@@ -112,7 +111,6 @@ public class ProcedureController {
 	
 	@GetMapping("/procedures/sortedby/date/asc")
 	public String sortProceduresByDateAsc(Model model) {
-		//var procedures = procedureService.sortProcedureByDateAsc();
 		var procedures = procedureRepository.findAll(Sort.by(Direction.ASC, "date"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
@@ -120,7 +118,6 @@ public class ProcedureController {
 	
 	@GetMapping("/procedures/sortedby/date/desc")
 	public String sortProceduresByDateDesc(Model model) {
-		//var procedures = procedureService.sortProcedureByDateDesc();
 		var procedures = procedureRepository.findAll(Sort.by(Direction.DESC, "date"));
 		model.addAttribute("procedures", procedures);
 		return "procedure/procedures";
@@ -140,6 +137,7 @@ public class ProcedureController {
 	(@RequestParam(value = "patientid") Integer patientid,
 			@ModelAttribute("procedure") ProcedureDto procedureDto, 
 			@ModelAttribute("patient") PatientDto patientDto, 
+			Authentication authentication, String username, 
 			Model model) {
 		var procedure = new Procedure();
 		procedure.setName(procedureDto.getName());
@@ -154,6 +152,10 @@ public class ProcedureController {
 		medicalCard.setProcedure(procedure);
 		medicalCard.setPatient(patient);
 		
+		username = authentication.getName();
+		var worker = userService.loadUserByUsername(username);
+		procedure.setUser((User) worker);
+		
 		procedureService.createOrUpdate(procedure);
 		
 		medicalCardService.createOrUpdate(medicalCard);
@@ -163,9 +165,8 @@ public class ProcedureController {
 		return "procedure/procedures";
 	}
 	
-	//???
 	//UPDATE
-	@RequestMapping(value="/showeditprocedure/{procedureid}")
+	@GetMapping(value="/showeditprocedure/{procedureid}")
 	public String showEditProcedure(@PathVariable("procedureid") Integer procedureid, 
 			@ModelAttribute(name = "newProcedure") Procedure newProcedure, 
 			Model model) {
@@ -177,7 +178,7 @@ public class ProcedureController {
 	}
 	
 	@PostMapping(value = "/edit_procedure") 
-	public String editOperation(@ModelAttribute("procedure") ProcedureDto procedureDto, 
+	public String editProcedure(@ModelAttribute("procedure") ProcedureDto procedureDto, 
 			@ModelAttribute("patient") PatientDto patientDto, 
 			@RequestParam(value = "patientid") Integer patientid,
 			Model model) {
@@ -200,7 +201,7 @@ public class ProcedureController {
 	}
 	
 	//DELETE 
-	@RequestMapping(value = "/deleteprocedure/{procedureid}", method = RequestMethod.GET)
+	@GetMapping(value = "/deleteprocedure/{procedureid}")
 	public String deleteProcedure(@PathVariable("procedureid") Integer procedureid) {
 		var procedure = procedureService.getById(procedureid);
 		procedureService.delete(procedure);
@@ -208,9 +209,9 @@ public class ProcedureController {
 	}
 	
 	//SEARCH
-	@RequestMapping(value = "/procedures/searchresults")
+	@GetMapping(value = "/procedures/searchresults")
 	public String searchProcedureInfo(@RequestParam String keyword, Model model) {
-		List<Procedure> results = procedureService.search(keyword);
+		var results = procedureService.search(keyword);
 		model.addAttribute("results", results);
 		return "procedure/searchresults";
 	}

@@ -40,7 +40,6 @@ public class User implements UserDetails {
 	@Column
 	private String password;
 	
-	//NEW
 	@Column
 	private boolean accountnotexpired;
 	@Column
@@ -99,11 +98,11 @@ public class User implements UserDetails {
 		this.procedures = procedures;
 	}
 	
-	public Integer getUserId() {
+	public Integer getUserid() {
 		return userid;
 	}
 	
-	public void setUserId(Integer userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
 	
@@ -129,15 +128,6 @@ public class User implements UserDetails {
 	
 	public void setLogin(String login) {
 		this.username = login;
-	}
-	
-	@Override
-	public String getUsername() {
-		return username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	
 	public String getPassword() {
@@ -224,44 +214,37 @@ public class User implements UserDetails {
 		this.enabled = enabled;
 	}
 	
-	//UserDetails
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		var authorities = new ArrayList<GrantedAuthority>();
-		List<Role> roles = new ArrayList<Role>();
-		for(Role role: roles) {
+		if (role != null) {
 			authorities.add(new SimpleGrantedAuthority(role.getName()));
 		}
 		return authorities;
 	}
 	
-	//@Override
-	//public String getUsername() {
-		// TODO Auto-generated method stub
-		//return null;
-	//}
+	@Override
+	public String getUsername() {
+		return username;
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	

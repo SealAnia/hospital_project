@@ -17,7 +17,8 @@ type="text/css"/>
 
 	<c:url value="/patients/page1" var="patient"/>
 	
-	<spring_form:form action="${patient}" method="post" modelAttribute="patient">
+	<spring_form:form action="${patient}" method="post" modelAttribute="patient"
+	class = "edition">
 	
 	<spring_form:label path="name">NAME:</spring_form:label>
     <spring_form:input type="text" path="name"/><br>
@@ -31,23 +32,22 @@ type="text/css"/>
     <spring_form:label path="admission">ADMISSION:</spring_form:label>
     <spring_form:input type="date" path="admission"/><br>
     
-    <!-- 
-    <label for = "medicineid">MEDICINE ID</label>
-    <input type = "number" id = "medicineid" name = "medicineid"/>
-     -->
-    
     <label for = "departmentid">DEPARTMENT</label>
     <datalist id = "departmentlist">
     	<c:forEach items = "${departments}" var = "department">
     		<option value = "${department.getId()}"> - ${department.getName()}
     	</c:forEach>
     </datalist>
-    <input type = "number" id = "departmentid" name = "departmentid" list = "departmentlist">
+    <input type = "number" id = "departmentid" name = "departmentid" list = "departmentlist"><br>
     
-    <spring_form:label path="comments">COMMENTS:</spring_form:label>
-    <spring_form:input type="text" path="comments"/><br>
+    <label for="comments">COMMENTS:</label>
+    <textarea rows="10" cols="20" id = "comments" name = "comments">
+    WRITE COMMENTS
+    </textarea>
+    <br>
     
     <input type="submit" value="Submit">
+    <input type="reset" value = "Reset">
 	</spring_form:form>
 
 </body>

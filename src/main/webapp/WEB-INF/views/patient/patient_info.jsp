@@ -50,6 +50,8 @@ type="text/css"/>
 		</ul>
 	</c:forEach>
 	<br>
+	
+	Result: ${patient.result}
 
 </body>
 </html>

@@ -12,8 +12,12 @@ import com.example.hospital.service.MedicineService;
 @Service
 public class MedicineServiceImpl implements MedicineService {
 	
-	@Autowired
 	private MedicineRepository medicineRepository;
+	
+	@Autowired
+	public MedicineServiceImpl(MedicineRepository medicineRepository) {
+		this.medicineRepository = medicineRepository;
+	}
 
 	@Override
 	public List<Medicine> getAll() {
