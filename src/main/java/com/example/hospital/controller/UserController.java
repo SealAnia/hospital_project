@@ -134,7 +134,7 @@ public class UserController {
 		return "worker/edit_worker";
 	}
 	
-	@PostMapping(value = "edit_worker")
+	@PostMapping(value = "/editworker")
 	public String editWorker(@ModelAttribute ("worker") UserDto workerDto, 
 			@ModelAttribute("department") DepartmentDto departmentDto, 
 			@RequestParam(value = "departmentid") Integer departmentid, 

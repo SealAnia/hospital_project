@@ -15,7 +15,7 @@ type="text/css"/>
 </head>
 <body>
 	
-	<c:url value="/edit_patient" var="patient"/>
+	<c:url value="/editpatient" var="patient"/>
 	
 	<spring_form:form action="${patient}" method="post" modelAttribute="newPatient"
 	class = "edition">

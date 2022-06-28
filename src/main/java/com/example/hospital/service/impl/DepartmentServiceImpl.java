@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.model.repository.DepartmentRepository;
 import com.example.hospital.service.DepartmentService;

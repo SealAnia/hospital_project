@@ -177,7 +177,7 @@ public class ProcedureController {
 		return "procedure/edit_procedure";
 	}
 	
-	@PostMapping(value = "/edit_procedure") 
+	@PostMapping(value = "/editprocedure") 
 	public String editProcedure(@ModelAttribute("procedure") ProcedureDto procedureDto, 
 			@ModelAttribute("patient") PatientDto patientDto, 
 			@RequestParam(value = "patientid") Integer patientid,

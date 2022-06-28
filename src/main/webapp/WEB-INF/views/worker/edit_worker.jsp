@@ -15,7 +15,7 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/edit_worker" var="worker"/>
+	<c:url value="/editworker" var="worker"/>
 	
 	<spring_form:form action="${worker}" method="post" modelAttribute="newWorker">
 	

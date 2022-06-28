@@ -15,7 +15,7 @@ type="text/css"/>
 </head>
 <body>
 
-	<c:url value="/edit_procedure" var="procedure"/>
+	<c:url value="/editprocedure" var="procedure"/>
 	
 	<spring_form:form action="${procedure}" method="post" modelAttribute="newProcedure">
 	

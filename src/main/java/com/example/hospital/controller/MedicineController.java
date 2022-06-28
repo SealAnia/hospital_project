@@ -101,7 +101,7 @@ public class MedicineController {
 		return "medicine/edit_medicine";
 	}
 	
-	@PostMapping(value="/edit_medicine")
+	@PostMapping(value="/editmedicine")
 	public String editMedicine
 	(@ModelAttribute("medicine") MedicineDto medicineDto, 
 			Model model) {

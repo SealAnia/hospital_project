@@ -104,7 +104,7 @@ public class DepartmentController {
 	    return "department/edit_department";
 	}
 	
-	@PostMapping(value="/edit_department")
+	@PostMapping(value="/editdepartment")
 	public String editDepartment(@ModelAttribute("department") DepartmentDto departmentDto, Model model) {
 		var department = departmentService.getById(departmentDto.getId());
 		

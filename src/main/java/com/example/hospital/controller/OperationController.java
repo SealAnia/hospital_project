@@ -154,7 +154,7 @@ public class OperationController {
 		return "operation/edit_operation";
 	}
 	
-	@PostMapping(value = "/edit_operation") 
+	@PostMapping(value = "/editoperation") 
 	public String editOperation(@ModelAttribute("operation") OperationDto operationDto, 
 			@ModelAttribute("patient") PatientDto patientDto,
 			@RequestParam(value = "patientid") Integer patientid,

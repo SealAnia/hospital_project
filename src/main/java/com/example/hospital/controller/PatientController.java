@@ -247,7 +247,7 @@ public class PatientController {
 		return "patient/edit_patient";
 	}
 	
-	@PostMapping(value = "/edit_patient")
+	@PostMapping(value = "/editpatient")
 	public String editPatient
 	(@ModelAttribute("patient") PatientDto patientDto,
 			@ModelAttribute("department") DepartmentDto departmentDto, 
