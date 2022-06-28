@@ -55,6 +55,16 @@ public class Patient {
 		
 	}
 	
+	public Patient(String name, String surname, String diagnosis, Date admission, String comments,
+			Department department) {
+		this.name = name;
+		this.surname = surname;
+		this.diagnosis = diagnosis;
+		this.admission = admission;
+		this.comments = comments;
+		this.department = department;
+	}
+
 	public Integer getPatientid() {
 		return patientid;
 	}

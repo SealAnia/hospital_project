@@ -222,7 +222,7 @@ public class PatientController {
 		patient.setSurname(patientDto.getSurname());
 		patient.setDiagnosis(patientDto.getDiagnosis());
 		patient.setAdmission(patientDto.getAdmission());
-		patient.setRelease(patientDto.getRelease());
+		patient.setComments(patientDto.getComments());
 		
 		var department = new Department();
 		department = departmentService.getById(departmentid);
