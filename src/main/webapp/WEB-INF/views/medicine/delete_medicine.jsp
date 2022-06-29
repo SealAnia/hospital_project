@@ -12,13 +12,13 @@
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
+<script src="<c:url value="/resources/js/delete_medicine_alert.js" var = "OKAlert" />"></script>
+
 </head>
 <body>
 
 	<c:url value="/deletemedicine/${medicine.getId()}" var="medicine"/>
 	
-	Medicine info is deleted
-	<a href="<c:url value="/medicines"/>"> OK </a>
-
+	<script src="${OKAlert}"></script>
 </body>
 </html>

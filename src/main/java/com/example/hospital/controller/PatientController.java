@@ -55,6 +55,13 @@ public class PatientController {
 		return "patient/patients";
 	}
 	
+	@GetMapping("/patients/expand")
+	public String getAllDepartments(Model model) {
+		var patients = patientService.getAll();
+		model.addAttribute("patients", patients);
+		return "patient/patients";
+	}
+	
 	@GetMapping(value = "/patients/{patientid}")
 	public String getPatientById(@PathVariable Integer patientid, Model model) {
 		List<Patient> patients = new ArrayList<Patient>();

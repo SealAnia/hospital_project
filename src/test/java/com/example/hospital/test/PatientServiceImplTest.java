@@ -1,129 +1,63 @@
 package com.example.hospital.test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
-
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import com.example.hospital.model.entity.Department;
 import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.repository.PatientRepository;
-import com.example.hospital.service.PatientService;
+import com.example.hospital.service.impl.PatientServiceImpl;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 class PatientServiceImplTest {
 	
-	@TestConfiguration
-    static class PatientServiceImplTestContextConfiguration {
-        @Bean
-        public PatientService patientService() {
-            return new PatientService() {
-
-				@Override
-				public List<Patient> getAll() {
-					return null;
-				}
-
-				@Override
-				public Patient getById(Integer id) {
-					return null;
-				}
-
-				@Override
-				public Patient createOrUpdate(Patient entity) {
-					return null;
-				}
-
-				@Override
-				public void delete(Patient entity) {
-				}
-
-				@Override
-				public List<Patient> search(String keyword) {
-					return null;
-				}
-
-				@Override
-				public List<Patient> getPatientByName(String name) {
-					return null;
-				}
-
-				@Override
-				public List<Patient> getPatientBySurname(String surname) {
-					return null;
-				}
-
-				@Override
-				public List<Patient> getPatientByDiagnosis(String diagnosis) {
-					return null;
-				}
-
-				@Override
-				public List<Patient> getPatientByAdmission(Date admission) {
-					return null;
-				}
-
-				@Override
-				public List<Patient> getPatientByRelease(Date release) {
-					return null;
-				}
-
-				@Override
-				public List<Patient> getByNameAndSurname(String name, String surname) {
-					return null;
-				}
-            };
-        }
-    }
-	
-	@Autowired
-	private PatientService patientService;
-	
-	@MockBean
+	@Mock
 	private PatientRepository patientRepository;
 	
+	private PatientServiceImpl patientService;
+	
+	private static Patient testPatient; 
+	
+	@BeforeClass
+	public static void prepareTest() {
+		testPatient.setName("name");
+		testPatient.setSurname("surname");
+		testPatient.setDiagnosis("diagnosis");
+		testPatient.setAdmission(new Date());
+		testPatient.setComments("comments");
+		testPatient.setDepartment(new Department());
+	}
+	
 	@Before
-	void setUp() throws Exception {
-		List<Patient> patients = new ArrayList<>();
-		Patient patient = new Patient("name", "surname", "diagnosis", 
-				new Date(), "comments", new Department());
-		patients.add(patient);
-		
-		Mockito.when(patientRepository.getPatientByName(patient.getName()))
-		.thenReturn(patients);
-		
-		Mockito.when(patientRepository.getPatientBySurname(patient.getSurname()))
-		.thenReturn(patients);
-		
-		Mockito.when(patientRepository.getPatientByDiagnosis(patient.getDiagnosis()))
-		.thenReturn(patients);
-		
-		Mockito.when(patientRepository.getPatientByAdmission(patient.getAdmission()))
-		.thenReturn(patients);
-		
+	public void init() {
+		patientService = new PatientServiceImpl(patientRepository);
 	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
+	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	public void updateTest() {
+		when(patientRepository.findById(any(Integer.class))).then((Answer<?>) testPatient);
+		when(patientRepository.saveAndFlush(any(Patient.class))).then((Answer<?>) patientRepository.getById(testPatient.getPatientid()));
+		Patient patientForUpdate = patientRepository.getById(testPatient.getPatientid());
+		
+		patientForUpdate.setName("name2");
+		patientForUpdate.setSurname("surname2");
+		Patient resultPatient = patientService.createOrUpdate(patientForUpdate);
+		
+		assertNotNull(resultPatient);
+		assertSame(resultPatient.getPatientid(), testPatient.getPatientid());
+		assertTrue(resultPatient.getName().equals(patientForUpdate.getName()));
+		assertTrue(resultPatient.getSurname().equals(patientForUpdate.getSurname()));
+		assertEquals(resultPatient.getDiagnosis(),testPatient.getDiagnosis());
 	}
-
+	
 }

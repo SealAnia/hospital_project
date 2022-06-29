@@ -11,13 +11,14 @@
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
+<script src="<c:url value="/resources/js/delete_operation_alert.js" var = "OKAlert" />"></script>
+
 </head>
 <body>
 
 	<c:url value="/deleteoperation/${operation.getId()}" var="operation"/>
 	
-	All information about the operation will Be deleted
-	<a href="<c:url value="/operations"/>"> OK </a>
-
+	<script src="${OKAlert}"></script>
+	
 </body>
 </html>

@@ -30,6 +30,12 @@ type="text/css"/>
 			<input type="submit" value="SEARCH">
 			</p>
 		</form>
+		<form action = "/patients/expand">
+			<button>Expand Table</button>
+		</form>
+		<form action = "/patients/page1">
+			<button>Fold Table</button>
+		</form>
 		<table>
 			<tr>
 				<th>ID</th>

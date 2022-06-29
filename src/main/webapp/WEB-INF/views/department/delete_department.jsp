@@ -12,7 +12,7 @@
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
-<script src="<c:url value="/resources/js/ok_alert.js" var = "OKAlert" />"></script>
+<script src="<c:url value="/resources/js/delete_department_alert.js" var = "OKAlert" />"></script>
 
 </head>
 <body>
@@ -20,8 +20,5 @@ type="text/css"/>
 	
 	<script src="${OKAlert}"></script>
 	
-	Department is deleted
-	<a href="<c:url value="/departments"/>"> OK </a>
-
 </body>
 </html>

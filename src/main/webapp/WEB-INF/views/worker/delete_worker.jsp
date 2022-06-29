@@ -11,6 +11,8 @@
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
+<script src="<c:url value="/resources/js/delete_worker_alert.js" var = "OKAlert" />"></script>
+
 </head>
 <body>
 
@@ -18,8 +20,5 @@ type="text/css"/>
 	
 	<script src="${OKAlert}"></script>
 	
-	Worker info is deleted
-	<a href="<c:url value="/workers/page1"/>"> OK </a>
-
 </body>
 </html>

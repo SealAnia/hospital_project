@@ -11,13 +11,14 @@
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
+<script src="<c:url value="/resources/js/delete_procedure_alert.js" var = "OKAlert" />"></script>
+
 </head>
 <body>
 
 	<c:url value="/deleteprocedure/${procedure.procedureid}" var="procedure"/>
 	
-	All information about the procedure will Be deleted
-	<a href="<c:url value="/procedures"/>"> OK </a>
-
+	<script src="${OKAlert}"></script>
+	
 </body>
 </html>

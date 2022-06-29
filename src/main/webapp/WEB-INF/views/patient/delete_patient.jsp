@@ -12,6 +12,8 @@
 <link rel = "stylesheet" href = '<c:url value = "/resources/css/MainStyle.css"/>' 
 type="text/css"/>
 
+<script src="<c:url value="/resources/js/delete_patient_alert.js" var = "OKAlert" />"></script>
+
 </head>
 <body>
 
@@ -19,8 +21,10 @@ type="text/css"/>
 	
 	<script src="${OKAlert}"></script>
 	
+	<!-- 
 	Patient is deleted
 	<a href="<c:url value="/patients/page1"/>"> OK </a>
+	 -->
 
 </body>
 </html>
