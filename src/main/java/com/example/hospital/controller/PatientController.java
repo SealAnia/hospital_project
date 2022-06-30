@@ -56,7 +56,7 @@ public class PatientController {
 	}
 	
 	@GetMapping("/patients/expand")
-	public String getAllDepartments(Model model) {
+	public String getAllPatients(Model model) {
 		var patients = patientService.getAll();
 		model.addAttribute("patients", patients);
 		return "patient/patients";

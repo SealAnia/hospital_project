@@ -69,6 +69,9 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter  {
 			.hasRole("ADMIN")
 			
 			.and()
+		    .exceptionHandling().accessDeniedPage("/not_enough_authorities")
+			
+			.and()
 			.formLogin()
 			.and()
 			.logout()

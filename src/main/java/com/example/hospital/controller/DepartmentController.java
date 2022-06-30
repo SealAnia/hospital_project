@@ -55,9 +55,15 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/department")
-	public String getDepartmentInfo(@RequestParam(value = "id") Integer id, Model model) {
+	public String getDepartmentInfo(@RequestParam(value = "id") Integer id, 
+			@ModelAttribute("departmentDto") DepartmentDto departmentDto,
+			Model model) {
 		var department = departmentService.getById(id);
+		departmentDto.setCount(departmentService.countPatientsOnTreatment(id));
+		
 		model.addAttribute("department", department);
+		model.addAttribute("departmentDto", departmentDto);
+		
 		return "department/department_details";
 	}
 	

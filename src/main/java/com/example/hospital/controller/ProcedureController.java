@@ -137,6 +137,7 @@ public class ProcedureController {
 	(@RequestParam(value = "patientid") Integer patientid,
 			@ModelAttribute("procedure") ProcedureDto procedureDto, 
 			@ModelAttribute("patient") PatientDto patientDto, 
+			@ModelAttribute("medicalCard") MedicalCard newMedicalCard,
 			Authentication authentication, String username, 
 			Model model) {
 		var procedure = new Procedure();
@@ -154,6 +155,7 @@ public class ProcedureController {
 		
 		username = authentication.getName();
 		var worker = userService.loadUserByUsername(username);
+		medicalCard.setUser((User) worker);
 		procedure.setUser((User) worker);
 		
 		procedureService.createOrUpdate(procedure);

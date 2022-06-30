@@ -74,5 +74,5 @@ public class PatientServiceImpl implements PatientService {
 	public List<Patient> getByNameAndSurname(String name, String surname) {
 		return patientRepository.getByNameAndSurname(name, surname);
 	}
-
+	
 }

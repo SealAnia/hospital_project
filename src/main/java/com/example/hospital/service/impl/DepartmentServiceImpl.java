@@ -4,8 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.hospital.dto.DepartmentDto;
 import com.example.hospital.model.entity.Department;
+import com.example.hospital.model.entity.Patient;
 import com.example.hospital.model.repository.DepartmentRepository;
 import com.example.hospital.service.DepartmentService;
 
@@ -47,6 +47,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<Department> search(String keyword) {
 		return departmentRepository.search(keyword);
+	}
+	
+	@Override
+	public int countPatientsOnTreatment(Integer id) {
+		Department department = departmentRepository.getById(id);
+		var patients = department.getPatients();
+		int count = 0;
+		for(Patient patient: patients) {
+			if(patient.getRelease() == null) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 }

@@ -117,6 +117,7 @@ public class OperationController {
 	(@RequestParam(value = "patientid") Integer patientid,
 			@ModelAttribute("operation") OperationDto operationDto, 
 			@ModelAttribute("patient") PatientDto patientDto, 
+			@ModelAttribute("medicalCard") MedicalCard newMedicalCard,
 			Authentication authentication, String username, 
 			Model model) {
 		var operation = new Operation();
@@ -132,6 +133,7 @@ public class OperationController {
 		
 		username = authentication.getName();
 		var worker = userService.loadUserByUsername(username);
+		medicalCard.setUser((User) worker);
 		operation.setUser((User) worker);
 		
 		operationService.createOrUpdate(operation);

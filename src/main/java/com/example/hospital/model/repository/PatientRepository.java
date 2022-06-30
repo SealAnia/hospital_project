@@ -30,8 +30,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 	
 	@Query(value = "SELECT p FROM Patient p WHERE p.name LIKE '%' || :name || '%' "
 			+ "AND p.surname LIKE '%' || :surname || '%' ORDER BY p.department.name")
-	List<Patient> getByNameAndSurname(@Param("name") String name, 
-			@Param("surname") String surname);
+	List<Patient> getByNameAndSurname(@Param("name") String name, @Param("surname") String surname);
 	
-
 }

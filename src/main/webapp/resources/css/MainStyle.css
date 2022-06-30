@@ -14,6 +14,7 @@ body {
 	font: 16px Arial, sans-serif;
 	background-color: LightYellow;
 	background-image: url("https://cr.grsu.by/images/vospitanie/6286_5.jpg");
+	background-blend-mode: darken;
 	background-repeat: repeat;
 	opacity: 0.95;
 }

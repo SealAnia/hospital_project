@@ -15,7 +15,7 @@ type="text/css"/>
 <body>
 <h3>${department.name}</h3>
 
-	Patients
+	<h4>Patients</h4>
 	
 	<table>
 			<tr>
@@ -40,7 +40,12 @@ type="text/css"/>
 		</c:forEach>
 	</table>
 	
-	Workers
+	<p class = "right">
+	Now on Treatment: ${departmentDto.count}
+	</p>
+	<br>
+	
+	<h4>Workers</h4>
 	
 	<table>
 			<tr>
@@ -58,6 +63,6 @@ type="text/css"/>
 			</tr>
 		</c:forEach>
 	</table>
-
+	
 </body>
 </html>

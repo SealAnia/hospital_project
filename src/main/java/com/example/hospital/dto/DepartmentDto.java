@@ -4,6 +4,7 @@ public class DepartmentDto {
 	
 	private Integer id;
 	private String name;
+	private Integer count;
 
 	public Integer getId() {
 		return id;
@@ -19,6 +20,14 @@ public class DepartmentDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 }
