@@ -133,8 +133,14 @@ public class OperationController {
 		
 		username = authentication.getName();
 		var worker = userService.loadUserByUsername(username);
-		medicalCard.setUser((User) worker);
-		operation.setUser((User) worker);
+		
+		if(patient.getDepartment().equals(((User) worker).getDept()) && patient.getRelease() == null) {
+			medicalCard.setUser((User) worker);
+			operation.setUser((User) worker);
+		}
+		else {
+			return "operation/add_operation";
+		}
 		
 		operationService.createOrUpdate(operation);
 		

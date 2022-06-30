@@ -34,10 +34,10 @@ public class Medicine {
 	private User user;
 	
 	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, 
-			orphanRemoval = true)
+			orphanRemoval = false)
 	private List<Prescription> prescriptions;
 	
-	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<MedicalCard> medicalcards;
 	
 	public Medicine() {

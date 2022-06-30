@@ -33,7 +33,7 @@ type="text/css"/>
     <label for = "patientid">PATIENT</label>
     <datalist id = "patientlist">
     	<c:forEach items = "${patients}" var = "patient">
-    		<option value = "${patient.prescription}"> - ${patient.getName()}
+    		<option value = "${patient.patientid}"> - ${patient.getName()} - ${patient.getSurname()} - ${patient.getDepartment().getName()}
     	</c:forEach>
     </datalist>
     <input type="number" name="patientid" id = "patientid" list="patientlist">

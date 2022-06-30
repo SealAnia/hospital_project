@@ -59,10 +59,10 @@ public class User implements UserDetails {
 	private List<Medicine> medicines;
 	@OneToMany(mappedBy = "user")
 	private List<Procedure> procedures;
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Operation> operations;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<MedicalCard> medicalcards;
 	
 	public User() {

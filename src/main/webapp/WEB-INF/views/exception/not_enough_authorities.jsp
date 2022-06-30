@@ -13,10 +13,13 @@ type="text/css"/>
 
 </head>
 <body>
-
-	<b>YOU DONT HAVE ENOUGH AUTHORITIES TO ACCESS THIS PAGE!</b>
-	<br>
-	<a href = "/main">Back to Main Page</a>
+	
+	<div class = "central">
+		<b>YOU DONT HAVE ENOUGH <br>
+		AUTHORITIES TO ACCESS THIS PAGE!</b>
+		<br>
+		<a href = "/main">Back to Main Page</a>
+	</div>
 
 </body>
 </html>

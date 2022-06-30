@@ -7,3 +7,7 @@ body {
 a {
 	font: 18px Arial, sans-serif;
 }
+
+.central {
+	position: fixed; top: 40%; left: 40%
+}
